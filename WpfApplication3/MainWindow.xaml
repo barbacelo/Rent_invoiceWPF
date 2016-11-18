@@ -1,0 +1,97 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication3"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="WpfApplication3.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="kupciViewSource" d:DesignSource="{d:DesignInstance {x:Type local:kupci}, CreateList=True}"/>
+        <CollectionViewSource x:Key="racuniViewSource" d:DesignSource="{d:DesignInstance {x:Type local:racuni}, CreateList=True}"/>
+        <CollectionViewSource x:Key="robaViewSource" d:DesignSource="{d:DesignInstance {x:Type local:roba}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource racuniViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="154*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="351*" />
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <Grid DataContext="{StaticResource kupciViewSource}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
+            <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156">
+                <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156" Margin="0,0,-132,-7">
+                    <Button x:Name="button" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button1" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button2" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button3" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5"/>
+                </ToolBar>
+            </ToolBarTray>
+            <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156" Grid.Row="2">
+                <ToolBar x:Name="toolBar1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156" Margin="0,0,-132,-7">
+                    <Button x:Name="button4" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button5" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button6" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                    <Button x:Name="button7" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5"/>
+                </ToolBar>
+            </ToolBarTray>
+            <DataGrid x:Name="kupciDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,30,0,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding adresa}" Header="adresa" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding dug}" Header="dug" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="idbrojColumn" Binding="{Binding idbroj}" Header="idbroj" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="imeColumn" Binding="{Binding ime}" Header="ime" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding jmbg}" Header="jmbg" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding mesto}" Header="mesto" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="potColumn" Binding="{Binding pot}" Header="pot" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding saldo}" Header="saldo" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding telefon}" Header="telefon" Width="SizeToHeader"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource robaViewSource}}" Margin="0,30,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="cenaColumn1" Binding="{Binding cena}" Header="cena" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="idbrojColumn1" Binding="{Binding idbroj}" Header="idbroj" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="jmColumn" Binding="{Binding jm}" Header="jm" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="jmiColumn" Binding="{Binding jmi}" Header="jmi" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="kolColumn" Binding="{Binding kol}" Header="kol" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="nazivColumn" Binding="{Binding naziv}" Header="naziv" Width="SizeToHeader"/>
+                    <DataGridTextColumn x:Name="zalihaColumn" Binding="{Binding zaliha}" Header="zaliha" Width="SizeToHeader"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="356" Grid.Column="2">
+            <ToolBar x:Name="toolBar2" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="356" Margin="0,0,-332,-7">
+                <Button x:Name="button8" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                <Button x:Name="button9" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                <Button x:Name="button10" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5"/>
+                <Button x:Name="button11" Content="Button" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5"/>
+            </ToolBar>
+        </ToolBarTray>
+        <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,30,0,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="brevColumn" Binding="{Binding brev}" Header="brev" Width="*" MinWidth="100"/>
+                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cena}" Header="cena" Width="*" MinWidth="100"/>
+                <DataGridTemplateColumn x:Name="datumColumn" Header="datum" Width="*" MinWidth="85">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="idbrojkColumn" Binding="{Binding idbrojk}" Header="idbrojk" Width="*" MinWidth="40"/>
+                <DataGridTextColumn x:Name="idbrojrColumn" Binding="{Binding idbrojr}" Header="idbrojr" Width="*" MinWidth="40"/>
+                <DataGridTextColumn x:Name="koluColumn" Binding="{Binding kolu}" Header="kolu" Width="*" MinWidth="90"/>
+                <DataGridTextColumn x:Name="kolvColumn" Binding="{Binding kolv}" Header="kolv" Width="*" MinWidth="90"/>
+                <DataGridTextColumn x:Name="utroColumn" Binding="{Binding utro}" Header="utro" Width="*" MinWidth="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
