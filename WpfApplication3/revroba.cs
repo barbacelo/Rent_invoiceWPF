@@ -18,8 +18,7 @@ namespace WpfApplication3
         public int brev { get; set; }
         public System.DateTime datum { get; set; }
         public int idbrojr { get; set; }
-        public Nullable<decimal> kolu { get; set; }
-        public Nullable<decimal> kolv { get; set; }
+        public Nullable<decimal> kolic { get; set; }
         public Nullable<decimal> utro { get; set; }
         public decimal cena { get; set; }
     

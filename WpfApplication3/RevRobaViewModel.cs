@@ -11,8 +11,7 @@ namespace WpfApplication3
     {
         private DateTime _datum;
         private RobaViewModel _roba;
-        private decimal? _kolu;
-        private decimal? _kolv;
+        private decimal? _kolic;
         private decimal? _utro;
         private decimal _cena;
         public bool Changed { get; set; }
@@ -37,26 +36,16 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal? kolu
+        public decimal? kolic
         {
-            get { return _kolu; }
+            get { return _kolic; }
             set
             {
-                _kolu = value;
+                _kolic = value;
                 RaisePropertyChanged();
                 Changed = true;
             }
-        }
-        public decimal? kolv
-        {
-            get { return _kolv; }
-            set
-            {
-                _kolv = value;
-                RaisePropertyChanged();
-                Changed = true;
-            }
-        }
+        }        
         public decimal? utro
         {
             get { return _utro; }
@@ -90,8 +79,7 @@ namespace WpfApplication3
 
             datum = k.datum;
             Roba = robas.FirstOrDefault(r => r.idbroj == k.idbrojr);
-            kolu = k.kolu;
-            kolv = k.kolv;
+            kolic = k.kolic;
             utro = k.utro;
             cena = k.cena;
 
@@ -102,8 +90,7 @@ namespace WpfApplication3
         {
             _model.datum = datum;
             _model.idbrojr = Roba?.idbroj ?? 0;
-            _model.kolu = kolu;
-            _model.kolv = kolv;
+            _model.kolic = kolic;
             _model.utro = utro;
             _model.cena = cena;
 

@@ -9,8 +9,8 @@
         <EntityTypeShape EntityType="reversiModel.racuni" Width="1.5" PointX="3" PointY="1.25" />
         <EntityTypeShape EntityType="reversiModel.roba" Width="1.5" PointX="3" PointY="5.25" />
         <AssociationConnector Association="reversiModel.FK_racuni_kupci" />
-        <EntityTypeShape EntityType="reversiModel.revroba" Width="1.5" PointX="5.25" PointY="3" />
         <EntityTypeShape EntityType="reversiModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="reversiModel.revroba" Width="1.5" PointX="5.25" PointY="3" />
         <AssociationConnector Association="reversiModel.FK_RevRoba_Racuni" />
         <AssociationConnector Association="reversiModel.FK_RevRoba_roba" />
         </Diagram>
