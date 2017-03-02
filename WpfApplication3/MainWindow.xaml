@@ -520,13 +520,6 @@
             </TabItem>
         </TabControl>
         <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="5,61,0,0" Grid.Column="2" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="All">
-            <DataGrid.Resources>
-                <ResourceDictionary>
-                    <Style TargetType="ComboBox">
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-                </ResourceDictionary>
-            </DataGrid.Resources>
             <DataGrid.CellStyle>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
@@ -576,7 +569,13 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridComboBoxColumn x:Name="imekupciColumn" SelectedItemBinding="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" Header="Kupac" Width="*" MinWidth="130"/>
+                <DataGridTemplateColumn MaxWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="RevRoba" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
