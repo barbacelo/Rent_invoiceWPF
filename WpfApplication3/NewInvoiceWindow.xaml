@@ -1,0 +1,56 @@
+﻿<Window x:Class="WpfApplication3.NewInvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xml:lang="sr-Latn-RS"
+        xmlns:local="clr-namespace:WpfApplication3"
+        mc:Ignorable="d"
+        Title="Novi revers" Height="216.039" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Datum"/>
+        <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{x:Static sys:DateTime.Now}" FirstDayOfWeek="Monday" >
+            <DatePicker.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat='dd.MM.yyyy',RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Broj Reversa"/>
+        <TextBox Grid.Row="1" Grid.Column="1"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Ime kupca"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" IsEditable="True"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Naziv robe"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" IsEditable="True"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Cena po danu"/>
+        <TextBox Grid.Row="4" Grid.Column="1"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Količina"/>
+        <TextBox Grid.Row="5" Grid.Column="1"/>
+        <Button x:Name="UpišiRevers" Content="Upiši Revers" Grid.Row="6" Grid.ColumnSpan="2" Margin="0,0,0,-16"/>
+    </Grid>
+</Window>

@@ -12,29 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.Entity;
-using System.Globalization;
-using System.Windows.Markup;
-using System.Threading;
 
 namespace WpfApplication3
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EntryFormRacuni.xaml
     /// </summary>
-    
-    public partial class MainWindow : Window
+    public partial class EntryFormRacuni : UserControl
     {
-        reversiEntities context = new reversiEntities();
-        public MainWindow()
-        {                        
-            InitializeComponent();
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public EntryFormRacuni()
         {
- 
-            context.racuni.Load();
-  
+            InitializeComponent();
         }
     }
 }

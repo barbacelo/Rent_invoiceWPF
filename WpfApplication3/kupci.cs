@@ -20,7 +20,7 @@ namespace WpfApplication3
             this.racuni = new ObservableCollection<racuni>();
         }
     
-        public string idbroj { get; set; }
+        public int idbroj { get; set; }
         public string ime { get; set; }
         public string jmbg { get; set; }
         public string adresa { get; set; }
@@ -28,7 +28,7 @@ namespace WpfApplication3
         public string telefon { get; set; }
         public decimal dug { get; set; }
         public decimal pot { get; set; }
-        public decimal saldo { get; set; }
+        public Nullable<decimal> saldo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ObservableCollection<racuni> racuni { get; set; }

@@ -14,16 +14,20 @@ namespace WpfApplication3
     
     public partial class racuni
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public racuni()
+        {
+            this.revroba = new ObservableCollection<revroba>();
+        }
+    
         public string brev { get; set; }
         public System.DateTime datum { get; set; }
-        public string idbrojk { get; set; }
-        public string idbrojr { get; set; }
-        public decimal kolu { get; set; }
-        public decimal kolv { get; set; }
-        public decimal cena { get; set; }
-        public decimal utro { get; set; }
+        public int idbrojk { get; set; }
+        public Nullable<int> godina { get; set; }
+        public int pk { get; set; }
     
         public virtual kupci kupci { get; set; }
-        public virtual roba roba { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ObservableCollection<revroba> revroba { get; set; }
     }
 }

@@ -5,12 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0fc9f109120040bc978ea68d2e4df343" Name="Diagram1">
-        <EntityTypeShape EntityType="reversiModel.kupci" Width="1.5" PointX="5.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="reversiModel.racuni" Width="1.5" PointX="1.375" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="reversiModel.roba" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="reversiModel.kupci" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="reversiModel.racuni" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="reversiModel.roba" Width="1.5" PointX="3" PointY="5.25" />
         <AssociationConnector Association="reversiModel.FK_racuni_kupci" />
-        <AssociationConnector Association="reversiModel.FK_racuni_roba" />
-      </Diagram>
+        <EntityTypeShape EntityType="reversiModel.revroba" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="reversiModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="reversiModel.FK_RevRoba_Racuni" />
+        <AssociationConnector Association="reversiModel.FK_RevRoba_roba" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

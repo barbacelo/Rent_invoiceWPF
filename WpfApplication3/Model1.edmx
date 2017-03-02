@@ -4,145 +4,182 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="reversiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="kupci">
-          <Key>
-            <PropertyRef Name="idbroj" />
-          </Key>
-          <Property Name="idbroj" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="ime" Type="char" MaxLength="40" Nullable="false" />
-          <Property Name="jmbg" Type="char" MaxLength="13" Nullable="false" />
-          <Property Name="adresa" Type="char" MaxLength="40" Nullable="false" />
-          <Property Name="mesto" Type="char" MaxLength="25" Nullable="false" />
-          <Property Name="telefon" Type="char" MaxLength="15" Nullable="false" />
-          <Property Name="dug" Type="numeric" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="pot" Type="numeric" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="saldo" Type="numeric" Precision="13" Scale="2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="racuni">
-          <Key>
-            <PropertyRef Name="brev" />
-            <PropertyRef Name="datum" />
-          </Key>
-          <Property Name="brev" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="datum" Type="date" Nullable="false" />
-          <Property Name="idbrojk" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="idbrojr" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="kolu" Type="numeric" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="kolv" Type="numeric" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="cena" Type="numeric" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="utro" Type="numeric" Precision="6" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="roba">
-          <Key>
-            <PropertyRef Name="idbroj" />
-          </Key>
-          <Property Name="idbroj" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="naziv" Type="char" MaxLength="40" Nullable="false" />
-          <Property Name="jm" Type="char" MaxLength="3" Nullable="false" />
-          <Property Name="kol" Type="numeric" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="zaliha" Type="numeric" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="jmi" Type="char" MaxLength="3" Nullable="false" />
-          <Property Name="cena" Type="numeric" Precision="9" Scale="2" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_racuni_kupci">
-          <End Role="kupci" Type="Self.kupci" Multiplicity="1" />
-          <End Role="racuni" Type="Self.racuni" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kupci">
-              <PropertyRef Name="idbroj" />
-            </Principal>
-            <Dependent Role="racuni">
-              <PropertyRef Name="idbrojk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_racuni_roba">
-          <End Role="roba" Type="Self.roba" Multiplicity="1" />
-          <End Role="racuni" Type="Self.racuni" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roba">
-              <PropertyRef Name="idbroj" />
-            </Principal>
-            <Dependent Role="racuni">
-              <PropertyRef Name="idbrojr" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="reversiModelStoreContainer">
-          <EntitySet Name="kupci" EntityType="Self.kupci" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="racuni" EntityType="Self.racuni" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="roba" EntityType="Self.roba" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_racuni_kupci" Association="Self.FK_racuni_kupci">
-            <End Role="kupci" EntitySet="kupci" />
-            <End Role="racuni" EntitySet="racuni" />
-          </AssociationSet>
-          <AssociationSet Name="FK_racuni_roba" Association="Self.FK_racuni_roba">
-            <End Role="roba" EntitySet="roba" />
-            <End Role="racuni" EntitySet="racuni" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="reversiModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="reversiModelStoreContainer">
+    <EntitySet Name="kupci" EntityType="reversiModel.Store.kupci" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="racuni" EntityType="reversiModel.Store.racuni" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="roba" EntityType="reversiModel.Store.roba" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="revroba" EntityType="reversiModel.Store.revroba" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="reversiModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_racuni_kupci" Association="reversiModel.Store.FK_racuni_kupci">
+      <End Role="kupci" EntitySet="kupci" />
+      <End Role="racuni" EntitySet="racuni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RevRoba_Racuni" Association="reversiModel.Store.FK_RevRoba_Racuni">
+      <End Role="racuni" EntitySet="racuni" />
+      <End Role="revroba" EntitySet="revroba" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RevRoba_roba" Association="reversiModel.Store.FK_RevRoba_roba">
+      <End Role="roba" EntitySet="roba" />
+      <End Role="revroba" EntitySet="revroba" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="kupci">
+    <Key>
+      <PropertyRef Name="idbroj" />
+    </Key>
+    <Property Name="idbroj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ime" Type="char" Nullable="false" MaxLength="40" />
+    <Property Name="jmbg" Type="char" Nullable="false" MaxLength="13" />
+    <Property Name="adresa" Type="char" Nullable="false" MaxLength="40" />
+    <Property Name="mesto" Type="char" Nullable="false" MaxLength="25" />
+    <Property Name="telefon" Type="char" Nullable="false" MaxLength="15" />
+    <Property Name="dug" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="pot" Type="decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="saldo" Type="decimal" StoreGeneratedPattern="Computed" Nullable="true" Precision="13" Scale="2" />
+  </EntityType>
+  <EntityType Name="racuni">
+    <Key>
+      <PropertyRef Name="pk" />
+    </Key>
+    <Property Name="brev" Type="char" Nullable="false" MaxLength="10" />
+    <Property Name="datum" Type="datetime" Nullable="false" />
+    <Property Name="idbrojk" Type="int" Nullable="false" />
+    <Property Name="godina" Type="int" StoreGeneratedPattern="Computed" Nullable="true" />
+    <Property Name="pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="roba">
+    <Key>
+      <PropertyRef Name="idbroj" />
+    </Key>
+    <Property Name="idbroj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="naziv" Type="char" Nullable="false" MaxLength="40" />
+    <Property Name="jm" Type="char" Nullable="false" MaxLength="3" />
+    <Property Name="kol" Type="decimal" Nullable="false" Precision="6" Scale="0" />
+    <Property Name="zaliha" Type="decimal" Nullable="false" Precision="6" Scale="0" />
+    <Property Name="cena" Type="decimal" Nullable="false" Precision="9" Scale="2" />
+  </EntityType>
+  <EntityType Name="revroba">
+    <Key>
+      <PropertyRef Name="pk" />
+    </Key>
+    <Property Name="pk" Type="int" Nullable="false" />
+    <Property Name="brev" Type="int" Nullable="false" />
+    <Property Name="datum" Type="datetime" Nullable="false" />
+    <Property Name="idbrojr" Type="int" Nullable="false" />
+    <Property Name="kolu" Type="decimal" Nullable="true" Precision="6" Scale="0" />
+    <Property Name="kolv" Type="decimal" Nullable="true" Precision="6" Scale="0" />
+    <Property Name="utro" Type="decimal" Nullable="true" Precision="6" Scale="0" />
+    <Property Name="cena" Type="decimal" Nullable="false" Precision="9" Scale="2" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_racuni_kupci">
+    <End Role="kupci" Type="reversiModel.Store.kupci" Multiplicity="1" />
+    <End Role="racuni" Type="reversiModel.Store.racuni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kupci">
+        <PropertyRef Name="idbroj" />
+      </Principal>
+      <Dependent Role="racuni">
+        <PropertyRef Name="idbrojk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RevRoba_Racuni">
+    <End Role="racuni" Type="reversiModel.Store.racuni" Multiplicity="1" />
+    <End Role="revroba" Type="reversiModel.Store.revroba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="racuni">
+        <PropertyRef Name="pk" />
+      </Principal>
+      <Dependent Role="revroba">
+        <PropertyRef Name="brev" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RevRoba_roba">
+    <End Role="roba" Type="reversiModel.Store.roba" Multiplicity="1" />
+    <End Role="revroba" Type="reversiModel.Store.revroba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roba">
+        <PropertyRef Name="idbroj" />
+      </Principal>
+      <Dependent Role="revroba">
+        <PropertyRef Name="idbrojr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="reversiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="kupci">
-          <Key>
-            <PropertyRef Name="idbroj" />
-          </Key>
-          <Property Name="idbroj" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ime" Type="String" MaxLength="40" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="jmbg" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="adresa" Type="String" MaxLength="40" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="mesto" Type="String" MaxLength="25" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="dug" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="pot" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="saldo" Type="Decimal" Precision="13" Scale="2" Nullable="false" />
-          <NavigationProperty Name="racuni" Relationship="reversiModel.FK_racuni_kupci" FromRole="kupci" ToRole="racuni" />
-        </EntityType>
-        <EntityType Name="racuni">
-          <Key>
-            <PropertyRef Name="brev" />
-            <PropertyRef Name="datum" />
-          </Key>
-          <Property Name="brev" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="idbrojk" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="idbrojr" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="kolu" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="kolv" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="cena" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="utro" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
-          <NavigationProperty Name="kupci" Relationship="reversiModel.FK_racuni_kupci" FromRole="racuni" ToRole="kupci" />
-          <NavigationProperty Name="roba" Relationship="reversiModel.FK_racuni_roba" FromRole="racuni" ToRole="roba" />
-        </EntityType>
-        <EntityType Name="roba">
-          <Key>
-            <PropertyRef Name="idbroj" />
-          </Key>
-          <Property Name="idbroj" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="naziv" Type="String" MaxLength="40" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="jm" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="kol" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="zaliha" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="jmi" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="cena" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
-          <NavigationProperty Name="racuni" Relationship="reversiModel.FK_racuni_roba" FromRole="roba" ToRole="racuni" />
-        </EntityType>
         <EntityContainer Name="reversiEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="kupci" EntityType="Self.kupci" />
-          <EntitySet Name="racuni" EntityType="Self.racuni" />
-          <EntitySet Name="roba" EntityType="Self.roba" />
+          <EntitySet Name="kupci" EntityType="reversiModel.kupci" />
+          <EntitySet Name="racuni" EntityType="reversiModel.racuni" />
+          <EntitySet Name="roba" EntityType="reversiModel.roba" />
           <AssociationSet Name="FK_racuni_kupci" Association="reversiModel.FK_racuni_kupci">
             <End Role="kupci" EntitySet="kupci" />
             <End Role="racuni" EntitySet="racuni" />
           </AssociationSet>
-          <AssociationSet Name="FK_racuni_roba" Association="reversiModel.FK_racuni_roba">
-            <End Role="roba" EntitySet="roba" />
+          <EntitySet Name="revroba" EntityType="reversiModel.revroba" />
+          <EntitySet Name="sysdiagrams" EntityType="reversiModel.sysdiagrams" />
+          <AssociationSet Name="FK_RevRoba_Racuni" Association="reversiModel.FK_RevRoba_Racuni">
             <End Role="racuni" EntitySet="racuni" />
+            <End Role="revroba" EntitySet="revroba" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_RevRoba_roba" Association="reversiModel.FK_RevRoba_roba">
+            <End Role="roba" EntitySet="roba" />
+            <End Role="revroba" EntitySet="revroba" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="kupci">
+          <Key>
+            <PropertyRef Name="idbroj" />
+          </Key>
+          <Property Name="idbroj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="jmbg" Type="String" Nullable="false" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="adresa" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="mesto" Type="String" Nullable="false" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="telefon" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="dug" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="pot" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="saldo" Type="Decimal" Precision="13" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="racuni" Relationship="reversiModel.FK_racuni_kupci" FromRole="kupci" ToRole="racuni" />
+        </EntityType>
+        <EntityType Name="racuni">
+          <Key>
+            <PropertyRef Name="pk" />
+          </Key>
+          <Property Name="brev" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idbrojk" Type="Int32" Nullable="false" />
+          <Property Name="godina" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="kupci" Relationship="reversiModel.FK_racuni_kupci" FromRole="racuni" ToRole="kupci" />
+          <NavigationProperty Name="revroba" Relationship="reversiModel.FK_RevRoba_Racuni" FromRole="racuni" ToRole="revroba" />
+        </EntityType>
+        <EntityType Name="roba">
+          <Key>
+            <PropertyRef Name="idbroj" />
+          </Key>
+          <Property Name="idbroj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="jm" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="kol" Type="Decimal" Nullable="false" Precision="6" Scale="0" />
+          <Property Name="zaliha" Type="Decimal" Nullable="false" Precision="6" Scale="0" />
+          <Property Name="cena" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <NavigationProperty Name="revroba" Relationship="reversiModel.FK_RevRoba_roba" FromRole="roba" ToRole="revroba" />
+        </EntityType>
         <Association Name="FK_racuni_kupci">
           <End Type="reversiModel.kupci" Role="kupci" Multiplicity="1" />
           <End Type="reversiModel.racuni" Role="racuni" Multiplicity="*" />
@@ -155,69 +192,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_racuni_roba">
+        <EntityType Name="revroba">
+          <Key>
+            <PropertyRef Name="pk" />
+          </Key>
+          <Property Name="pk" Type="Int32" Nullable="false" />
+          <Property Name="brev" Type="Int32" Nullable="false" />
+          <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idbrojr" Type="Int32" Nullable="false" />
+          <Property Name="kolu" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="kolv" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="utro" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="cena" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <NavigationProperty Name="racuni" Relationship="reversiModel.FK_RevRoba_Racuni" FromRole="revroba" ToRole="racuni" />
+          <NavigationProperty Name="roba" Relationship="reversiModel.FK_RevRoba_roba" FromRole="revroba" ToRole="roba" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_RevRoba_Racuni">
+          <End Type="reversiModel.racuni" Role="racuni" Multiplicity="1" />
+          <End Type="reversiModel.revroba" Role="revroba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="racuni">
+              <PropertyRef Name="pk" />
+            </Principal>
+            <Dependent Role="revroba">
+              <PropertyRef Name="brev" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevRoba_roba">
           <End Type="reversiModel.roba" Role="roba" Multiplicity="1" />
-          <End Type="reversiModel.racuni" Role="racuni" Multiplicity="*" />
+          <End Type="reversiModel.revroba" Role="revroba" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="roba">
               <PropertyRef Name="idbroj" />
             </Principal>
-            <Dependent Role="racuni">
+            <Dependent Role="revroba">
               <PropertyRef Name="idbrojr" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="reversiModelStoreContainer" CdmEntityContainer="reversiEntities">
-          <EntitySetMapping Name="kupci">
-            <EntityTypeMapping TypeName="reversiModel.kupci">
-              <MappingFragment StoreEntitySet="kupci">
-                <ScalarProperty Name="idbroj" ColumnName="idbroj" />
-                <ScalarProperty Name="ime" ColumnName="ime" />
-                <ScalarProperty Name="jmbg" ColumnName="jmbg" />
-                <ScalarProperty Name="adresa" ColumnName="adresa" />
-                <ScalarProperty Name="mesto" ColumnName="mesto" />
-                <ScalarProperty Name="telefon" ColumnName="telefon" />
-                <ScalarProperty Name="dug" ColumnName="dug" />
-                <ScalarProperty Name="pot" ColumnName="pot" />
-                <ScalarProperty Name="saldo" ColumnName="saldo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="racuni">
-            <EntityTypeMapping TypeName="reversiModel.racuni">
-              <MappingFragment StoreEntitySet="racuni">
-                <ScalarProperty Name="brev" ColumnName="brev" />
-                <ScalarProperty Name="datum" ColumnName="datum" />
-                <ScalarProperty Name="idbrojk" ColumnName="idbrojk" />
-                <ScalarProperty Name="idbrojr" ColumnName="idbrojr" />
-                <ScalarProperty Name="kolu" ColumnName="kolu" />
-                <ScalarProperty Name="kolv" ColumnName="kolv" />
-                <ScalarProperty Name="cena" ColumnName="cena" />
-                <ScalarProperty Name="utro" ColumnName="utro" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="roba">
-            <EntityTypeMapping TypeName="reversiModel.roba">
-              <MappingFragment StoreEntitySet="roba">
-                <ScalarProperty Name="idbroj" ColumnName="idbroj" />
-                <ScalarProperty Name="naziv" ColumnName="naziv" />
-                <ScalarProperty Name="jm" ColumnName="jm" />
-                <ScalarProperty Name="kol" ColumnName="kol" />
-                <ScalarProperty Name="zaliha" ColumnName="zaliha" />
-                <ScalarProperty Name="jmi" ColumnName="jmi" />
-                <ScalarProperty Name="cena" ColumnName="cena" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="reversiModelStoreContainer" CdmEntityContainer="reversiEntities">
+    <EntitySetMapping Name="kupci">
+      <EntityTypeMapping TypeName="IsTypeOf(reversiModel.kupci)">
+        <MappingFragment StoreEntitySet="kupci">
+          <ScalarProperty Name="idbroj" ColumnName="idbroj" />
+          <ScalarProperty Name="ime" ColumnName="ime" />
+          <ScalarProperty Name="jmbg" ColumnName="jmbg" />
+          <ScalarProperty Name="adresa" ColumnName="adresa" />
+          <ScalarProperty Name="mesto" ColumnName="mesto" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="dug" ColumnName="dug" />
+          <ScalarProperty Name="pot" ColumnName="pot" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="racuni">
+      <EntityTypeMapping TypeName="IsTypeOf(reversiModel.racuni)">
+        <MappingFragment StoreEntitySet="racuni">
+          <ScalarProperty Name="pk" ColumnName="pk" />
+          <ScalarProperty Name="brev" ColumnName="brev" />
+          <ScalarProperty Name="datum" ColumnName="datum" />
+          <ScalarProperty Name="idbrojk" ColumnName="idbrojk" />
+          <ScalarProperty Name="godina" ColumnName="godina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roba">
+      <EntityTypeMapping TypeName="IsTypeOf(reversiModel.roba)">
+        <MappingFragment StoreEntitySet="roba">
+          <ScalarProperty Name="idbroj" ColumnName="idbroj" />
+          <ScalarProperty Name="naziv" ColumnName="naziv" />
+          <ScalarProperty Name="jm" ColumnName="jm" />
+          <ScalarProperty Name="kol" ColumnName="kol" />
+          <ScalarProperty Name="zaliha" ColumnName="zaliha" />
+          <ScalarProperty Name="cena" ColumnName="cena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="revroba">
+      <EntityTypeMapping TypeName="IsTypeOf(reversiModel.revroba)">
+        <MappingFragment StoreEntitySet="revroba">
+          <ScalarProperty Name="pk" ColumnName="pk" />
+          <ScalarProperty Name="brev" ColumnName="brev" />
+          <ScalarProperty Name="datum" ColumnName="datum" />
+          <ScalarProperty Name="idbrojr" ColumnName="idbrojr" />
+          <ScalarProperty Name="kolu" ColumnName="kolu" />
+          <ScalarProperty Name="kolv" ColumnName="kolv" />
+          <ScalarProperty Name="utro" ColumnName="utro" />
+          <ScalarProperty Name="cena" ColumnName="cena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(reversiModel.sysdiagrams)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -231,7 +325,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
