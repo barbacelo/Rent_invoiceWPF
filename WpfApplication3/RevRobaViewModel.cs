@@ -9,6 +9,7 @@ namespace WpfApplication3
 {
     public class RevRobaViewModel : ViewModelBase
     {
+        private int _pk;
         private DateTime _datum;
         private RobaViewModel _roba;
         private decimal? _kolic;
@@ -16,6 +17,16 @@ namespace WpfApplication3
         private decimal _cena;
         public bool Changed { get; set; }
 
+        public int pk
+        {
+            get { return _pk; }
+            set
+            {
+                _pk = value;
+                RaisePropertyChanged();
+                Changed = true;
+            }
+        }
         public RobaViewModel Roba
         {
             get { return _roba; }
@@ -101,7 +112,7 @@ namespace WpfApplication3
         {
             get { return _isDeleted; }
             set
-            {
+            {              
                 _isDeleted = value;
                 RaisePropertyChanged();
             }

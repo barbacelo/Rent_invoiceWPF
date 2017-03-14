@@ -519,7 +519,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="5,61,0,0" Grid.Column="2" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="All">
+        <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="5,61,0,0" Grid.Column="2" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column">
             <DataGrid.CellStyle>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
@@ -541,7 +541,7 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Brev"  Width="75">
+                <DataGridTemplateColumn Header="Broj reversa"  Width="*" MinWidth="81">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
@@ -550,7 +550,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="datumColumn" Header="datum" Width="*" MinWidth="85">
+                <DataGridTemplateColumn x:Name="datumColumn" Header="Datum reversa" MinWidth="106" Width="106">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
@@ -569,22 +569,48 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn MaxWidth="200">
+                <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}"/>
+                            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" >
+                                <ComboBox.Background>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
+                                        <GradientStop Color="PowderBlue" Offset="0.00" />
+                                        <GradientStop Color="White" Offset="0.50" />
+                                        <GradientStop Color="White" Offset="0.52" />
+                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="RevRoba" Width="*">
+                <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False">
+                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Obriši promenu"/>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                </DataGrid.Resources>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday">
+                                                <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
                                                     <DatePicker.Resources>
                                                         <Style TargetType="{x:Type DatePickerTextBox}">
                                                             <Setter Property="Control.Template">
@@ -605,8 +631,140 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="72">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Obriši promenu"/>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                </DataGrid.Resources>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="robaColumn" Binding="{Binding Roba}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Obriši promenu"/>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                </DataGrid.Resources>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="kolicColumn" Binding="{Binding kolic}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextAlignment" Value="Right"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Obriši promenu"/>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                </DataGrid.Resources>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="utroColumn" Binding="{Binding utro}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextAlignment" Value="Right"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding RevRobas}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" >
+                                <DataGrid.Resources>
+                                    <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                        <MenuItem Header="Obriši promenu" />
+                                    </ContextMenu>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                </DataGrid.Resources>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow" >
+                                        <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                                    </Style>
+                                </DataGrid.RowStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cena}" Width="*" TextBlock.TextAlignment="Right">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="brojRacuna" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="264,35,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -94,6 +94,8 @@ namespace WpfApplication3
             get { return _isDeleted; }
             set
             {
+                foreach (var rr in RevRobas)
+                    rr.IsDeleted = value;
                 _isDeleted = value;
                 RaisePropertyChanged();
             }
