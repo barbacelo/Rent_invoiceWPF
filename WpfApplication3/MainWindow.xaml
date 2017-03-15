@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication3"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
     xmlns:viewModel="clr-namespace:WpfApplication3.ViewModel"
     x:Class="WpfApplication3.MainWindow"
         xml:lang="sr-Latn-RS"
@@ -18,17 +17,17 @@
             <ColumnDefinition Width="351*" />
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <Grid>
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="5" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
-            <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156">
+            <ToolBarTray Grid.Row="0" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156">
                 <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="259" Margin="0,0,-235,-7">
-                    <Button x:Name="DodajKupca" ToolTip="Dodaj kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.AddCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="dodajKupca" ToolTip="Dodaj kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.AddCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -56,7 +55,7 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="SnimiKupci" ToolTip="Sačuvaj promene kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.SaveCommand}">
+                    <Button x:Name="snimiKupci" ToolTip="Sačuvaj promene kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.SaveCommand}">
                         <StackPanel>
                             <Image Source="Resources/Save.png">
                                 <Image.Style>
@@ -71,8 +70,8 @@
                             </Image>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="ŠtampaKupci" ToolTip="Štampa kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="štampaKupci" ToolTip="Štampa kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
                                     <DrawingBrush>
@@ -94,8 +93,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="BrisiKupca" ToolTip="Obriši kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Kupcis.DeleteCommand}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="brisiKupca" ToolTip="Obriši kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Kupcis.DeleteCommand}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -123,8 +122,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="UndoKupci" ToolTip="Poništi izmenu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.UndoCommand}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="undoKupci" ToolTip="Poništi izmenu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Kupcis.UndoCommand}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="64" Height="64">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -150,8 +149,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="FilterKupci" ToolTip="Filter" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="filterKupci" ToolTip="Filter" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
                                     <DrawingBrush>
@@ -173,8 +172,8 @@
             </ToolBarTray>
             <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="156" Grid.Row="2">
                 <ToolBar x:Name="toolBar1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="259" Margin="0,0,-235,-7">
-                    <Button x:Name="DodajRobu" ToolTip="Dodaj robu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.AddCommand}" CommandParameter="{Binding ElementName=robaDataGrid}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="dodajRobu" ToolTip="Dodaj robu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.AddCommand}" CommandParameter="{Binding ElementName=robaDataGrid}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -202,7 +201,7 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="SnimiRobu" ToolTip="Sačuvaj promene kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.SaveCommand}">
+                    <Button x:Name="snimiRobu" ToolTip="Sačuvaj promene kupaca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.SaveCommand}">
                         <StackPanel>
                             <Image Source="Resources/Save.png">
                                 <Image.Style>
@@ -217,8 +216,8 @@
                             </Image>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="StampaRoba" ToolTip="Štampa robe" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="stampaRoba" ToolTip="Štampa robe" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
                                     <DrawingBrush>
@@ -240,8 +239,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="BrisiRobu" ToolTip="Obriši kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Robas.DeleteCommand}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="brisiRobu" ToolTip="Obriši kupca" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Robas.DeleteCommand}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -269,8 +268,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="UndoRoba" ToolTip="Poništi izmenu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.UndoCommand}">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="undoRoba" ToolTip="Poništi izmenu" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Robas.UndoCommand}">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="64" Height="64">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -296,8 +295,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button x:Name="FilterRoba" ToolTip="Filter" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
-                        <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                    <Button x:Name="filterRoba" ToolTip="Filter" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                        <Viewbox Width="30" Height="22">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
                                     <DrawingBrush>
@@ -547,7 +546,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding brev}"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Brev}"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -555,7 +554,7 @@
                 <DataGridTemplateColumn x:Name="datumColumn" Header="Datum reversa" MinWidth="106" Width="106">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
+                            <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
                                 <DatePicker.Resources>
                                     <Style TargetType="{x:Type DatePickerTextBox}">
                                         <Setter Property="Control.Template">
