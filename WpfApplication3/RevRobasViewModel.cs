@@ -7,7 +7,6 @@ namespace WpfApplication3
 {
     public class RevRobasViewModel : ViewModelBase
     {
-        private readonly DAL _dal;
         private RevRobaViewModel _selectedRevRoba;
 
         public RevRobaViewModel SelectedRevRoba
@@ -43,11 +42,11 @@ namespace WpfApplication3
         //        RaisePropertyChanged();
         //    } 
         //}
-        public ObservableCollection<RevRobaViewModel> RevRobas { get; }
+        public ObservableCollection<RevRobaViewModel> Items { get; }
 
         public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)
         {
-            RevRobas = new ObservableCollection<RevRobaViewModel>(revrobas);
+            Items = new ObservableCollection<RevRobaViewModel>(revrobas);
         }
     }
 }

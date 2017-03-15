@@ -30,15 +30,13 @@ namespace WpfApplication3
                 RaisePropertyChanged();
             }
         }
-        public RevRobasViewModel RevRobas { get; }
 
         public ObservableCollection<RacuniViewModel> Racunis { get; }
 
         public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RobaViewModel> robas, IEnumerable<RevRobaViewModel> revRobas)
         {
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, robas)).ToList());
-            RevRobas = new RevRobasViewModel(revRobas);
+            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, new RevRobasViewModel(revRobas))).ToList());
         }
         private bool CanSave()
         {

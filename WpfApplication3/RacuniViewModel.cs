@@ -12,7 +12,7 @@ namespace WpfApplication3
         private string _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;
-        private ObservableCollection<RevRobaViewModel> _revrobas;
+        private RevRobasViewModel _revrobas;
 
         public bool Changed { get; set; }
 
@@ -27,7 +27,7 @@ namespace WpfApplication3
             }
         }
 
-        public ObservableCollection<RevRobaViewModel> RevRobas
+        public RevRobasViewModel RevRobas
         {
             get { return _revrobas; }
             set
@@ -65,17 +65,15 @@ namespace WpfApplication3
             _model = new racuni();
         }
 
-        public RacuniViewModel(racuni k, IEnumerable<KupciViewModel> kupcis, IEnumerable<RobaViewModel> robas)
+        public RacuniViewModel(racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
         {
             _model = k;
 
             brev = k.brev;
             datum = k.datum;
-            Kupci = kupcis.FirstOrDefault(r => r.idbroj == k.idbrojk);    
-                    
-            RevRobas = new ObservableCollection<RevRobaViewModel>();
-            foreach (var rr in k.revroba)
-                RevRobas.Add(new RevRobaViewModel(rr, robas));
+            Kupci = kupcis.FirstOrDefault(r => r.idbroj == k.idbrojk);
+
+            RevRobas = revRobas;
 
             Changed = false;
         }
@@ -94,7 +92,7 @@ namespace WpfApplication3
             get { return _isDeleted; }
             set
             {
-                foreach (var rr in RevRobas)
+                foreach (var rr in RevRobas.Items)
                     rr.IsDeleted = value;
                 _isDeleted = value;
                 RaisePropertyChanged();

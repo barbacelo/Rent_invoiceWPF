@@ -10,7 +10,7 @@ namespace WpfApplication3
         public KupcisViewModel Kupcis { get; }
         public RobasViewModel Robas { get; }
         public RacunisViewModel Racunis { get; }
-        public RevRobasViewModel RevRobas { get; }
+
         public MainViewModel()
         {
             _dal = new DAL();
