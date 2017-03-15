@@ -380,8 +380,8 @@
         </Grid>
         <ToolBarTray HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="157" Grid.Column="2">
             <ToolBar x:Name="toolBar2" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="186" Margin="0,0,-133,-7">
-                <Button x:Name="Dodajracuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Racunis.NewInvoiceCommand}">
-                    <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Button x:Name="dodajracuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Racunis.NewInvoiceCommand}">
+                    <Viewbox Width="30" Height="22">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
                                 <Style TargetType="Rectangle">
@@ -410,7 +410,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="SnimiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                <Button x:Name="snimiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
                     <StackPanel>
                         <Image Source="Resources/Save.png">
                             <Image.Style>
@@ -425,8 +425,8 @@
                         </Image>
                     </StackPanel>
                 </Button>
-                <Button x:Name="StampaRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
-                    <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Button x:Name="stampaRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                    <Viewbox Width="30" Height="22">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Fill>
                                 <DrawingBrush>
@@ -448,8 +448,8 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="BrisiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Racunis.DeleteCommand}">
-                    <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Button x:Name="brisiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Racunis.DeleteCommand}">
+                    <Viewbox Width="30" Height="22">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
                                 <Style TargetType="Rectangle">
@@ -482,8 +482,8 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="UndoRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Racunis.UndoCommand}">
-                    <Viewbox Width="30" Height="22" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Button x:Name="undoRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,0,-5" Command="{Binding Racunis.UndoCommand}">
+                    <Viewbox Width="30" Height="22">
                         <Rectangle Width="64" Height="64">
                             <Rectangle.Style>
                                 <Style TargetType="Rectangle">
@@ -557,7 +557,7 @@
                             <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
                                 <DatePicker.Resources>
                                     <Style TargetType="{x:Type DatePickerTextBox}">
-                                        <Setter Property="Control.Template">
+                                        <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate>
                                                     <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding Path=SelectedDate, StringFormat='dd.MM.yyyy',RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
@@ -614,7 +614,7 @@
                                                 <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
                                                     <DatePicker.Resources>
                                                         <Style TargetType="{x:Type DatePickerTextBox}">
-                                                            <Setter Property="Control.Template">
+                                                            <Setter Property="Template">
                                                                 <Setter.Value>
                                                                     <ControlTemplate>
                                                                         <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding Path=SelectedDate, StringFormat='dd.MM.yyyy',RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />

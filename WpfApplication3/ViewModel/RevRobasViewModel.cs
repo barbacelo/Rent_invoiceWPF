@@ -17,30 +17,7 @@ namespace WpfApplication3.ViewModel
                 RaisePropertyChanged();
             }
         }
-        //private RevRobaViewModel _selectedRowUtro;
-        //public RevRobaViewModel SelectedRowUtro
-        //{
-        //    get { return _selectedRowUtro; }
-        //    set
-        //    {
-        //        _selectedRowUtro = value;
-        //        var selectedId = _selectedRowUtro.pk;
-        //        RaisePropertyChanged();
-        //    }
-        //}
 
-        //private RevRobaViewModel _selectedRowCena;
-        //public RevRobaViewModel SelectedRowCena
-        //{
-        //    get { return _selectedRowCena; }
-        //    set
-        //    {                
-        //        _selectedRowCena = value;
-        //        var selectedId = _selectedRowCena.pk;
-        //        _selectedRowUtro = 
-        //        RaisePropertyChanged();
-        //    } 
-        //}
         public ObservableCollection<RevRobaViewModel> Items { get; }
 
         public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)

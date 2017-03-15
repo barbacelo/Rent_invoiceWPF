@@ -3,10 +3,6 @@ using System.Data.Entity;
 
 namespace WpfApplication3
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    
     public partial class MainWindow
     {
         private readonly reversiEntities _context = new reversiEntities();

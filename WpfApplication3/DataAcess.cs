@@ -33,10 +33,6 @@ namespace WpfApplication3
 
         private readonly reversiEntities _context = new reversiEntities();
 
-        public DAL()
-        {
-
-        }
         public List<racuni> GetRacuni()
         {
             return _context.Set<racuni>().ToList();
