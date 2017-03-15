@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication3"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="WpfApplication3.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:viewModel="clr-namespace:WpfApplication3.ViewModel"
+    x:Class="WpfApplication3.MainWindow"
         xml:lang="sr-Latn-RS"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowState="Maximized"
@@ -337,14 +339,14 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="imeColumn" Binding="{Binding ime}" Header="ime" Width="*" MinWidth="130"/>
-                    <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding adresa}" Header="adresa" Width="*" MinWidth="200"/>
-                    <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding mesto}" Header="mesto" Width="*" MinWidth="120"/>
-                    <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding telefon}" Header="telefon" Width="*" MinWidth="100"/>
-                    <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding jmbg}" Header="jmbg" Width="*" MinWidth="95"/>
-                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding dug}" Header="dug" Width="*" MinWidth="80"/>
-                    <DataGridTextColumn x:Name="potColumn" Binding="{Binding pot}" Header="pot" Width="*" MinWidth="80"/>
-                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding saldo}" Header="saldo" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="imeColumn" Binding="{Binding Ime}" Header="ime" Width="*" MinWidth="130"/>
+                    <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding Adresa}" Header="adresa" Width="*" MinWidth="200"/>
+                    <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding Mesto}" Header="mesto" Width="*" MinWidth="120"/>
+                    <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding Telefon}" Header="telefon" Width="*" MinWidth="100"/>
+                    <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding Jmbg}" Header="jmbg" Width="*" MinWidth="95"/>
+                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding Dug}" Header="dug" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="potColumn" Binding="{Binding Pot}" Header="pot" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="saldo" Width="*" MinWidth="80"/>
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,30,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" >
@@ -369,11 +371,11 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="nazivColumn" Binding="{Binding naziv}" Header="Naziv" Width="*" MinWidth="130"/>
-                    <DataGridTextColumn x:Name="jmColumn" Binding="{Binding jm}" Header="Jedinica mere" Width="*" MinWidth="30"/>
-                    <DataGridTextColumn x:Name="kolColumn" Binding="{Binding kol}" Header="Ukupna količina" Width="*" MinWidth="40"/>
-                    <DataGridTextColumn x:Name="cenaColumn1" Binding="{Binding cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
-                    <DataGridTextColumn x:Name="zalihaColumn" Binding="{Binding zaliha}" Header="Trenutna zaliha" Width="*" MinWidth="50"/>
+                    <DataGridTextColumn x:Name="nazivColumn" Binding="{Binding Naziv}" Header="Naziv" Width="*" MinWidth="130"/>
+                    <DataGridTextColumn x:Name="jmColumn" Binding="{Binding Jm}" Header="Jedinica mere" Width="*" MinWidth="30"/>
+                    <DataGridTextColumn x:Name="kolColumn" Binding="{Binding Kol}" Header="Ukupna količina" Width="*" MinWidth="40"/>
+                    <DataGridTextColumn x:Name="cenaColumn1" Binding="{Binding Cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
+                    <DataGridTextColumn x:Name="zalihaColumn" Binding="{Binding Zaliha}" Header="Trenutna zaliha" Width="*" MinWidth="50"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -571,7 +573,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" >
                                 <ComboBox.Background>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
@@ -587,7 +589,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
@@ -610,7 +612,7 @@
                                     <DataGridTemplateColumn Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <DatePicker SelectedDate="{Binding datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
+                                                <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
                                                     <DatePicker.Resources>
                                                         <Style TargetType="{x:Type DatePickerTextBox}">
                                                             <Setter Property="Control.Template">
@@ -633,7 +635,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="72">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
@@ -661,7 +663,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
@@ -681,7 +683,7 @@
                                     </Style>
                                 </DataGrid.CellStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="kolicColumn" Binding="{Binding kolic}" Width="*">
+                                    <DataGridTextColumn x:Name="kolicColumn" Binding="{Binding Kolic}" Width="*">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextAlignment" Value="Right"/>
@@ -695,7 +697,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
@@ -715,7 +717,7 @@
                                     </Style>
                                 </DataGrid.CellStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="utroColumn" Binding="{Binding utro}" Width="*">
+                                    <DataGridTextColumn x:Name="utroColumn" Binding="{Binding Utro}" Width="*">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextAlignment" Value="Right"/>
@@ -729,7 +731,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="local:RacuniViewModel">
+                        <DataTemplate DataType="viewModel:RacuniViewModel">
                             <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" >
                                 <DataGrid.Resources>
                                     <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
@@ -752,7 +754,7 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding cena}" Width="*" TextBlock.TextAlignment="Right">
+                                    <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena}" Width="*" TextBlock.TextAlignment="Right">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextAlignment" Value="Right" />

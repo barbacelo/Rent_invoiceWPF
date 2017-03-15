@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Linq;
+using WpfApplication3.ViewModel;
 
 namespace WpfApplication3
 {

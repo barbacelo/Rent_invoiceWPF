@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using GalaSoft.MvvmLight;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
 
     public class RacuniViewModel : ViewModelBase
@@ -37,7 +36,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string brev
+        public string Brev
         {
             get { return _brev; }
             set
@@ -47,7 +46,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public DateTime datum
+        public DateTime Datum
         {
             get { return _datum; }
             set
@@ -69,9 +68,9 @@ namespace WpfApplication3
         {
             _model = k;
 
-            brev = k.brev;
-            datum = k.datum;
-            Kupci = kupcis.FirstOrDefault(r => r.idbroj == k.idbrojk);
+            Brev = k.brev;
+            Datum = k.datum;
+            Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.idbrojk);
 
             RevRobas = revRobas;
 
@@ -80,9 +79,9 @@ namespace WpfApplication3
         
         public racuni GetModel()
         {
-            _model.brev = brev;
-            _model.datum = datum;            
-            _model.idbrojk = Kupci?.idbroj ?? 0;
+            _model.brev = Brev;
+            _model.datum = Datum;            
+            _model.idbrojk = Kupci?.Idbroj ?? 0;
 
             return _model;
         }

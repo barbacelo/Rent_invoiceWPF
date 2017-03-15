@@ -6,85 +6,82 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
-    public class RacunisViewModel : ViewModelBase
+    public class KupcisViewModel : ViewModelBase
     {
         private readonly DAL _dal;
-        private RacuniViewModel _selectedRacuni;
-        //private NewInvoiceWindow myWindow { get; set; } = new NewInvoiceWindow();
-
+        private KupciViewModel _selectedKupci;
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
         public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
-        public ICommand NewInvoiceCommand => new RelayCommand(NewInvoice, CanNewInvoice);
-
-        public RacuniViewModel SelectedRacuni
+        public KupciViewModel SelectedKupci
         {
-            get { return _selectedRacuni; }
+            get { return _selectedKupci; }
             set
             {
-                _selectedRacuni = value;
+                _selectedKupci = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<RacuniViewModel> Racunis { get; }
+        public ObservableCollection<KupciViewModel> Kupcis { get; }
 
-        public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RevRobaViewModel> revRobas)
+        public KupcisViewModel(DAL dal)
         {
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
+            Kupcis = new ObservableCollection<KupciViewModel>(_dal.GetKupci().Select(x => new KupciViewModel(x)).ToList());
         }
+
         private bool CanSave()
         {
-            return Racunis.Any(x => x.Changed || x.IsDeleted);
+           return Kupcis.Any(x => x.Changed || x.IsDeleted);
         }
 
         private void Save()
         {
-            var deleted = new List<RacuniViewModel>();
+            var deleted = new List<KupciViewModel>();
 
-            foreach (var k in Racunis.Where(x => x.Changed || x.IsDeleted))
+            foreach (var k in Kupcis.Where(x => x.Changed || x.IsDeleted))
             {
                 if (k.IsDeleted)
                 {
                     deleted.Add(k);
-                    _dal.DeleteRacuni(k.GetModel());
+                    _dal.Delete(k.GetModel());
                 }
                 else
                 {
-                    _dal.SaveRacuni(k.GetModel());
+                    _dal.SaveKupci(k.GetModel());
                     k.Changed = false;
                 }
             }
             _dal.SaveChanges();
             foreach (var d in deleted)
-                Racunis.Remove(d);
-        }        
+                Kupcis.Remove(d);
+        }
         private bool CanDelete()
         {
-            if (SelectedRacuni == null)
+            if (SelectedKupci == null)
                 return false;
 
-            if (SelectedRacuni.IsDeleted)
+            if (SelectedKupci.IsDeleted)
                 return false;
 
             return true;
         }
         private void Delete()
         {
-            if (SelectedRacuni == null)
+            if (SelectedKupci == null)
                 return;
 
-            SelectedRacuni.IsDeleted = true;
+            SelectedKupci.IsDeleted = true;
         }
         private void Add(DataGrid grid)
         {
-            var newItem = new RacuniViewModel();
-            Racunis.Add(newItem);
+            var newItem = new KupciViewModel();
+            Kupcis.Add(newItem);
 
             int idx;
 
@@ -102,31 +99,19 @@ namespace WpfApplication3
         }
         private bool CanUndo()
         {
-            if (SelectedRacuni == null)
+            if (SelectedKupci == null)
                 return false;
 
-            if (SelectedRacuni.IsDeleted)
+            if (SelectedKupci.IsDeleted)
                 return true;
 
             return false;
         }
         private void Undo()
         {
-            if (SelectedRacuni == null)
+            if (SelectedKupci == null)
                 return;
-            SelectedRacuni.IsDeleted = false;
-        }
-        private void NewInvoice()
-        {
-            NewInvoiceWindow.ShowSingleWindow();           
-        }
-
-        private bool CanNewInvoice()
-        {
-            if (NewInvoiceWindow._window == null)
-                return true;
-
-            return false;
+            SelectedKupci.IsDeleted = false;
         }
     }
 }

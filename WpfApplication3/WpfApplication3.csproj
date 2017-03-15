@@ -93,8 +93,8 @@
     <Compile Include="kupci.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="KupcisViewModel.cs" />
-    <Compile Include="KupciViewModel.cs" />
+    <Compile Include="ViewModel\KupcisViewModel.cs" />
+    <Compile Include="ViewModel\KupciViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Model1.cs">
       <AutoGen>True</AutoGen>
@@ -107,18 +107,18 @@
     <Compile Include="racuni.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="RacunisViewModel.cs" />
-    <Compile Include="RacuniViewModel.cs" />
+    <Compile Include="ViewModel\RacunisViewModel.cs" />
+    <Compile Include="ViewModel\RacuniViewModel.cs" />
     <Compile Include="revroba.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="RevRobasViewModel.cs" />
-    <Compile Include="RevRobaViewModel.cs" />
+    <Compile Include="ViewModel\RevRobasViewModel.cs" />
+    <Compile Include="ViewModel\RevRobaViewModel.cs" />
     <Compile Include="roba.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="RobasViewModel.cs" />
-    <Compile Include="RobaViewModel.cs" />
+    <Compile Include="ViewModel\RobasViewModel.cs" />
+    <Compile Include="ViewModel\RobaViewModel.cs" />
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

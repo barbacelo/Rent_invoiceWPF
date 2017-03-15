@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
-using System.Linq;
+using GalaSoft.MvvmLight;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
     public class RevRobasViewModel : ViewModelBase
     {

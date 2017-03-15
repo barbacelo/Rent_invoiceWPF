@@ -1,19 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApplication3;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
 
     public class KupciViewModel : ViewModelBase
     {
         public override string ToString()
         {
-            return ime;
+            return Ime;
         }
         private int _idbroj;
         private string _ime;
@@ -26,7 +20,7 @@ namespace WpfApplication3
         private decimal? _saldo;
 
         public bool Changed { get; set; }
-        public int idbroj
+        public int Idbroj
         {
             get { return _idbroj; }
             set
@@ -36,7 +30,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string ime
+        public string Ime
         {
             get { return _ime; }
             set
@@ -46,7 +40,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string jmbg
+        public string Jmbg
         {
             get { return _jmbg; }
             set
@@ -56,7 +50,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string adresa
+        public string Adresa
         {
             get { return _adresa; }
             set
@@ -66,7 +60,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string mesto
+        public string Mesto
         {
             get { return _mesto; }
             set
@@ -76,7 +70,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string telefon
+        public string Telefon
         {
             get { return _telefon; }
             set
@@ -86,7 +80,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal dug
+        public decimal Dug
         {
             get { return _dug; }
             set
@@ -96,7 +90,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal pot
+        public decimal Pot
         {
             get { return _pot; }
             set
@@ -106,7 +100,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal? saldo
+        public decimal? Saldo
         {
             get { return _saldo; }
             set
@@ -127,15 +121,15 @@ namespace WpfApplication3
         {
             _model = k;
 
-            idbroj = k.idbroj;
-            ime = k.ime;
-            jmbg = k.jmbg;
-            adresa = k.adresa;
-            mesto = k.mesto;
-            telefon = k.telefon;
-            dug = k.dug;
-            pot = k.pot;
-            saldo = k.saldo;
+            Idbroj = k.idbroj;
+            Ime = k.ime;
+            Jmbg = k.jmbg;
+            Adresa = k.adresa;
+            Mesto = k.mesto;
+            Telefon = k.telefon;
+            Dug = k.dug;
+            Pot = k.pot;
+            Saldo = k.saldo;
 
             Changed = false;
         }
@@ -143,14 +137,14 @@ namespace WpfApplication3
 
         public kupci GetModel()
         {
-            _model.ime = ime;
-            _model.jmbg = jmbg;
-            _model.adresa = adresa;
-            _model.mesto = mesto;
-            _model.telefon = telefon;
-            _model.dug = dug;
-            _model.pot = pot;
-            _model.saldo = saldo;
+            _model.ime = Ime;
+            _model.jmbg = Jmbg;
+            _model.adresa = Adresa;
+            _model.mesto = Mesto;
+            _model.telefon = Telefon;
+            _model.dug = Dug;
+            _model.pot = Pot;
+            _model.saldo = Saldo;
 
             return _model;
         }

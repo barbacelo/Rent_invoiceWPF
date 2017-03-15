@@ -6,7 +6,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
     public class RobasViewModel : ViewModelBase
     {

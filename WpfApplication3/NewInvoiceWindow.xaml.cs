@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace WpfApplication3
 {
@@ -19,19 +7,18 @@ namespace WpfApplication3
     /// </summary>
     public partial class NewInvoiceWindow
     {        
-        public static NewInvoiceWindow _window { get; set; }
+        public static NewInvoiceWindow Window { get; set; }
 
         public static void ShowSingleWindow()
         {
-            if (_window == null)
+            if (Window == null)
             {
-                _window = new NewInvoiceWindow();
-                _window.Owner = App.Current.MainWindow;
-                _window.Show();
+                Window = new NewInvoiceWindow { Owner = Application.Current.MainWindow };
+                Window.Show();
             }
             else
             {
-                _window.Activate();
+                Window.Activate();
             }
         }
 
@@ -43,7 +30,7 @@ namespace WpfApplication3
 
         private static void NewInvoiceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _window = null;
+            Window = null;
         }
     }
 }

@@ -1,12 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApplication3;
 
-namespace WpfApplication3
+namespace WpfApplication3.ViewModel
 {
 
     public class RobaViewModel : ViewModelBase
@@ -14,7 +8,7 @@ namespace WpfApplication3
 
         public override string ToString()
         {
-            return naziv;
+            return Naziv;
         }
 
         private int _idbroj;
@@ -25,7 +19,7 @@ namespace WpfApplication3
         private decimal _cena;
 
         public bool Changed { get; set; }
-        public int idbroj
+        public int Idbroj
         {
             get { return _idbroj; }
             set
@@ -35,7 +29,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string naziv
+        public string Naziv
         {
             get { return _naziv; }
             set
@@ -45,7 +39,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public string jm
+        public string Jm
         {
             get { return _jm; }
             set
@@ -55,7 +49,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal kol
+        public decimal Kol
         {
             get { return _kol; }
             set
@@ -65,7 +59,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
-        public decimal zaliha
+        public decimal Zaliha
         {
             get { return _zaliha; }
             set
@@ -75,7 +69,7 @@ namespace WpfApplication3
                 Changed = true;
             }
         }        
-        public decimal cena
+        public decimal Cena
         {
             get { return _cena; }
             set
@@ -96,12 +90,12 @@ namespace WpfApplication3
         {
             _model = k;
 
-            idbroj = k.idbroj;
-            naziv = k.naziv;
-            jm = k.jm;
-            kol = k.kol;
-            zaliha = k.zaliha;
-            cena = k.cena;
+            Idbroj = k.idbroj;
+            Naziv = k.naziv;
+            Jm = k.jm;
+            Kol = k.kol;
+            Zaliha = k.zaliha;
+            Cena = k.cena;
 
             Changed = false;
         }
@@ -109,11 +103,11 @@ namespace WpfApplication3
 
         public roba GetModel()
         {
-            _model.naziv = naziv;
-            _model.jm = jm;
-            _model.kol = kol;
-            _model.zaliha = zaliha;
-            _model.cena = cena;
+            _model.naziv = Naziv;
+            _model.jm = Jm;
+            _model.kol = Kol;
+            _model.zaliha = Zaliha;
+            _model.cena = Cena;
 
             return _model;
         }
