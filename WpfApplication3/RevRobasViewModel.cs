@@ -45,10 +45,9 @@ namespace WpfApplication3
         //}
         public ObservableCollection<RevRobaViewModel> RevRobas { get; }
 
-        public RevRobasViewModel(DAL dal, IEnumerable<RobaViewModel> robas)
+        public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)
         {
-            _dal = dal;
-            RevRobas = new ObservableCollection<RevRobaViewModel>(_dal.GetRevRoba().Select(x => new RevRobaViewModel(x, robas)).ToList());
+            RevRobas = new ObservableCollection<RevRobaViewModel>(revrobas);
         }
     }
 }
