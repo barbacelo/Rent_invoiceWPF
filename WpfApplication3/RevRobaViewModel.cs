@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using GalaSoft.MvvmLight;
 
 namespace WpfApplication3
@@ -37,6 +38,15 @@ namespace WpfApplication3
                 Changed = true;
             }
         }
+        public int Brev
+        {
+            get { return _brev; }
+            set
+            {
+                _brev = value;
+                RaisePropertyChanged();
+            }
+        }
         public DateTime datum
         {
             get { return _datum; }
@@ -56,7 +66,7 @@ namespace WpfApplication3
                 RaisePropertyChanged();
                 Changed = true;
             }
-        }        
+        }
         public decimal? utro
         {
             get { return _utro; }
@@ -88,17 +98,19 @@ namespace WpfApplication3
         {
             _model = k;
 
+            Brev = k.brev;
             datum = k.datum;
             Roba = robas.FirstOrDefault(r => r.idbroj == k.idbrojr);
             kolic = k.kolic;
             utro = k.utro;
             cena = k.cena;
 
-            Changed = false;            
+            Changed = false;
         }
 
         public revroba GetModel()
         {
+            _model.brev = Brev;
             _model.datum = datum;
             _model.idbrojr = Roba?.idbroj ?? 0;
             _model.kolic = kolic;
@@ -108,11 +120,13 @@ namespace WpfApplication3
             return _model;
         }
         private bool _isDeleted;
+        private int _brev;
+
         public bool IsDeleted
         {
             get { return _isDeleted; }
             set
-            {              
+            {
                 _isDeleted = value;
                 RaisePropertyChanged();
             }

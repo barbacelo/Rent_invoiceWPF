@@ -17,7 +17,7 @@ namespace WpfApplication3
             Kupcis = new KupcisViewModel(_dal);
             Robas = new RobasViewModel(_dal);
             var revRobas = _dal.GetRevRoba().Select(x => new RevRobaViewModel(x, Robas.Robas));
-            Racunis = new RacunisViewModel(_dal, Kupcis.Kupcis, Robas.Robas, revRobas);
+            Racunis = new RacunisViewModel(_dal, Kupcis.Kupcis, revRobas);
         }
     }
 }

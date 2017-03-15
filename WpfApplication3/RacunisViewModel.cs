@@ -33,10 +33,10 @@ namespace WpfApplication3
 
         public ObservableCollection<RacuniViewModel> Racunis { get; }
 
-        public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RobaViewModel> robas, IEnumerable<RevRobaViewModel> revRobas)
+        public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RevRobaViewModel> revRobas)
         {
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, new RevRobasViewModel(revRobas))).ToList());
+            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
         }
         private bool CanSave()
         {
