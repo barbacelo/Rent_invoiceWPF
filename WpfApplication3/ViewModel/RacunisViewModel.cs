@@ -17,7 +17,7 @@ namespace WpfApplication3.ViewModel
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
         public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
-        public ICommand NewInvoiceCommand => new RelayCommand(NewInvoice, CanNewInvoice);
+        public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
 
         public RacuniViewModel SelectedRacuni
         {
@@ -117,6 +117,7 @@ namespace WpfApplication3.ViewModel
         }
         private void NewInvoice()
         {
+           var NoviRevers = new RacuniViewModel();
             NewInvoiceWindow.ShowSingleWindow();
         }
 

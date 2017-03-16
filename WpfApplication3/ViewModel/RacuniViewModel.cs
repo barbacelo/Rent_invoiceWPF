@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using GalaSoft.MvvmLight;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace WpfApplication3.ViewModel
 {
 
     public class RacuniViewModel : ViewModelBase
     {
+        public ICommand AddInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
+        // public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
+
+        private void AddNewInvoiceLine()
+        {
+            
+        }
+
         private string _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;

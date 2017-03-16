@@ -53,9 +53,9 @@
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
         <TextBox Grid.Row="2" Grid.Column="3"/>
 
-        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2"/>
+        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding NoviRevers.AddInvoiceLineCommand}"/>
 
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding NoviRevers.RevRobas}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400"/>
                 <DataGridTextColumn Header="Količina" Width="*"/>
