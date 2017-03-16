@@ -7,19 +7,20 @@
         xml:lang="sr-Latn-RS"
         xmlns:local="clr-namespace:WpfApplication3"
         mc:Ignorable="d"
-        Title="Novi revers" Height="216.039" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
+        Title="Novi revers" Height="311.075" Width="608.953" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="190"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="158*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Datum"/>
@@ -37,20 +38,33 @@
             </DatePicker.Resources>
         </DatePicker>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Broj Reversa"/>
-        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <Label Grid.Row="0" Grid.Column="2" Content="Naziv artikla"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" IsEditable="True" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Ime kupca"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" IsEditable="True"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True"/>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Naziv robe"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" IsEditable="True"/>
+        <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
+        <TextBox Grid.Row="1" Grid.Column="3"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Cena po danu"/>
-        <TextBox Grid.Row="4" Grid.Column="1"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa"/>
+        <TextBox Grid.Row="2" Grid.Column="1"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Količina"/>
-        <TextBox Grid.Row="5" Grid.Column="1"/>
-        <Button x:Name="UpišiRevers" Content="Upiši Revers" Grid.Row="6" Grid.ColumnSpan="2" Margin="0,0,0,-16"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
+        <TextBox Grid.Row="2" Grid.Column="3"/>
+
+        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2"/>
+
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400"/>
+                <DataGridTextColumn Header="Količina" Width="*"/>
+                <DataGridTextColumn Header="Cena po danu" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+
     </Grid>
 </Window>

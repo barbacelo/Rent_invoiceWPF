@@ -13,7 +13,7 @@ namespace WpfApplication3
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _context.racuni.Load();
+              _context.racuni.Load();
         }
     }
 }
