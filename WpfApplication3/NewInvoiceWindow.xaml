@@ -7,7 +7,7 @@
         xml:lang="sr-Latn-RS"
         xmlns:local="clr-namespace:WpfApplication3"
         mc:Ignorable="d"
-        Title="Novi revers" Height="311.075" Width="608.953" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" >
+        Title="Novi revers" DataContext="{StaticResource MainViewModel}" Height="311.075" Width="608.953" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -39,27 +39,45 @@
         </DatePicker>
 
         <Label Grid.Row="0" Grid.Column="2" Content="Naziv artikla"/>
-        <ComboBox Grid.Row="0" Grid.Column="3" IsEditable="True" Grid.ColumnSpan="2"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Racunis.NoviRevers.RevRobas.Roba}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}">
+            <ComboBox.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
+                    <GradientStop Color="PowderBlue" Offset="0.00" />
+                    <GradientStop Color="White" Offset="0.50" />
+                    <GradientStop Color="White" Offset="0.52" />
+                    <GradientStop Color="LightGray" Offset="1.0" />
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}">
+            <ComboBox.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
+                    <GradientStop Color="PowderBlue" Offset="0.00" />
+                    <GradientStop Color="White" Offset="0.50" />
+                    <GradientStop Color="White" Offset="0.52" />
+                    <GradientStop Color="LightGray" Offset="1.0" />
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
-        <TextBox Grid.Row="1" Grid.Column="3"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.Kolic}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa"/>
         <TextBox Grid.Row="2" Grid.Column="1"/>
 
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
-        <TextBox Grid.Row="2" Grid.Column="3"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.Cena}"/>
 
-        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding NoviRevers.AddInvoiceLineCommand}"/>
+        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddInvoiceLineCommand}"/>
 
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding NoviRevers.RevRobas}">
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Racunis.NoviRevers.RevRobas}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400"/>
-                <DataGridTextColumn Header="Količina" Width="*"/>
-                <DataGridTextColumn Header="Cena po danu" Width="*"/>
+                <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba}"/>
+                <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Kolic}"/>
+                <DataGridTextColumn Header="Cena po danu" Width="*" Binding="{Binding Cena}"/>
             </DataGrid.Columns>
         </DataGrid>
 

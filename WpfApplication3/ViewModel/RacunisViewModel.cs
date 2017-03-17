@@ -19,6 +19,16 @@ namespace WpfApplication3.ViewModel
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
 
+        private RacuniViewModel _noviRevers;
+        public RacuniViewModel NoviRevers
+        {
+            get { return _noviRevers; }
+            set
+            {
+                _noviRevers = value;
+                RaisePropertyChanged();
+            }
+        }
         public RacuniViewModel SelectedRacuni
         {
             get { return _selectedRacuni; }
@@ -117,7 +127,7 @@ namespace WpfApplication3.ViewModel
         }
         private void NewInvoice()
         {
-           var NoviRevers = new RacuniViewModel();
+            NoviRevers = new RacuniViewModel();
             NewInvoiceWindow.ShowSingleWindow();
         }
 
