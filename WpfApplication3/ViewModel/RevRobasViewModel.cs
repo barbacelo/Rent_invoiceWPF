@@ -18,6 +18,17 @@ namespace WpfApplication3.ViewModel
             }
         }
 
+        private RevRobaViewModel _noviRedReversa;
+        public RevRobaViewModel NoviRedReversa
+        {
+            get { return _noviRedReversa; }
+            set
+            {
+                _noviRedReversa = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ObservableCollection<RevRobaViewModel> Items { get; }
 
         public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)

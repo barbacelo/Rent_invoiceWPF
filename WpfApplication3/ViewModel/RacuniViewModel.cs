@@ -10,18 +10,17 @@ namespace WpfApplication3.ViewModel
 
     public class RacuniViewModel : ViewModelBase
     {
-        public ICommand AddInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
+        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
         // public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
 
         private void AddNewInvoiceLine()
         {
-            
+            RevRobas.Items.Add(RevRobas.NoviRedReversa);
         }
 
         private string _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;
-        private RevRobasViewModel _revrobas;
 
         public bool Changed { get; set; }
 
@@ -36,16 +35,7 @@ namespace WpfApplication3.ViewModel
             }
         }
 
-        public RevRobasViewModel RevRobas
-        {
-            get { return _revrobas; }
-            set
-            {
-                _revrobas = value;
-                RaisePropertyChanged();
-                Changed = true;
-            }
-        }
+        public RevRobasViewModel RevRobas { get; }
         public string Brev
         {
             get { return _brev; }
@@ -70,8 +60,9 @@ namespace WpfApplication3.ViewModel
         private readonly racuni _model;
 
         public RacuniViewModel()
-        {
+        {       
             _model = new racuni();
+            RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
         }
 
         public RacuniViewModel(racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
