@@ -42,9 +42,9 @@ namespace WpfApplication3.ViewModel
         public ObservableCollection<RacuniViewModel> Racunis { get; }
 
         public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RevRobaViewModel> revRobas)
-        {
+        {            
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
+            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal,x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
         }
 
         private bool CanSave()
@@ -91,8 +91,8 @@ namespace WpfApplication3.ViewModel
             SelectedRacuni.IsDeleted = true;
         }
         private void Add(DataGrid grid)
-        {
-            var newItem = new RacuniViewModel();
+        {            
+            var newItem = new RacuniViewModel(_dal);
             Racunis.Add(newItem);
 
             int idx;
@@ -127,7 +127,7 @@ namespace WpfApplication3.ViewModel
         }
         private void NewInvoice()
         {
-            NoviRevers = new RacuniViewModel();
+            NoviRevers = new RacuniViewModel(_dal);
             NewInvoiceWindow.ShowSingleWindow();
         }
 

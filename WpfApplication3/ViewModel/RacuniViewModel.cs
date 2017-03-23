@@ -10,12 +10,18 @@ namespace WpfApplication3.ViewModel
 
     public class RacuniViewModel : ViewModelBase
     {
+        private readonly DAL _dal;
         public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
-        // public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
-
+         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
+                        
         private void AddNewInvoiceLine()
-        {
+        {            
             RevRobas.Items.Add(RevRobas.NoviRedReversa);
+        }
+
+        private void AddNewInvoice()
+        {
+            _dal.SaveRacuni(GetModel());
         }
 
         private string _brev;
@@ -34,7 +40,7 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-
+        
         public RevRobasViewModel RevRobas { get; }
         public string Brev
         {
@@ -45,7 +51,7 @@ namespace WpfApplication3.ViewModel
                 RaisePropertyChanged();
                 Changed = true;
             }
-        }
+        }        
         public DateTime Datum
         {
             get { return _datum; }
@@ -59,14 +65,17 @@ namespace WpfApplication3.ViewModel
 
         private readonly racuni _model;
 
-        public RacuniViewModel()
-        {       
+        public RacuniViewModel(DAL dal)
+        {
+            _dal = dal;
+            Datum = DateTime.Now;       
             _model = new racuni();
             RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
         }
-
-        public RacuniViewModel(racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
+        
+        public RacuniViewModel(DAL dal,racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
         {
+            _dal = dal;
             _model = k;
 
             Brev = k.brev;
@@ -76,7 +85,7 @@ namespace WpfApplication3.ViewModel
             RevRobas = revRobas;
 
             Changed = false;
-        }
+        }        
         
         public racuni GetModel()
         {

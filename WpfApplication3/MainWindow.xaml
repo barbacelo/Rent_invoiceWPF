@@ -573,7 +573,7 @@
                 <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" >
+                            <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" IsEditable="True" IsTextSearchEnabled="True">
                                 <ComboBox.Background>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                                         <GradientStop Color="PowderBlue" Offset="0.00" />

@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight;
 namespace WpfApplication3.ViewModel
 {
     public class RevRobasViewModel : ViewModelBase
-    {
+    {        
         private RevRobaViewModel _selectedRevRoba;
 
         public RevRobaViewModel SelectedRevRoba
@@ -28,12 +28,13 @@ namespace WpfApplication3.ViewModel
                 RaisePropertyChanged();
             }
         }
-
+        
         public ObservableCollection<RevRobaViewModel> Items { get; }
 
         public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)
         {
             Items = new ObservableCollection<RevRobaViewModel>(revrobas);
+            NoviRedReversa = new RevRobaViewModel();
         }
     }
 }

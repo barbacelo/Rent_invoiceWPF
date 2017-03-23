@@ -24,7 +24,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Datum"/>
-        <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{x:Static sys:DateTime.Now}" FirstDayOfWeek="Monday" >
+        <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Racunis.NoviRevers.Datum}" FirstDayOfWeek="Monday" >
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="Control.Template">
@@ -39,7 +39,7 @@
         </DatePicker>
 
         <Label Grid.Row="0" Grid.Column="2" Content="Naziv artikla"/>
-        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}">
+        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" IsEditable="True" IsTextSearchEnabled="True">
             <ComboBox.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                     <GradientStop Color="PowderBlue" Offset="0.00" />
@@ -51,7 +51,7 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Racunis.NoviRevers.Kupci,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}">
+        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Racunis.NoviRevers.Kupci,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" IsEditable="True" IsTextSearchEnabled="True">
             <ComboBox.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                     <GradientStop Color="PowderBlue" Offset="0.00" />
@@ -66,14 +66,14 @@
         <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Kolic,Mode=TwoWay}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa"/>
-        <TextBox Grid.Row="2" Grid.Column="1"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="automatski se dodeljuje" IsEnabled="False"/>
 
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
         <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Cena,Mode=TwoWay}"/>
 
-        <Button x:Name="button" Content="Dugmek" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}"/>
+        <Button x:Name="button" Content="Dodaj artikal" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}"/>
 
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}">
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba}"/>
                 <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Kolic}"/>
@@ -81,7 +81,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.NoviRevers.AddNewInvoiceCommand}" />
 
 
     </Grid>
