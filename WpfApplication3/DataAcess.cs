@@ -103,7 +103,7 @@ namespace WpfApplication3
             {
                 var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
 
-                if (racuni.brev == null)
+                if (racuni.brev == 0)
                     racuni.brev = _context.racuni.Where(x => x.datum.Year == racuni.datum.Year).Max(x => x.brev) + 1;
 
                 if (existing == null)

@@ -22,7 +22,7 @@ namespace WpfApplication3
         public Nullable<decimal> utro { get; set; }
         public decimal cena { get; set; }
     
-        public virtual racuni racuni { get; set; }
         public virtual roba roba { get; set; }
+        public virtual racuni racuni { get; set; }
     }
 }

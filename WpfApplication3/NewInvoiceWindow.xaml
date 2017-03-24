@@ -81,7 +81,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.NoviRevers.AddNewInvoiceCommand}" />
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.NoviRevers.AddNewInvoiceCommand}"/>
 
 
     </Grid>

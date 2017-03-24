@@ -22,9 +22,10 @@ namespace WpfApplication3.ViewModel
         private void AddNewInvoice()
         {
             _dal.SaveRacuni(GetModel());
+            _dal.SaveChanges();
         }
 
-        private string _brev;
+        private int _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;
 
@@ -42,7 +43,7 @@ namespace WpfApplication3.ViewModel
         }
         
         public RevRobasViewModel RevRobas { get; }
-        public string Brev
+        public int Brev
         {
             get { return _brev; }
             set

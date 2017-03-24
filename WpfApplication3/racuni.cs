@@ -20,7 +20,7 @@ namespace WpfApplication3
             this.revroba = new ObservableCollection<revroba>();
         }
     
-        public string brev { get; set; }
+        public int brev { get; set; }
         public System.DateTime datum { get; set; }
         public int idbrojk { get; set; }
         public Nullable<int> godina { get; set; }
