@@ -109,7 +109,14 @@ namespace WpfApplication3
                 if (existing == null)
                     _context.racuni.Add(racuni);
                 else
-                    _context.Entry(existing).CurrentValues.SetValues(racuni);
+                    // I think these 2 work
+                    existing.datum = racuni.datum;
+                    existing.idbrojk = racuni.idbrojk;
+                    // Not sure about this
+                    existing.kupci = racuni.kupci;
+                    existing.revroba = racuni.revroba;
+                    existing.idbrojk = racuni.idbrojk;                  
+                  //  _context.Entry(existing).CurrentValues.SetValues(racuni);
 
             }
             catch (DbEntityValidationException dbx)
