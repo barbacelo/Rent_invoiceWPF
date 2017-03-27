@@ -4,6 +4,7 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
 
 namespace WpfApplication3.ViewModel
 {
@@ -15,7 +16,8 @@ namespace WpfApplication3.ViewModel
          public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
                         
         private void AddNewInvoiceLine()
-        {            
+        {
+            RevRobas.NoviRedReversa.Datum = Datum;
             RevRobas.Items.Add(RevRobas.NoviRedReversa);
         }
 
@@ -93,7 +95,14 @@ namespace WpfApplication3.ViewModel
             _model.brev = Brev;
             _model.datum = Datum;            
             _model.idbrojk = Kupci?.Idbroj ?? 0;
+            _model.revroba.Clear();
+            foreach (RevRobaViewModel x in RevRobas.Items)
+            {
+                _model.revroba.Add(x.GetModel());
+            }
+            
 
+            
             return _model;
         }
         private bool _isDeleted;
