@@ -11,7 +11,7 @@ namespace WpfApplication3.ViewModel
         private DateTime _datum;
         private RobaViewModel _roba;
         private decimal? _kolic;
-        private decimal? _utro;
+        private int? _utro;
         private decimal _cena;
         public bool Changed { get; set; }
 
@@ -64,7 +64,7 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-        public decimal? Utro
+        public int? Utro
         {
             get { return _utro; }
             set

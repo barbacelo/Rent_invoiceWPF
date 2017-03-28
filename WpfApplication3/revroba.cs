@@ -19,10 +19,10 @@ namespace WpfApplication3
         public System.DateTime datum { get; set; }
         public int idbrojr { get; set; }
         public Nullable<decimal> kolic { get; set; }
-        public Nullable<decimal> utro { get; set; }
+        public Nullable<int> utro { get; set; }
         public decimal cena { get; set; }
     
-        public virtual roba roba { get; set; }
         public virtual racuni racuni { get; set; }
+        public virtual roba roba { get; set; }
     }
 }

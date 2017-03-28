@@ -88,21 +88,21 @@ namespace WpfApplication3.ViewModel
             RevRobas = revRobas;
 
             Changed = false;
-        }        
-        
+        }
+
         public racuni GetModel()
         {
             _model.brev = Brev;
-            _model.datum = Datum;            
+            _model.datum = Datum;
             _model.idbrojk = Kupci?.Idbroj ?? 0;
-            _model.revroba.Clear();
-            foreach (RevRobaViewModel x in RevRobas.Items)
-            {
-                _model.revroba.Add(x.GetModel());
-            }
-            
 
-            
+            _model.revroba.Clear();
+            foreach (var rr in RevRobas.Items)
+                _model.revroba.Add(rr.GetModel());
+
+            // linq version:
+            // _model.revroba = new ObservableCollection<revroba>(RevRobas.Items.Select(x => x.GetModel()));
+
             return _model;
         }
         private bool _isDeleted;

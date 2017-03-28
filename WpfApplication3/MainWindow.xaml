@@ -546,7 +546,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Brev}"/>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run Text="{Binding Brev, StringFormat=0000 /, Mode=OneWay}"/>                                    
+                                    <Run Text="{Binding Datum, StringFormat=yy, Mode=OneWay}"/>
+                                </TextBlock>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

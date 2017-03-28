@@ -23,7 +23,6 @@ namespace WpfApplication3
         public int brev { get; set; }
         public System.DateTime datum { get; set; }
         public int idbrojk { get; set; }
-        public Nullable<int> godina { get; set; }
         public int pk { get; set; }
     
         public virtual kupci kupci { get; set; }
