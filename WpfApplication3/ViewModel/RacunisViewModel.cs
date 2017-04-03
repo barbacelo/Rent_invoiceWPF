@@ -18,6 +18,7 @@ namespace WpfApplication3.ViewModel
         public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
+        public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
 
         private RacuniViewModel _noviRevers;
         public RacuniViewModel NoviRevers
@@ -45,6 +46,17 @@ namespace WpfApplication3.ViewModel
         {            
             _dal = dal;
             Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal,x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
+        }
+
+        private void AddNewInvoice()
+        {
+            var model = NoviRevers.GetModel();
+            _dal.SaveRacuni(model);
+            NoviRevers.Brev = model.brev;
+            _dal.SaveChanges();
+            
+            Racunis.Add(NoviRevers);
+            NewInvoiceWindow.Window.Close();
         }
 
         private bool CanSave()

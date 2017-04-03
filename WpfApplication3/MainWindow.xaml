@@ -410,7 +410,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="snimiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5">
+                <Button x:Name="snimiRacuni" Height="30" VerticalAlignment="Top" Width="30" Margin="0,0,4,-5" Command="{Binding Racunis.SaveCommand}">
                     <StackPanel>
                         <Image Source="Resources/Save.png">
                             <Image.Style>
@@ -592,7 +592,7 @@
                 <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Obriši promenu"/>
@@ -635,10 +635,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="72">
+                <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Obriši promenu"/>
@@ -657,7 +657,7 @@
                                     </Style>
                                 </DataGrid.CellStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn x:Name="robaColumn" Binding="{Binding Roba}" Width="*"/>
+                                    <DataGridComboBoxColumn SelectedValueBinding="{Binding Roba}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DataTemplate>
@@ -666,7 +666,7 @@
                 <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Obriši promenu"/>
@@ -700,7 +700,7 @@
                 <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="Obriši promenu"/>
@@ -734,7 +734,7 @@
                 <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="viewModel:RacuniViewModel">
-                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="-1,0,-2,-2" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                 <DataGrid.Resources>
                                     <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                         <MenuItem Header="Obriši promenu" />

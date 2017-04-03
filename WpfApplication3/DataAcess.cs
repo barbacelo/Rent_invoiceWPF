@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
@@ -26,6 +27,13 @@ namespace WpfApplication3
         public void DeleteRacuni(racuni racuni)
         {
             var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
+
+            foreach (revroba rr in racuni.revroba.ToArray())
+                if (rr.pk != 0)
+                    _context.revroba.Remove(rr);
+
+
+
 
             if (existing != null)
                 _context.racuni.Remove(racuni);
@@ -100,12 +108,12 @@ namespace WpfApplication3
         public void SaveRacuni(racuni racuni)
         {
             try
-            {
+            {               
                 var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
 
                 if (_context.racuni.Count() == 0)
                     racuni.brev = 1;
-
+                
                 if (racuni.brev == 0)
                     racuni.brev = _context.racuni.Where(x => x.datum.Year == racuni.datum.Year).Max(x => x.brev) + 1;
 
@@ -119,6 +127,7 @@ namespace WpfApplication3
                     //  _context.Entry(existing).CurrentValues.SetValues(racuni);
                 }
                 _context.revroba.AddRange(racuni.revroba);
+                
 
             }
             catch (DbEntityValidationException dbx)

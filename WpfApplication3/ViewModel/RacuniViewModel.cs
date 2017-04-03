@@ -13,25 +13,38 @@ namespace WpfApplication3.ViewModel
     {
         private readonly DAL _dal;
         public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
-         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
                         
         private void AddNewInvoiceLine()
         {
-            RevRobas.NoviRedReversa.Datum = Datum;
-            RevRobas.Items.Add(RevRobas.NoviRedReversa);
-        }
-
-        private void AddNewInvoice()
-        {
-            _dal.SaveRacuni(GetModel());
-            _dal.SaveChanges();
+            var rr = new RevRobaViewModel();
+            rr.Brev = RevRobas.NoviRedReversa.Brev;
+            rr.Cena = RevRobas.NoviRedReversa.Cena;
+            rr.Datum = RevRobas.NoviRedReversa.Datum;
+            rr.Kolic = RevRobas.NoviRedReversa.Kolic;
+            rr.Roba = RevRobas.NoviRedReversa.Roba;
+            rr.Datum = Datum;
+            RevRobas.Items.Add(rr);
+            RevRobas.NoviRedReversa.Brev = 0;
+            RevRobas.NoviRedReversa.Cena = 0;
+            RevRobas.NoviRedReversa.Kolic = null;
+            RevRobas.NoviRedReversa.Roba = null;
         }
 
         private int _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;
-
-        public bool Changed { get; set; }
+        private bool _changed;
+        public bool Changed
+        {
+            get
+            {
+                return _changed || RevRobas.Items.Any(x => x.Changed);
+            }
+            set
+            {
+                _changed = value;
+            }
+        }
 
         public KupciViewModel Kupci
         {

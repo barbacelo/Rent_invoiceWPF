@@ -75,13 +75,13 @@
 
         <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba, Mode=OneTime}"/>
+                <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba}"/>
                 <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Kolic}"/>
                 <DataGridTextColumn Header="Cena po danu" Width="*" Binding="{Binding Cena}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.NoviRevers.AddNewInvoiceCommand}"/>
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.AddNewInvoiceCommand}"/>
 
 
     </Grid>
