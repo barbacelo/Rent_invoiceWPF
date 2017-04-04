@@ -97,6 +97,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="p_get_stock_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="p_get_stock_level2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="reversiModelStoreContainer">
           <EntitySet Name="kupci" EntityType="Self.kupci" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="racuni" EntityType="Self.racuni" Schema="dbo" store:Type="Tables" />
@@ -138,6 +140,8 @@
             <End Role="roba" EntitySet="roba" />
             <End Role="revroba" EntitySet="revroba" />
           </AssociationSet>
+          <FunctionImport Name="p_get_stock_level" ReturnType="Collection(reversiModel.p_get_stock_level_Result)" />
+          <FunctionImport Name="p_get_stock_level2" ReturnType="Collection(reversiModel.p_get_stock_level2_Result)" />
           </EntityContainer>
         <EntityType Name="kupci">
           <Key>
@@ -237,6 +241,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="p_get_stock_level_Result">
+          <Property Type="Int32" Name="idbrojr" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="40" />
+          <Property Type="Decimal" Name="total_stock" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="Decimal" Name="current_stock" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="p_get_stock_level2_Result">
+          <Property Type="Int32" Name="idbroj" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="jm" Nullable="false" MaxLength="3" />
+          <Property Type="Decimal" Name="kol" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="Decimal" Name="zaliha" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="Decimal" Name="cena" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -304,6 +322,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="p_get_stock_level" FunctionName="reversiModel.Store.p_get_stock_level">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="reversiModel.p_get_stock_level_Result">
+                <ScalarProperty Name="idbrojr" ColumnName="idbrojr" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="total_stock" ColumnName="total_stock" />
+                <ScalarProperty Name="current_stock" ColumnName="current_stock" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="p_get_stock_level2" FunctionName="reversiModel.Store.p_get_stock_level2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="reversiModel.p_get_stock_level2_Result">
+                <ScalarProperty Name="idbroj" ColumnName="idbroj" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="jm" ColumnName="jm" />
+                <ScalarProperty Name="kol" ColumnName="kol" />
+                <ScalarProperty Name="zaliha" ColumnName="zaliha" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

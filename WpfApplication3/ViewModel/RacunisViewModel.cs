@@ -53,6 +53,7 @@ namespace WpfApplication3.ViewModel
             var model = NoviRevers.GetModel();
             _dal.SaveRacuni(model);
             NoviRevers.Brev = model.brev;
+           // NoviRevers.RevRobas.NoviRedReversa.
             _dal.SaveChanges();
             
             Racunis.Add(NoviRevers);

@@ -12,6 +12,8 @@ namespace WpfApplication3
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class reversiEntities : DbContext
     {
@@ -30,5 +32,15 @@ namespace WpfApplication3
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<racuni> racuni { get; set; }
         public virtual DbSet<revroba> revroba { get; set; }
+    
+        public virtual ObjectResult<p_get_stock_level_Result> p_get_stock_level()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<p_get_stock_level_Result>("p_get_stock_level");
+        }
+    
+        public virtual ObjectResult<p_get_stock_level2_Result> p_get_stock_level2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<p_get_stock_level2_Result>("p_get_stock_level2");
+        }
     }
 }
