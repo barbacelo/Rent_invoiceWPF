@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
@@ -123,7 +124,7 @@ namespace WpfApplication3
                 {
                     existing.datum = racuni.datum;
                     existing.idbrojk = racuni.idbrojk;
-                    existing.revroba = racuni.revroba;
+                    existing.revroba = racuni.revroba;                    
                     //  _context.Entry(existing).CurrentValues.SetValues(racuni);
                 }
                 _context.revroba.AddRange(racuni.revroba);

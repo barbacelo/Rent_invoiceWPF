@@ -114,6 +114,7 @@ namespace WpfApplication3.ViewModel
             _model.utro = Utro;
             _model.cena = Cena;
 
+
             return _model;
         }
         private bool _isDeleted;
