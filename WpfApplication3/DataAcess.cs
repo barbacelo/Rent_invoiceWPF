@@ -109,8 +109,8 @@ namespace WpfApplication3
         public void SaveRacuni(racuni racuni)
         {
             try
-            {               
-                var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
+            {              
+                var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);              
 
                 if (_context.racuni.Count() == 0)
                     racuni.brev = 1;               
@@ -126,8 +126,24 @@ namespace WpfApplication3
                     existing.idbrojk = racuni.idbrojk;
                     existing.revroba = racuni.revroba;                    
                     //  _context.Entry(existing).CurrentValues.SetValues(racuni);
+                } 
+                foreach (revroba rr in racuni.revroba)
+                {
+                    if (rr.pk == 0)
+                            _context.revroba.Add(rr);
+                    else
+                    {
+                        var existingrevroba = _context.revroba.Find(rr.pk);
+                        existingrevroba.brev = rr.brev;
+                        existingrevroba.pk = rr.pk;
+                        existingrevroba.idbrojr = rr.idbrojr;
+                        existingrevroba.datum = rr.datum;
+                        existingrevroba.cena = rr.cena;
+                        existingrevroba.racuni = rr.racuni;
+                        existingrevroba.utro = rr.utro;
+                    }                                                 
+                        // what here?
                 }
-                _context.revroba.AddRange(racuni.revroba);
                 
 
             }

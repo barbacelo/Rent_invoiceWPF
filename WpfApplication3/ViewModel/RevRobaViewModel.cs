@@ -42,6 +42,7 @@ namespace WpfApplication3.ViewModel
             {
                 _brev = value;
                 RaisePropertyChanged();
+                Changed = true;
             }
         }
         public DateTime Datum

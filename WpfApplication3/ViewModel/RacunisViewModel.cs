@@ -80,6 +80,7 @@ namespace WpfApplication3.ViewModel
                 {
                     _dal.SaveRacuni(k.GetModel());
                     k.Changed = false;
+                    
                 }
             }
             _dal.SaveChanges();

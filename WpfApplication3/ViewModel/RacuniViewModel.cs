@@ -42,6 +42,9 @@ namespace WpfApplication3.ViewModel
             }
             set
             {
+                if (RevRobas != null )
+                foreach (RevRobaViewModel rr in RevRobas.Items)
+                    rr.Changed = false;
                 _changed = value;
             }
         }
