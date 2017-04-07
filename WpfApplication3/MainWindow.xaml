@@ -511,6 +511,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
+                        <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" />
                     </StackPanel>
                     <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,0,-5,0" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="1">
                         <DataGrid.CellStyle>
