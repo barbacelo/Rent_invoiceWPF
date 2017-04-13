@@ -12,8 +12,24 @@ namespace WpfApplication3.ViewModel
     public class RacuniViewModel : ViewModelBase
     {
         private readonly DAL _dal;
-        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
-                        
+        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);        
+
+        public void Save()
+        {
+            if (IsDeleted)
+            {
+                _dal.DeleteRacuni(GetModel());
+            }
+            else
+            {                                        
+                _dal.SaveRacuni(GetModel());
+                foreach (RevRobaViewModel r in RevRobas.Items)
+                {
+                    r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
+                    Changed = false;
+                }                    
+            }
+        }                
         private void AddNewInvoiceLine()
         {
             var rr = new RevRobaViewModel();

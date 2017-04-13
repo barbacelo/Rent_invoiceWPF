@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
@@ -33,15 +34,16 @@ namespace WpfApplication3
                 if (rr.pk != 0)
                     _context.revroba.Remove(rr);
 
-
-
-
             if (existing != null)
                 _context.racuni.Remove(racuni);
         }
 
         private readonly reversiEntities _context = new reversiEntities();
 
+        public decimal GetStockLevel(int id)
+        {
+            return _context.Database.SqlQuery<decimal>(@"SELECT zaliha FROM roba WHERE idbroj = @p0", id).Single();
+        }
         public List<racuni> GetRacuni()
         {
             return _context.Set<racuni>().ToList();
@@ -127,7 +129,7 @@ namespace WpfApplication3
                     existing.revroba = racuni.revroba;                    
                     //  _context.Entry(existing).CurrentValues.SetValues(racuni);
                 } 
-                foreach (revroba rr in racuni.revroba)
+                foreach (revroba rr in racuni.revroba.ToArray())
                 {
                     if (rr.pk == 0)
                             _context.revroba.Add(rr);
@@ -140,9 +142,9 @@ namespace WpfApplication3
                         existingrevroba.datum = rr.datum;
                         existingrevroba.cena = rr.cena;
                         existingrevroba.racuni = rr.racuni;
-                        existingrevroba.utro = rr.utro;
-                    }                                                 
-                        // what here?
+                        existingrevroba.utro = rr.utro;                       
+                    }
+                    SaveChanges();
                 }
                 
 

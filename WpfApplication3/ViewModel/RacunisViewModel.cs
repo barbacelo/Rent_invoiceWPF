@@ -57,6 +57,7 @@ namespace WpfApplication3.ViewModel
             _dal.SaveChanges();
             
             Racunis.Add(NoviRevers);
+            NoviRevers.Changed = false;
             NewInvoiceWindow.Window.Close();
         }
 
@@ -69,23 +70,12 @@ namespace WpfApplication3.ViewModel
         {
             var deleted = new List<RacuniViewModel>();
 
-            foreach (var k in Racunis.Where(x => x.Changed || x.IsDeleted))
+            foreach (var k in Racunis.Where(x => x.Changed || x.IsDeleted).ToArray())
             {
-                if (k.IsDeleted)
-                {
-                    deleted.Add(k);
-                    _dal.DeleteRacuni(k.GetModel());
-                }
-                else
-                {
-                    _dal.SaveRacuni(k.GetModel());
-                    k.Changed = false;
-                    
-                }
-            }
-            _dal.SaveChanges();
-            foreach (var d in deleted)
-                Racunis.Remove(d);
+                k.Save();
+                if (k.IsDeleted == true)
+                    Racunis.Remove(k);
+            }                        
         }
         private bool CanDelete()
         {
