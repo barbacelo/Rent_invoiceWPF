@@ -28,7 +28,7 @@ namespace WpfApplication3
 
         public void DeleteRacuni(racuni racuni)
         {
-            var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
+            var existing = _context.racuni.FirstOrDefault(x => x.pk == racuni.pk);
 
             foreach (var rr in racuni.revroba.ToArray())
                 if (rr.pk != 0)

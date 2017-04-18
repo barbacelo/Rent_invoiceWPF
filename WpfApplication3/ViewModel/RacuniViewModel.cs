@@ -116,10 +116,14 @@ namespace WpfApplication3.ViewModel
 
         public void Save()
         {
+            var model = GetModel();
+
             if (IsDeleted)
-                _dal.DeleteRacuni(GetModel());
+                _dal.DeleteRacuni(model);
             else
-                _dal.SaveRacuni(GetModel());
+                _dal.SaveRacuni(model);
+
+            Brev = model.brev;
 
             _dal.UpdateStockLevels();
 
