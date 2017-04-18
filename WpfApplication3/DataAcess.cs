@@ -36,6 +36,8 @@ namespace WpfApplication3
 
             if (existing != null)
                 _context.racuni.Remove(racuni);
+
+            _context.Database.SqlQuery<int>("p_get_stock_level2");
         }
 
         private readonly reversiEntities _context = new reversiEntities();

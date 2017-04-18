@@ -75,7 +75,8 @@ namespace WpfApplication3.ViewModel
                 k.Save();
                 if (k.IsDeleted == true)
                     Racunis.Remove(k);
-            }                        
+            }
+            _dal.SaveChanges();                        
         }
         private bool CanDelete()
         {
