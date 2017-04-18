@@ -126,8 +126,9 @@ namespace WpfApplication3.ViewModel
             foreach (var r in RevRobas.Items)
             {
                 r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
-                Changed = false;
             }
+
+            Changed = false;
         }
 
         public racuni GetModel()
