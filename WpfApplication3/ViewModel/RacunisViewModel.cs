@@ -50,14 +50,9 @@ namespace WpfApplication3.ViewModel
 
         private void AddNewInvoice()
         {
-            var model = NoviRevers.GetModel();
-            _dal.SaveRacuni(model);
-            NoviRevers.Brev = model.brev;
-           // NoviRevers.RevRobas.NoviRedReversa.
-            _dal.SaveChanges();
-            
+            NoviRevers.Save();
             Racunis.Add(NoviRevers);
-            NoviRevers.Changed = false;
+
             NewInvoiceWindow.Window.Close();
         }
 

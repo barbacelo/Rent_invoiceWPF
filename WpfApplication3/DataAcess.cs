@@ -112,16 +112,16 @@ namespace WpfApplication3
             {              
                 var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);              
 
-                if (!_context.racuni.Any())
-                    racuni.brev = 1;               
-
-                if (racuni.brev == 0)
-                    racuni.brev = _context.racuni.Where(x => x.datum.Year == racuni.datum.Year).Max(x => x.brev) + 1;
+                SetRacuniBrev(racuni);
 
                 if (existing == null) // <-- the invoice doesnt exist
                     _context.racuni.Add(racuni);
                 else
-                    existing.Load(racuni);
+                {
+                    existing.datum = racuni.datum;
+                    existing.idbrojk = racuni.idbrojk;
+                    existing.revroba = racuni.revroba;
+                }
 
                 foreach (var rr in racuni.revroba.ToArray())
                     SaveRevRoba(rr);
@@ -139,29 +139,43 @@ namespace WpfApplication3
             }
         }
 
+        private void SetRacuniBrev(racuni racuni)
+        {
+            if (!_context.racuni.Any())
+                racuni.brev = 1;
+
+            if (racuni.brev == 0)
+                racuni.brev = _context.racuni.Where(x => x.datum.Year == racuni.datum.Year).Max(x => x.brev) + 1;
+        }
+
         private void SaveRevRoba(revroba rr)
         {
-            var existingrevroba = _context.revroba.Find(rr.pk);
-
-            if (rr.pk == 0 || existingrevroba == null)
+            if (rr.pk == 0)
             {
                 _context.revroba.Add(rr);
             }
             else
             {
-                existingrevroba.brev    = rr.brev;
-                existingrevroba.pk      = rr.pk;
-                existingrevroba.idbrojr = rr.idbrojr;
-                existingrevroba.datum   = rr.datum;
-                existingrevroba.cena    = rr.cena;
-                existingrevroba.racuni  = rr.racuni;
-                existingrevroba.utro    = rr.utro;
+                var existingrevroba = _context.revroba.Find(rr.pk);
+
+                if (existingrevroba == null)
+                    _context.revroba.Add(rr);
+                else
+                {
+                    existingrevroba.brev = rr.brev;
+                    existingrevroba.pk = rr.pk;
+                    existingrevroba.idbrojr = rr.idbrojr;
+                    existingrevroba.datum = rr.datum;
+                    existingrevroba.cena = rr.cena;
+                    existingrevroba.racuni = rr.racuni;
+                    existingrevroba.utro = rr.utro;
+                }
             }
         }
 
         public void UpdateStockLevels()
         {
-            _context.Database.SqlQuery<int>("p_get_stock_level2");
+            _context.Database.ExecuteSqlCommand("EXEC dbo.p_get_stock_level2");
         }
 
         public decimal GetStockLevel(int id)
