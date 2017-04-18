@@ -28,5 +28,12 @@ namespace WpfApplication3
         public virtual kupci kupci { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ObservableCollection<revroba> revroba { get; set; }
+
+        public void Load(racuni copyFrom)
+        {
+            datum = copyFrom.datum;
+            idbrojk = copyFrom.idbrojk;
+            revroba = copyFrom.revroba;
+        }
     }
 }

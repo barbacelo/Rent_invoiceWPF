@@ -68,15 +68,13 @@ namespace WpfApplication3.ViewModel
 
         private void Save()
         {
-            var deleted = new List<RacuniViewModel>();
-
-            foreach (var k in Racunis.Where(x => x.Changed || x.IsDeleted).ToArray())
+            foreach (var racuni in Racunis.Where(x => x.Changed || x.IsDeleted).ToArray())
             {
-                k.Save();
-                if (k.IsDeleted == true)
-                    Racunis.Remove(k);
-            }
-            _dal.SaveChanges();                        
+                racuni.Save();
+
+                if (racuni.IsDeleted)
+                    Racunis.Remove(racuni);
+            }                     
         }
         private bool CanDelete()
         {

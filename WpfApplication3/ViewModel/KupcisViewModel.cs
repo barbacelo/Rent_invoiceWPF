@@ -39,7 +39,6 @@ namespace WpfApplication3.ViewModel
         {
            return Kupcis.Any(x => x.Changed || x.IsDeleted);
         }
-
         private void Save()
         {
             var deleted = new List<KupciViewModel>();
@@ -57,10 +56,13 @@ namespace WpfApplication3.ViewModel
                     k.Changed = false;
                 }
             }
+
             _dal.SaveChanges();
+
             foreach (var d in deleted)
                 Kupcis.Remove(d);
         }
+
         private bool CanDelete()
         {
             if (SelectedKupci == null)
@@ -78,6 +80,24 @@ namespace WpfApplication3.ViewModel
 
             SelectedKupci.IsDeleted = true;
         }
+
+        private bool CanUndo()
+        {
+            if (SelectedKupci == null)
+                return false;
+
+            if (SelectedKupci.IsDeleted)
+                return true;
+
+            return false;
+        }
+        private void Undo()
+        {
+            if (SelectedKupci == null)
+                return;
+            SelectedKupci.IsDeleted = false;
+        }
+
         private void Add(DataGrid grid)
         {
             var newItem = new KupciViewModel();
@@ -96,22 +116,6 @@ namespace WpfApplication3.ViewModel
             grid.CurrentCell = new DataGridCellInfo(grid.Items[idx], grid.Columns[0]);
             grid.BeginEdit();
             grid.SelectionUnit = DataGridSelectionUnit.FullRow;
-        }
-        private bool CanUndo()
-        {
-            if (SelectedKupci == null)
-                return false;
-
-            if (SelectedKupci.IsDeleted)
-                return true;
-
-            return false;
-        }
-        private void Undo()
-        {
-            if (SelectedKupci == null)
-                return;
-            SelectedKupci.IsDeleted = false;
         }
     }
 }

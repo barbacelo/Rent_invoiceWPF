@@ -4,52 +4,22 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.ObjectModel;
 
 namespace WpfApplication3.ViewModel
 {
-
     public class RacuniViewModel : ViewModelBase
     {
         private readonly DAL _dal;
-        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);        
-
-        public void Save()
-        {
-            if (IsDeleted)
-            {
-                _dal.DeleteRacuni(GetModel());
-            }
-            else
-            {                                        
-                _dal.SaveRacuni(GetModel());
-                foreach (RevRobaViewModel r in RevRobas.Items)
-                {
-                    r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
-                    Changed = false;
-                }                    
-            }
-        }                
-        private void AddNewInvoiceLine()
-        {
-            var rr = new RevRobaViewModel();
-            rr.Brev = RevRobas.NoviRedReversa.Brev;
-            rr.Cena = RevRobas.NoviRedReversa.Cena;
-            rr.Datum = RevRobas.NoviRedReversa.Datum;
-            rr.Kolic = RevRobas.NoviRedReversa.Kolic;
-            rr.Roba = RevRobas.NoviRedReversa.Roba;
-            rr.Datum = Datum;
-            RevRobas.Items.Add(rr);
-            RevRobas.NoviRedReversa.Brev = 0;
-            RevRobas.NoviRedReversa.Cena = 0;
-            RevRobas.NoviRedReversa.Kolic = null;
-            RevRobas.NoviRedReversa.Roba = null;
-        }
+        private readonly racuni _model;
 
         private int _brev;
         private DateTime _datum;
         private KupciViewModel _kupci;
         private bool _changed;
+        private bool _isDeleted;
+
+        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
+
         public bool Changed
         {
             get
@@ -58,13 +28,12 @@ namespace WpfApplication3.ViewModel
             }
             set
             {
-                if (RevRobas != null )
-                foreach (RevRobaViewModel rr in RevRobas.Items)
-                    rr.Changed = false;
+                if (RevRobas != null)
+                    foreach (var rr in RevRobas.Items)
+                        rr.Changed = false;
                 _changed = value;
             }
         }
-
         public KupciViewModel Kupci
         {
             get { return _kupci; }
@@ -75,7 +44,6 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-        
         public RevRobasViewModel RevRobas { get; }
         public int Brev
         {
@@ -86,7 +54,7 @@ namespace WpfApplication3.ViewModel
                 RaisePropertyChanged();
                 Changed = true;
             }
-        }        
+        }
         public DateTime Datum
         {
             get { return _datum; }
@@ -97,18 +65,27 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-
-        private readonly racuni _model;
+        public bool IsDeleted
+        {
+            get { return _isDeleted; }
+            set
+            {
+                foreach (var rr in RevRobas.Items)
+                    rr.IsDeleted = value;
+                _isDeleted = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public RacuniViewModel(DAL dal)
         {
             _dal = dal;
-            Datum = DateTime.Now;       
+            Datum = DateTime.Now;
             _model = new racuni();
             RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
         }
-        
-        public RacuniViewModel(DAL dal,racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
+
+        public RacuniViewModel(DAL dal, racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
         {
             _dal = dal;
             _model = k;
@@ -120,6 +97,37 @@ namespace WpfApplication3.ViewModel
             RevRobas = revRobas;
 
             Changed = false;
+        }
+
+        private void AddNewInvoiceLine()
+        {
+            var rr = new RevRobaViewModel
+            {
+                Brev = RevRobas.NoviRedReversa.Brev,
+                Cena = RevRobas.NoviRedReversa.Cena,
+                Kolic = RevRobas.NoviRedReversa.Kolic,
+                Roba = RevRobas.NoviRedReversa.Roba,
+                Datum = Datum
+            };
+
+            RevRobas.Items.Add(rr);
+            RevRobas.NoviRedReversa.Clear();
+        }
+
+        public void Save()
+        {
+            if (IsDeleted)
+                _dal.DeleteRacuni(GetModel());
+            else
+                _dal.SaveRacuni(GetModel());
+
+            _dal.UpdateStockLevels();
+
+            foreach (var r in RevRobas.Items)
+            {
+                r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
+                Changed = false;
+            }
         }
 
         public racuni GetModel()
@@ -136,18 +144,6 @@ namespace WpfApplication3.ViewModel
             // _model.revroba = new ObservableCollection<revroba>(RevRobas.Items.Select(x => x.GetModel()));
 
             return _model;
-        }
-        private bool _isDeleted;
-        public bool IsDeleted
-        {
-            get { return _isDeleted; }
-            set
-            {
-                foreach (var rr in RevRobas.Items)
-                    rr.IsDeleted = value;
-                _isDeleted = value;
-                RaisePropertyChanged();
-            }
         }
     }
 }

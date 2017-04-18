@@ -131,5 +131,12 @@ namespace WpfApplication3.ViewModel
             }
         }
 
+        public void Clear()
+        {
+            Brev = 0;
+            Cena = 0;
+            Kolic = null;
+            Roba = null;
+        }
     }
 }

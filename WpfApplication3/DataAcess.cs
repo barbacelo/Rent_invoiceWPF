@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
@@ -11,6 +8,8 @@ namespace WpfApplication3
 {
     public class DAL
     {
+        private readonly reversiEntities _context = new reversiEntities();
+
         public void Delete(kupci kupci)
         {
             var existing = _context.kupci.FirstOrDefault(x => x.idbroj == kupci.idbroj);
@@ -18,6 +17,7 @@ namespace WpfApplication3
             if (existing != null)
                 _context.kupci.Remove(kupci);
         }
+
         public void DeleteRoba(roba roba)
         {
             var existing = _context.roba.FirstOrDefault(x => x.idbroj == roba.idbroj);
@@ -30,42 +30,36 @@ namespace WpfApplication3
         {
             var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);
 
-            foreach (revroba rr in racuni.revroba.ToArray())
+            foreach (var rr in racuni.revroba.ToArray())
                 if (rr.pk != 0)
                     _context.revroba.Remove(rr);
 
             if (existing != null)
                 _context.racuni.Remove(racuni);
 
-            _context.Database.SqlQuery<int>("p_get_stock_level2");
+            SaveChanges();
         }
 
-        private readonly reversiEntities _context = new reversiEntities();
-
-        public decimal GetStockLevel(int id)
-        {
-            return _context.Database.SqlQuery<decimal>(@"SELECT zaliha FROM roba WHERE idbroj = @p0", id).Single();
-        }
         public List<racuni> GetRacuni()
         {
             return _context.Set<racuni>().ToList();
         }
+
         public List<kupci> GetKupci()
         {
             return _context.Set<kupci>().ToList();
         }
+
         public List<roba> GetRoba()
         {
             return _context.Set<roba>().ToList();
         }
+
         public List<revroba> GetRevRoba()
         {
             return _context.Set<revroba>().ToList();
         }
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
+
         public void SaveKupci(kupci kupci)
         {
             try
@@ -88,6 +82,7 @@ namespace WpfApplication3
                 MessageBox.Show(ex.Message);
             }
         }
+
         public void SaveRoba(roba roba)
         {
             try
@@ -110,13 +105,14 @@ namespace WpfApplication3
                 MessageBox.Show(ex.Message);
             }
         }
+
         public void SaveRacuni(racuni racuni)
         {
             try
             {              
                 var existing = _context.racuni.FirstOrDefault(x => x.brev == racuni.brev);              
 
-                if (_context.racuni.Count() == 0)
+                if (!_context.racuni.Any())
                     racuni.brev = 1;               
 
                 if (racuni.brev == 0)
@@ -125,31 +121,12 @@ namespace WpfApplication3
                 if (existing == null) // <-- the invoice doesnt exist
                     _context.racuni.Add(racuni);
                 else
-                {
-                    existing.datum = racuni.datum;
-                    existing.idbrojk = racuni.idbrojk;
-                    existing.revroba = racuni.revroba;                    
-                    //  _context.Entry(existing).CurrentValues.SetValues(racuni);
-                } 
-                foreach (revroba rr in racuni.revroba.ToArray())
-                {
-                    if (rr.pk == 0)
-                            _context.revroba.Add(rr);
-                    else
-                    {
-                        var existingrevroba = _context.revroba.Find(rr.pk);
-                        existingrevroba.brev = rr.brev;
-                        existingrevroba.pk = rr.pk;
-                        existingrevroba.idbrojr = rr.idbrojr;
-                        existingrevroba.datum = rr.datum;
-                        existingrevroba.cena = rr.cena;
-                        existingrevroba.racuni = rr.racuni;
-                        existingrevroba.utro = rr.utro;                       
-                    }
-                    SaveChanges();
-                }
-                
+                    existing.Load(racuni);
 
+                foreach (var rr in racuni.revroba.ToArray())
+                    SaveRevRoba(rr);
+
+                SaveChanges();
             }
             catch (DbEntityValidationException dbx)
             {
@@ -160,6 +137,41 @@ namespace WpfApplication3
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void SaveRevRoba(revroba rr)
+        {
+            var existingrevroba = _context.revroba.Find(rr.pk);
+
+            if (rr.pk == 0 || existingrevroba == null)
+            {
+                _context.revroba.Add(rr);
+            }
+            else
+            {
+                existingrevroba.brev    = rr.brev;
+                existingrevroba.pk      = rr.pk;
+                existingrevroba.idbrojr = rr.idbrojr;
+                existingrevroba.datum   = rr.datum;
+                existingrevroba.cena    = rr.cena;
+                existingrevroba.racuni  = rr.racuni;
+                existingrevroba.utro    = rr.utro;
+            }
+        }
+
+        public void UpdateStockLevels()
+        {
+            _context.Database.SqlQuery<int>("p_get_stock_level2");
+        }
+
+        public decimal GetStockLevel(int id)
+        {
+            return _context.Database.SqlQuery<decimal>(@"SELECT zaliha FROM roba WHERE idbroj = @p0", id).Single();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }
