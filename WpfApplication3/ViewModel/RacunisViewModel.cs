@@ -14,11 +14,12 @@ namespace WpfApplication3.ViewModel
         private RacuniViewModel _selectedRacuni;
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
-        public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
+        public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);        
         public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
+        public ICommand EditInvoiceWindowCommand => new RelayCommand(EditInvoice, CanEditInvoice);
 
         private RacuniViewModel _noviRevers;
         public RacuniViewModel NoviRevers
@@ -87,7 +88,7 @@ namespace WpfApplication3.ViewModel
                 return;
 
             SelectedRacuni.IsDeleted = true;
-        }
+        }        
         private void Add(DataGrid grid)
         {            
             var newItem = new RacuniViewModel(_dal);
@@ -134,6 +135,18 @@ namespace WpfApplication3.ViewModel
             if (NewInvoiceWindow.Window == null)
                 return true;
 
+            return false;
+        }
+        private void EditInvoice()
+        {
+            EditInvoiceWindow.ShowSingleWindow(SelectedRacuni);
+        }
+
+        private bool CanEditInvoice()
+        {
+            if (SelectedRacuni != null & EditInvoiceWindow.Window == null)
+                    return true;
+           
             return false;
         }
     }

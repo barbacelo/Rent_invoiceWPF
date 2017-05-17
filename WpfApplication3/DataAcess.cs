@@ -163,7 +163,6 @@ namespace WpfApplication3
                 else
                 {
                     existingrevroba.brev = rr.brev;
-                    existingrevroba.pk = rr.pk;
                     existingrevroba.idbrojr = rr.idbrojr;
                     existingrevroba.datum = rr.datum;
                     existingrevroba.cena = rr.cena;

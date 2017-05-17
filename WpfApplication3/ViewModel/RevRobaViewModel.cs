@@ -96,6 +96,7 @@ namespace WpfApplication3.ViewModel
         {
             _model = k;
 
+            Pk = k.pk;
             Brev = k.brev;
             Datum = k.datum;
             Roba = robas.FirstOrDefault(r => r.Idbroj == k.idbrojr);
@@ -114,7 +115,7 @@ namespace WpfApplication3.ViewModel
             _model.kolic = Kolic;
             _model.utro = Utro;
             _model.cena = Cena;
-
+            _model.pk = Pk;
 
             return _model;
         }

@@ -16,8 +16,8 @@ namespace WpfApplication3.ViewModel
         private DateTime _datum;
         private KupciViewModel _kupci;
         private bool _changed;
-        private bool _isDeleted;
-
+        private bool _isDeleted;  
+            
         public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
 
         public bool Changed
@@ -60,7 +60,10 @@ namespace WpfApplication3.ViewModel
             get { return _datum; }
             set
             {
+                if (_datum == value)
+                    return;
                 _datum = value;
+                RevRobas.NoviRedReversa.Datum = _datum;
                 RaisePropertyChanged();
                 Changed = true;
             }
@@ -80,9 +83,10 @@ namespace WpfApplication3.ViewModel
         public RacuniViewModel(DAL dal)
         {
             _dal = dal;
+            RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
             Datum = DateTime.Now;
             _model = new racuni();
-            RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
+            
         }
 
         public RacuniViewModel(DAL dal, racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
@@ -91,10 +95,11 @@ namespace WpfApplication3.ViewModel
             _model = k;
 
             Brev = k.brev;
+            RevRobas = revRobas;
             Datum = k.datum;
             Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.idbrojk);
 
-            RevRobas = revRobas;
+
 
             Changed = false;
         }
@@ -107,12 +112,12 @@ namespace WpfApplication3.ViewModel
                 Cena = RevRobas.NoviRedReversa.Cena,
                 Kolic = RevRobas.NoviRedReversa.Kolic,
                 Roba = RevRobas.NoviRedReversa.Roba,
-                Datum = Datum
+                Datum = RevRobas.NoviRedReversa.Datum
             };
 
             RevRobas.Items.Add(rr);
             RevRobas.NoviRedReversa.Clear();
-        }
+        }        
 
         public void Save()
         {

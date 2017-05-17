@@ -1,0 +1,142 @@
+﻿<Window x:Class="WpfApplication3.EditInvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xml:lang="sr-Latn-RS"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Novi revers" Height="311.075" Width="877.917" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="219*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="126*"/>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="229*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Fill="#D3D3D3"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Datum reversa:"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Editable.Datum, StringFormat=dd.MM.yyyy}" Height="16" Margin="0,5" Grid.ColumnSpan="2"/>
+
+
+        <Label Grid.Row="0" Grid.Column="3" Content="Naziv artikla"/>
+        <ComboBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" SelectedItem="{Binding Newrevroba.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" IsEditable="True" IsTextSearchEnabled="True">
+            <ComboBox.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
+                    <GradientStop Color="PowderBlue" Offset="0.00" />
+                    <GradientStop Color="White" Offset="0.50" />
+                    <GradientStop Color="White" Offset="0.52" />
+                    <GradientStop Color="LightGray" Offset="1.0" />
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca:"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Editable.Kupci}" Height="16" Margin="0,5" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="1" Grid.Column="3" Content="Količina"/>
+        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Newrevroba.Kolic,Mode=TwoWay}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa:"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" IsEnabled="False" VerticalAlignment="Center" Height="16" Margin="0,5" Grid.ColumnSpan="2"> <Run Text="{Binding Editable.Brev, Mode=OneWay, StringFormat=0000 /}"/><Run Text=" "/><Run Text="{Binding Editable.Datum, Mode=OneWay, StringFormat=yy}"/></TextBlock>
+
+        <Label Grid.Row="2" Grid.Column="3" Content="Cena po danu"/>
+        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding Newrevroba.Cena,Mode=TwoWay}"/>
+
+        <Label Grid.Row="3" Grid.Column="3" Content="Datum"/>
+        <DatePicker Grid.Row="3" Grid.Column="4" SelectedDate="{Binding Newrevroba.Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
+            <DatePicker.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd.MM.yyyy}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+
+        <Button x:Name="button" Content="Dodaj artikal" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="3" Command="{Binding AddInvoiceLineCommand}"/>
+
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding InvoiceLineSummary}" CanUserAddRows="False" HeadersVisibility="Column" CanUserResizeColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Obriši" Width="42" MinWidth="42" MaxWidth="42">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding RemoveInvoiceLineCommand}">
+                                <Viewbox Width="15" Height="15">
+                                    <Rectangle Width="24" Height="24">
+                                        <Rectangle.Fill>
+                                            <DrawingBrush>
+                                                <DrawingBrush.Drawing>
+                                                    <DrawingGroup>
+                                                        <DrawingGroup.Children>
+                                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M4.2075,22.0596C3.3455,22.0596 2.4965,21.7336 1.9375,21.1866 1.3455,20.6136 1.0025,19.8076 0.999499999999999,18.9786 0.9985,18.1546 1.3305,17.3736 1.9365,16.7816L8.6015,10.8196 3.5575,6.3116C2.9185,5.6856 2.5855,4.9046 2.5885,4.0806 2.5905,3.2516 2.9335,2.4456 3.5275,1.8686 4.0845,1.3256 4.9325,0.999600000000001 5.7945,0.999600000000001 6.6805,0.999600000000001 7.4615,1.3246 7.9965,1.9146L12.5065,7.3286 19.5835,0.999600000000001 23.1945,0.999600000000001 15.2145,10.5786 24.7845,22.0586 21.1725,22.0586 12.2745,14.1036 6.4345,21.1126C5.8745,21.7336,5.0935,22.0596,4.2075,22.0596" />
+                                                            <GeometryDrawing Brush="#FFA1250C" Geometry="F1M4.2241,5.5659C3.3011,4.6599 3.4551,3.3329 4.2241,2.5859 4.9681,1.8599 6.4981,1.7509 7.2551,2.5859L12.4011,8.7639 19.9661,1.9999 21.0591,1.9999 13.9131,10.5779 22.6481,21.0589 21.5551,21.0589 12.1691,12.6679 5.6661,20.4719C4.9101,21.3109 3.3791,21.1969 2.6361,20.4719 1.8671,19.7269 1.7131,18.3989 2.6361,17.4959L10.1011,10.8199z" />
+                                                        </DrawingGroup.Children>
+                                                    </DrawingGroup>
+                                                </DrawingBrush.Drawing>
+                                            </DrawingBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Viewbox>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Datum" Width="*" MinWidth="65" Binding="{Binding Datum, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn Header="Naziv artikla" Width="300" MinWidth="190" Binding="{Binding Roba}"/>
+                <DataGridTextColumn Header="Količina zadužena" Width="*" MinWidth="105" Binding="{Binding Kolic}"/>
+                <DataGridTextColumn Header="Količina razdužena" Width="*" MinWidth="110"/>
+                <DataGridTextColumn Header="Broj dana" Width="*" MinWidth="62" Binding="{Binding Utro}"/>
+                <DataGridTextColumn Header="Cena po danu" Width="*" MinWidth="87" Binding="{Binding Cena}"/>
+                <DataGridTemplateColumn Header="Razduži artikal" Width="*" MinWidth="88">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Razduži sve artikle" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"/>
+        <Button x:Name="stampaReversa" ToolTip="Štampa reversa" Grid.Column="2" Grid.Row="3">
+            <Viewbox Width="23" Height="22">
+                <Rectangle Width="16" Height="16">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,0.999700000000001L1.9998,5.0007 -0.000199999999999978,5.0007 -0.000199999999999978,13.0007 2.9998,13.0007 2.9998,14.9997 12.9998,14.9997 12.9998,13.0007 15.9998,13.0007 15.9998,5.0007 14.0008,5.0007 14.0008,0.999700000000001z" />
+                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
+                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
+                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
+                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M5,13L11,13 11,11 5,11z" />
+                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,6L12,6 12,3 4,3z" />
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Viewbox>
+        </Button>
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding SaveEditedInvoiceCommand}"/>
+
+
+    </Grid>
+</Window>
