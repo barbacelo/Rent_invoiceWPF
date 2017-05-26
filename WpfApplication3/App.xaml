@@ -3,6 +3,7 @@
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WpfApplication3.ViewModel" />
             <local:MainViewModel x:Key="MainViewModel" />
+            
             <Style
         x:Key="ButtonFocusVisual">
                 <Setter
@@ -14,6 +15,42 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Viewbox x:Key="Deleteicon" Width="15" Height="15" x:Shared="false">
+                <Rectangle Width="24" Height="24">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M4.2075,22.0596C3.3455,22.0596 2.4965,21.7336 1.9375,21.1866 1.3455,20.6136 1.0025,19.8076 0.999499999999999,18.9786 0.9985,18.1546 1.3305,17.3736 1.9365,16.7816L8.6015,10.8196 3.5575,6.3116C2.9185,5.6856 2.5855,4.9046 2.5885,4.0806 2.5905,3.2516 2.9335,2.4456 3.5275,1.8686 4.0845,1.3256 4.9325,0.999600000000001 5.7945,0.999600000000001 6.6805,0.999600000000001 7.4615,1.3246 7.9965,1.9146L12.5065,7.3286 19.5835,0.999600000000001 23.1945,0.999600000000001 15.2145,10.5786 24.7845,22.0586 21.1725,22.0586 12.2745,14.1036 6.4345,21.1126C5.8745,21.7336,5.0935,22.0596,4.2075,22.0596" />
+                                        <GeometryDrawing Brush="#FFA1250C" Geometry="F1M4.2241,5.5659C3.3011,4.6599 3.4551,3.3329 4.2241,2.5859 4.9681,1.8599 6.4981,1.7509 7.2551,2.5859L12.4011,8.7639 19.9661,1.9999 21.0591,1.9999 13.9131,10.5779 22.6481,21.0589 21.5551,21.0589 12.1691,12.6679 5.6661,20.4719C4.9101,21.3109 3.3791,21.1969 2.6361,20.4719 1.8671,19.7269 1.7131,18.3989 2.6361,17.4959L10.1011,10.8199z" />
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Viewbox>
+
+            <BitmapImage x:Key="Cancelicon" UriSource="Resources/Cancel.png" />
+
+            <Viewbox x:Key="Undoicon" Width="15" Height="15" x:Shared="false">
+                <Rectangle Width="24" Height="24">
+                    <Rectangle.Fill>
+                        <DrawingBrush>
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <DrawingGroup.Children>
+                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M36.0186,0C30.3306,0,24.8206,2.027,20.5116,5.699L19.9996,6.137 19.9996,0 14.3306,0 3.9996,10.344 3.9996,32 25.6396,32 40.3466,17.279C42.5496,18.705 44.0066,21.186 44.0066,24 44.0066,26.338 42.9676,28.568 41.1126,30.166L15.7376,52.664 25.7646,64 27.0616,64 51.6166,42.227C56.9446,37.664 59.9986,31.018 59.9986,24 59.9986,10.766 49.2416,0 36.0186,0" />
+                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
+                                    </DrawingGroup.Children>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Viewbox>
 
             <Style x:Key="MetroButton" TargetType="{x:Type Button}">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
@@ -29,16 +66,16 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
                                 <Border
-                                x:Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" />
+                                    x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}" />
 
                                 <ContentPresenter
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                RecognizesAccessKey="True" />
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    Margin="{TemplateBinding Padding}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    RecognizesAccessKey="True" />
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">

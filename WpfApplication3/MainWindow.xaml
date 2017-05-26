@@ -55,19 +55,32 @@
                     </Viewbox>
                 </Button>
                 <Button x:Name="snimiKupci" ToolTip="Sačuvaj promene kupaca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.SaveCommand}">
-                    <StackPanel>
-                        <Image Source="Resources/Save.png">
-                            <Image.Style>
-                                <Style TargetType="Image">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
                                     <Style.Triggers>
                                         <Trigger Property="IsEnabled" Value="False">
                                             <Setter Property="Opacity" Value="0.3" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Image.Style>
-                        </Image>
-                    </StackPanel>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
                 </Button>
                 <Button x:Name="štampaKupci" ToolTip="Štampa kupaca" Height="37" VerticalAlignment="Top" Width="37">
                     <Viewbox Width="40" Height="32">
@@ -199,19 +212,32 @@
                     </Viewbox>
                 </Button>
                 <Button x:Name="snimiRobu" ToolTip="Sačuvaj promene robe" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.SaveCommand}">
-                    <StackPanel>
-                        <Image Source="Resources/Save.png">
-                            <Image.Style>
-                                <Style TargetType="Image">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
                                     <Style.Triggers>
                                         <Trigger Property="IsEnabled" Value="False">
                                             <Setter Property="Opacity" Value="0.3" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Image.Style>
-                        </Image>
-                    </StackPanel>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
                 </Button>
                 <Button x:Name="stampaRoba" ToolTip="Štampa robe" Height="37" VerticalAlignment="Top" Width="37">
                     <Viewbox Width="40" Height="32">
@@ -413,19 +439,32 @@
                             </Viewbox>
                         </Button>
                         <Button x:Name="snimiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.SaveCommand}">
-                            <StackPanel>
-                                <Image Source="Resources/Save.png">
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
+                            <Viewbox Width="40" Height="32">
+                                <Rectangle Width="16" Height="16">
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
                                             <Style.Triggers>
                                                 <Trigger Property="IsEnabled" Value="False">
                                                     <Setter Property="Opacity" Value="0.3" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </Image.Style>
-                                </Image>
-                            </StackPanel>
+                                    </Rectangle.Style>
+                                    <Rectangle.Fill>
+                                        <DrawingBrush>
+                                            <DrawingBrush.Drawing>
+                                                <DrawingGroup>
+                                                    <DrawingGroup.Children>
+                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
+                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
+                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
+                                                    </DrawingGroup.Children>
+                                                </DrawingGroup>
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Viewbox>
                         </Button>
                         <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37">
                             <Viewbox Width="40" Height="32">

@@ -70,9 +70,10 @@ namespace WpfApplication3.ViewModel
 
         }
 
+        public ICommand ClearAllInvoicesCommand => new RelayCommand(ClearAllInvoices);
         public ICommand SaveEditedInvoiceCommand => new RelayCommand(Save);
-        public ICommand RemoveInvoiceLineCommand => new RelayCommand<RevRobaViewModel>(RemoveInvoiceLine);
         public ICommand AddInvoiceLineCommand => new RelayCommand(AddInvoiceLine);
+
         private void AddInvoiceLine()
         {
             var rr = new EditingRevRobaViewModel
@@ -85,44 +86,53 @@ namespace WpfApplication3.ViewModel
 
             InvoiceLineSummary.Add(rr);
             Newrevroba.Clear();
-        }
-        private void RemoveInvoiceLine(RevRobaViewModel rr)
-        {
-
-        }
+        }        
 
         public void Save()
         {
-            _original.Brev = Editable.Brev;
-            _original.Datum = Editable.Datum;
-            _original.Kupci = Editable.Kupci;
-            foreach (RevRobaViewModel rr in Editable.RevRobas.Items)
+            foreach (EditingRevRobaViewModel rr in InvoiceLineSummary)
             {
-                var existingrevroba = _original.RevRobas.Items.FirstOrDefault(x => x.Pk == rr.Pk);
-                if (existingrevroba == null || existingrevroba.Pk == 0)
+                if (!rr.IsDeleted && rr.Kolicraz != null && rr.Kolicraz != 0)
                 {
-                    var newRR = new RevRobaViewModel();
-                    newRR.Brev = rr.Brev;
-                    newRR.Cena = rr.Cena;
-                    newRR.Datum = rr.Datum;
-                    newRR.Kolic = rr.Kolic;
-                    newRR.Pk = rr.Pk;
-                    newRR.Roba = rr.Roba;
-                    newRR.Utro = rr.Utro;
-                    _original.RevRobas.Items.Add(newRR);
+                    var newRRRaz = new RevRobaViewModel();
+                    newRRRaz.Brev = _original.Brev;
+                    newRRRaz.Cena = rr.Cena;
+                    newRRRaz.Datum = Newrevroba.Datum;
+                    newRRRaz.Kolic = -rr.Kolicraz;
+                    newRRRaz.Roba = rr.Roba;
+                    _original.RevRobas.Items.Add(newRRRaz);
                 }
                 else
                 {
-                    existingrevroba.Brev = rr.Brev;
-                    existingrevroba.Cena = rr.Cena;
-                    existingrevroba.Datum = rr.Datum;
-                    existingrevroba.Kolic = rr.Kolic;
-                    existingrevroba.Pk = rr.Pk;
-                    existingrevroba.Roba = rr.Roba;
-                    existingrevroba.Utro = rr.Utro;
+                    var existingrevroba = _original.RevRobas.Items.FirstOrDefault(x => x.Roba == rr.Roba);
+                    if (existingrevroba == null)
+                    {
+                        var newrevroba = new RevRobaViewModel();
+                        newrevroba.Brev = _original.Brev;
+                        newrevroba.Cena = rr.Cena;
+                        newrevroba.Datum = rr.Datum;
+                        newrevroba.Kolic = rr.Kolic;
+                        newrevroba.Roba = rr.Roba;
+                        _original.RevRobas.Items.Add(newrevroba);                        
+                    }
+                }
+            }
+                
+            foreach (EditingRevRobaViewModel nn in InvoiceLineSummary.Where(x => x.IsDeleted == true))
+            {
+                var deletedrevroba = _original.RevRobas.Items.Where(x => x.Roba == nn.Roba);
+                foreach (RevRobaViewModel tt in deletedrevroba.ToList())
+                {
+                    _original.RevRobas.Items.Remove(tt);
                 }
             }
             _original.Save();
+        }
+
+        public void ClearAllInvoices()
+        {
+            foreach (EditingRevRobaViewModel rr in InvoiceLineSummary)
+                rr.IsCheckedd = true;                
         }
     }
 }
