@@ -128,12 +128,20 @@ namespace WpfApplication3.ViewModel
             else
                 _dal.SaveRacuni(model);
 
+            foreach (var rr in RevRobas.Items.Where(rr => rr.IsDeleted == true))
+            {
+                _dal.DeleteRevRoba(rr.GetModel());
+            }
+
             Brev = model.brev;
 
             _dal.UpdateStockLevels();
 
             foreach (var r in RevRobas.Items)
+            {
                 r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
+            }
+                
 
             Changed = false;
         }

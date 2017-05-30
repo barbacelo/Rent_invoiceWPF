@@ -93,6 +93,7 @@ namespace WpfApplication3.ViewModel
         {            
             if (IsDeleted == true)
                 IsDeleted = false;
+
             else IsDeleted = true;
         }
         public void Clear()

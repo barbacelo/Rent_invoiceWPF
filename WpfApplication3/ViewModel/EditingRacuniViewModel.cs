@@ -40,6 +40,7 @@ namespace WpfApplication3.ViewModel
 
         public EditingRacuniViewModel(RacuniViewModel rvm)
         {
+
             Newrevroba = new EditingRevRobaViewModel();
             Newrevroba.Datum = DateTime.Now;
             _original = rvm;
@@ -113,7 +114,7 @@ namespace WpfApplication3.ViewModel
                         newrevroba.Datum = rr.Datum;
                         newrevroba.Kolic = rr.Kolic;
                         newrevroba.Roba = rr.Roba;
-                        _original.RevRobas.Items.Add(newrevroba);                        
+                        _original.RevRobas.Items.Add(newrevroba);                      
                     }
                 }
             }
@@ -123,6 +124,8 @@ namespace WpfApplication3.ViewModel
                 var deletedrevroba = _original.RevRobas.Items.Where(x => x.Roba == nn.Roba);
                 foreach (RevRobaViewModel tt in deletedrevroba.ToList())
                 {
+                    tt.IsDeleted = true;
+                    _original.Save();
                     _original.RevRobas.Items.Remove(tt);
                 }
             }

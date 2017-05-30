@@ -40,6 +40,16 @@ namespace WpfApplication3
             SaveChanges();
         }
 
+        public void DeleteRevRoba(revroba revroba)
+        {
+            var existing = _context.revroba.FirstOrDefault(x => x.pk == revroba.pk);
+
+            if (existing != null)
+                _context.revroba.Remove(revroba);
+
+            SaveChanges();
+        }
+
         public List<racuni> GetRacuni()
         {
             return _context.Set<racuni>().ToList();
@@ -106,7 +116,7 @@ namespace WpfApplication3
             }
         }
 
-        public void SaveRacuni(racuni racuni)
+        public int SaveRacuni(racuni racuni)
         {
             try
             {              
@@ -114,7 +124,7 @@ namespace WpfApplication3
 
                 SetRacuniBrev(racuni);
 
-                if (existing == null) // <-- the invoice doesnt exist
+                if (existing == null)
                     _context.racuni.Add(racuni);
                 else
                 {
@@ -127,15 +137,19 @@ namespace WpfApplication3
                     SaveRevRoba(rr);
 
                 SaveChanges();
+
+                return racuni.pk;
             }
             catch (DbEntityValidationException dbx)
             {
                 foreach (var er in dbx.EntityValidationErrors)
                     MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
+                return racuni.pk;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return racuni.pk;
             }
         }
 
@@ -150,6 +164,7 @@ namespace WpfApplication3
 
         private void SaveRevRoba(revroba rr)
         {
+
             if (rr.pk == 0)
             {
                 _context.revroba.Add(rr);
