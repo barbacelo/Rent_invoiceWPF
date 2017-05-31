@@ -130,6 +130,7 @@ namespace WpfApplication3.ViewModel
                 }
             }
             _original.Save();
+            EditInvoiceWindow.Window.Close();
         }
 
         public void ClearAllInvoices()
