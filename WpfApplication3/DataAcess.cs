@@ -164,27 +164,37 @@ namespace WpfApplication3
 
         private void SaveRevRoba(revroba rr)
         {
-
-            if (rr.pk == 0)
+            try
             {
-                _context.revroba.Add(rr);
-            }
-            else
-            {
-                var existingrevroba = _context.revroba.Find(rr.pk);
+                var existing = _context.revroba.FirstOrDefault(x => x.pk == rr.pk);
 
-                if (existingrevroba == null)
+                if (existing == null)
+                {
                     _context.revroba.Add(rr);
+                    SaveChanges();
+                }
+              
                 else
                 {
-                    existingrevroba.brev = rr.brev;
-                    existingrevroba.idbrojr = rr.idbrojr;
-                    existingrevroba.datum = rr.datum;
-                    existingrevroba.cena = rr.cena;
-                    existingrevroba.racuni = rr.racuni;
-                    existingrevroba.utro = rr.utro;
+                    existing.brev = rr.brev;
+                    existing.idbrojr = rr.idbrojr;
+                    existing.datum = rr.datum;
+                    existing.cena = rr.cena;
+                    existing.racuni = rr.racuni;
+                    existing.utro = rr.utro;
                 }
             }
+
+            catch (DbEntityValidationException dbx)
+            {
+                foreach (var er in dbx.EntityValidationErrors)
+                    MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         public void UpdateStockLevels()
