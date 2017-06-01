@@ -4,13 +4,14 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using WpfApplication3.ModelExtensions;
 
 namespace WpfApplication3.ViewModel
 {
     public class RacuniViewModel : ViewModelBase
     {
         private readonly DAL _dal;
-        private readonly racuni _model;
+        private readonly Racuni _model;
 
         private int _brev;
         private DateTime _datum;
@@ -85,19 +86,19 @@ namespace WpfApplication3.ViewModel
             _dal = dal;
             RevRobas = new RevRobasViewModel(new List<RevRobaViewModel>());
             Datum = DateTime.Now;
-            _model = new racuni();
+            _model = new Racuni();
             
         }
 
-        public RacuniViewModel(DAL dal, racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
+        public RacuniViewModel(DAL dal, Racuni k, IEnumerable<KupciViewModel> kupcis, RevRobasViewModel revRobas)
         {
             _dal = dal;
             _model = k;
 
-            Brev = k.brev;
+            Brev = k.Brev;
             RevRobas = revRobas;
-            Datum = k.datum;
-            Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.idbrojk);
+            Datum = k.Datum;
+            Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.KupciID);
 
 
 
@@ -108,7 +109,7 @@ namespace WpfApplication3.ViewModel
         {
             var rr = new RevRobaViewModel
             {
-                Brev = RevRobas.NoviRedReversa.Brev,
+                RacuniID = RevRobas.NoviRedReversa.RacuniID,
                 Cena = RevRobas.NoviRedReversa.Cena,
                 Kolic = RevRobas.NoviRedReversa.Kolic,
                 Roba = RevRobas.NoviRedReversa.Roba,
@@ -128,12 +129,12 @@ namespace WpfApplication3.ViewModel
             else
                 _dal.SaveRacuni(model);
 
-            foreach (var rr in RevRobas.Items.Where(rr => rr.IsDeleted == true))
+            foreach (var rr in RevRobas.Items.Where(rr => rr.IsDeleted))
             {
                 _dal.DeleteRevRoba(rr.GetModel());
             }
 
-            Brev = model.brev;
+            Brev = model.Brev;
 
             _dal.UpdateStockLevels();
 
@@ -146,15 +147,21 @@ namespace WpfApplication3.ViewModel
             Changed = false;
         }
 
-        public racuni GetModel()
+        public Racuni GetModel()
         {
-            _model.brev = Brev;
-            _model.datum = Datum;
-            _model.idbrojk = Kupci?.Idbroj ?? 0;
+            _model.Brev = Brev;
+            _model.Datum = Datum;
+            _model.KupciID = Kupci?.Idbroj ?? 0;
+            _model.kupci = Kupci?.GetModel();
 
-            _model.revroba.Clear();
             foreach (var rr in RevRobas.Items)
-                _model.revroba.Add(rr.GetModel());
+            {
+                var model = rr.GetModel();
+                if (!_model.revroba.Contains(model))
+                    _model.revroba.Add(model);
+                else
+                    model.Load(rr);
+            }
 
             // linq version:
             // _model.revroba = new ObservableCollection<revroba>(RevRobas.Items.Select(x => x.GetModel()));

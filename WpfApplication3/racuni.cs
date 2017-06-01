@@ -12,21 +12,21 @@ namespace WpfApplication3
     using System;
     using System.Collections.ObjectModel;
     
-    public partial class racuni
+    public partial class Racuni
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public racuni()
+        public Racuni()
         {
-            this.revroba = new ObservableCollection<revroba>();
+            this.revroba = new ObservableCollection<RevRoba>();
         }
     
-        public int brev { get; set; }
-        public System.DateTime datum { get; set; }
-        public int idbrojk { get; set; }
-        public int pk { get; set; }
+        public int Brev { get; set; }
+        public System.DateTime Datum { get; set; }
+        public int KupciID { get; set; }
+        public int RacuniID { get; set; }
     
-        public virtual kupci kupci { get; set; }
+        public virtual Kupci kupci { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<revroba> revroba { get; set; }
+        public virtual ObservableCollection<RevRoba> revroba { get; set; }
     }
 }

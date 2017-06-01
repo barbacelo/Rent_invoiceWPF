@@ -95,13 +95,22 @@
     <Compile Include="EditInvoiceWindow.xaml.cs">
       <DependentUpon>EditInvoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="kupci.cs">
+    <Compile Include="Kupci.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="p_get_stock_level2_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="p_get_stock_level_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Racuni.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RevRoba.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roba.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\EditingRacuniViewModel.cs" />
@@ -117,19 +126,11 @@
     <Compile Include="NewInvoiceWindow.xaml.cs">
       <DependentUpon>NewInvoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="racuni.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\RacunisViewModel.cs" />
     <Compile Include="ViewModel\RacuniViewModel.cs" />
-    <Compile Include="revroba.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ModelExtensions\RevRobaExtensions.cs" />
     <Compile Include="ViewModel\RevRobasViewModel.cs" />
     <Compile Include="ViewModel\RevRobaViewModel.cs" />
-    <Compile Include="roba.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\RobasViewModel.cs" />
     <Compile Include="ViewModel\RobaViewModel.cs" />
     <Compile Include="sysdiagrams.cs">

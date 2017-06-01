@@ -53,7 +53,7 @@ namespace WpfApplication3.ViewModel
             foreach (RevRobaViewModel rr in _original.RevRobas.Items)
             {
                 var newRR = new RevRobaViewModel();
-                newRR.Brev = rr.Brev;
+                newRR.RacuniID = rr.RacuniID;
                 newRR.Datum = rr.Datum;
                 newRR.Kolic = rr.Kolic;
                 newRR.Pk = rr.Pk;
@@ -96,7 +96,7 @@ namespace WpfApplication3.ViewModel
                 if (!rr.IsDeleted && rr.Kolicraz != null && rr.Kolicraz != 0)
                 {
                     var newRRRaz = new RevRobaViewModel();
-                    newRRRaz.Brev = _original.Brev;
+                    newRRRaz.RacuniID = _original.Brev;
                     newRRRaz.Cena = rr.Cena;
                     newRRRaz.Datum = Newrevroba.Datum;
                     newRRRaz.Kolic = -rr.Kolicraz;
@@ -109,7 +109,7 @@ namespace WpfApplication3.ViewModel
                     if (existingrevroba == null)
                     {
                         var newrevroba = new RevRobaViewModel();
-                        newrevroba.Brev = _original.Brev;
+                        newrevroba.RacuniID = _original.Brev;
                         newrevroba.Cena = rr.Cena;
                         newrevroba.Datum = rr.Datum;
                         newrevroba.Kolic = rr.Kolic;

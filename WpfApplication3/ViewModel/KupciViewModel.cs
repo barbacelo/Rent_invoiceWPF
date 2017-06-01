@@ -111,40 +111,40 @@ namespace WpfApplication3.ViewModel
             }
         }
 
-        private readonly kupci _model;
+        private readonly Kupci _model;
 
         public KupciViewModel()
         {
-            _model = new kupci();
+            _model = new Kupci();
         }
-        public KupciViewModel(kupci k)
+        public KupciViewModel(Kupci k)
         {
             _model = k;
 
-            Idbroj = k.idbroj;
-            Ime = k.ime;
-            Jmbg = k.jmbg;
-            Adresa = k.adresa;
-            Mesto = k.mesto;
-            Telefon = k.telefon;
-            Dug = k.dug;
-            Pot = k.pot;
-            Saldo = k.saldo;
+            Idbroj  = k.KupciID;
+            Ime     = k.Ime;
+            Jmbg    = k.Jmbg;
+            Adresa  = k.Adresa;
+            Mesto   = k.Mesto;
+            Telefon = k.Telefon;
+            Dug     = k.Dug;
+            Pot     = k.Pot;
+            Saldo   = k.Saldo;
 
             Changed = false;
         }
 
 
-        public kupci GetModel()
+        public Kupci GetModel()
         {
-            _model.ime = Ime;
-            _model.jmbg = Jmbg;
-            _model.adresa = Adresa;
-            _model.mesto = Mesto;
-            _model.telefon = Telefon;
-            _model.dug = Dug;
-            _model.pot = Pot;
-            _model.saldo = Saldo;
+            _model.Ime     = Ime;
+            _model.Jmbg    = Jmbg;
+            _model.Adresa  = Adresa;
+            _model.Mesto   = Mesto;
+            _model.Telefon = Telefon;
+            _model.Dug     = Dug;
+            _model.Pot     = Pot;
+            _model.Saldo   = Saldo;
 
             return _model;
         }

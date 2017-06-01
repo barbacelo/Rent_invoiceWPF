@@ -35,12 +35,12 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-        public int Brev
+        public int RacuniID
         {
-            get { return _brev; }
+            get { return _racuniId; }
             set
             {
-                _brev = value;
+                _racuniId = value;
                 RaisePropertyChanged();
                 Changed = true;
             }
@@ -85,42 +85,41 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-        private readonly revroba _model;
+        private readonly RevRoba _model;
 
         public RevRobaViewModel()
         {
-            _model = new revroba();
+            _model = new RevRoba();
         }
 
-        public RevRobaViewModel(revroba k, IEnumerable<RobaViewModel> robas)
+        public RevRobaViewModel(RevRoba k, IEnumerable<RobaViewModel> robas)
         {
             _model = k;
 
-            Pk = k.pk;
-            Brev = k.brev;
-            Datum = k.datum;
-            Roba = robas.FirstOrDefault(r => r.Idbroj == k.idbrojr);
-            Kolic = k.kolic;
-            Utro = k.utro;
-            Cena = k.cena;
+            Pk = k.RevRobaID;
+            RacuniID = k.RacuniID;
+            Datum = k.Datum;
+            Roba = robas.FirstOrDefault(r => r.Idbroj == k.RobaID);
+            Kolic = k.Kolic;
+            Utro = k.Utro;
+            Cena = k.Cena;
 
             Changed = false;
         }
 
-        public revroba GetModel()
+        public RevRoba GetModel()
         {
-            _model.brev = Brev;
-            _model.datum = Datum;
-            _model.idbrojr = Roba?.Idbroj ?? 0;
-            _model.kolic = Kolic;
-            _model.utro = Utro;
-            _model.cena = Cena;
-            _model.pk = Pk;
+            _model.RacuniID = RacuniID;
+            _model.Datum = Datum;
+            _model.RobaID = Roba?.Idbroj ?? 0;
+            _model.Kolic = Kolic;
+            _model.Utro = Utro;
+            _model.Cena = Cena;
 
             return _model;
         }
         private bool _isDeleted;
-        private int _brev;
+        private int _racuniId;
 
         public bool IsDeleted
         {
@@ -134,7 +133,7 @@ namespace WpfApplication3.ViewModel
 
         public void Clear()
         {
-            Brev = 0;
+            RacuniID = 0;
             Cena = 0;
             Kolic = null;
             Roba = null;

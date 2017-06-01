@@ -12,17 +12,17 @@ namespace WpfApplication3
     using System;
     using System.Collections.ObjectModel;
     
-    public partial class revroba
+    public partial class RevRoba
     {
-        public int pk { get; set; }
-        public int brev { get; set; }
-        public System.DateTime datum { get; set; }
-        public int idbrojr { get; set; }
-        public Nullable<decimal> kolic { get; set; }
-        public Nullable<int> utro { get; set; }
-        public decimal cena { get; set; }
+        public int RevRobaID { get; set; }
+        public int RacuniID { get; set; }
+        public System.DateTime Datum { get; set; }
+        public int RobaID { get; set; }
+        public Nullable<decimal> Kolic { get; set; }
+        public Nullable<int> Utro { get; set; }
+        public decimal Cena { get; set; }
     
-        public virtual racuni racuni { get; set; }
-        public virtual roba roba { get; set; }
+        public virtual Racuni racuni { get; set; }
+        public virtual Roba roba { get; set; }
     }
 }

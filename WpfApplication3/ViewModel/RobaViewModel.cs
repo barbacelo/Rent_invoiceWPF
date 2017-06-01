@@ -80,34 +80,34 @@ namespace WpfApplication3.ViewModel
             }
         }
 
-        private readonly roba _model;
+        private readonly Roba _model;
 
         public RobaViewModel()
         {
-            _model = new roba();
+            _model = new Roba();
         }
-        public RobaViewModel(roba k)
+        public RobaViewModel(Roba k)
         {
             _model = k;
 
-            Idbroj = k.idbroj;
-            Naziv = k.naziv;
-            Jm = k.jm;
-            Kol = k.kol;
-            Zaliha = k.zaliha;
-            Cena = k.cena;
+            Idbroj = k.RobaID;
+            Naziv  = k.Naziv;
+            Jm     = k.Jm;
+            Kol    = k.Kol;
+            Zaliha = k.Zaliha;
+            Cena   = k.Cena;
 
             Changed = false;
         }
 
 
-        public roba GetModel()
+        public Roba GetModel()
         {
-            _model.naziv = Naziv;
-            _model.jm = Jm;
-            _model.kol = Kol;
-            _model.zaliha = Zaliha;
-            _model.cena = Cena;
+            _model.Naziv = Naziv;
+            _model.Jm = Jm;
+            _model.Kol = Kol;
+            _model.Zaliha = Zaliha;
+            _model.Cena = Cena;
 
             return _model;
         }

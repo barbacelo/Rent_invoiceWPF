@@ -46,7 +46,7 @@ namespace WpfApplication3.ViewModel
         public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RevRobaViewModel> revRobas)
         {            
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal,x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.Brev == x.pk).ToList()))));
+            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal,x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.RacuniID == x.RacuniID).ToList()))));
         }
 
         private void AddNewInvoice()

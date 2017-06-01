@@ -12,22 +12,22 @@ namespace WpfApplication3
     using System;
     using System.Collections.ObjectModel;
     
-    public partial class roba
+    public partial class Roba
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public roba()
+        public Roba()
         {
-            this.revroba = new ObservableCollection<revroba>();
+            this.revroba = new ObservableCollection<RevRoba>();
         }
     
-        public int idbroj { get; set; }
-        public string naziv { get; set; }
-        public string jm { get; set; }
-        public decimal kol { get; set; }
-        public decimal zaliha { get; set; }
-        public decimal cena { get; set; }
+        public int RobaID { get; set; }
+        public string Naziv { get; set; }
+        public string Jm { get; set; }
+        public decimal Kol { get; set; }
+        public decimal Zaliha { get; set; }
+        public decimal Cena { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<revroba> revroba { get; set; }
+        public virtual ObservableCollection<RevRoba> revroba { get; set; }
     }
 }

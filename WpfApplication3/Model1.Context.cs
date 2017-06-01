@@ -27,11 +27,11 @@ namespace WpfApplication3
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<kupci> kupci { get; set; }
-        public virtual DbSet<roba> roba { get; set; }
+        public virtual DbSet<Kupci> kupci { get; set; }
+        public virtual DbSet<Roba> roba { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<racuni> racuni { get; set; }
-        public virtual DbSet<revroba> revroba { get; set; }
+        public virtual DbSet<Racuni> racuni { get; set; }
+        public virtual DbSet<RevRoba> revroba { get; set; }
     
         public virtual ObjectResult<p_get_stock_level_Result> p_get_stock_level()
         {

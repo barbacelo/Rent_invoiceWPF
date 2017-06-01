@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/27/2017 16:20:56
--- Generated from EDMX file: C:\Users\Kavurma\documents\visual studio 2015\Projects\WpfApplication3\WpfApplication3\Model1.edmx
+-- Date Created: 06/01/2017 16:48:52
+-- Generated from EDMX file: C:\Users\shaw_d\Documents\GitHub\Rent_invoiceWPF\WpfApplication3\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -34,17 +34,17 @@ GO
 IF OBJECT_ID(N'[dbo].[kupci]', 'U') IS NOT NULL
     DROP TABLE [dbo].[kupci];
 GO
-IF OBJECT_ID(N'[dbo].[racuni]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[racuni];
-GO
-IF OBJECT_ID(N'[dbo].[revroba]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[revroba];
-GO
 IF OBJECT_ID(N'[dbo].[roba]', 'U') IS NOT NULL
     DROP TABLE [dbo].[roba];
 GO
 IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
     DROP TABLE [dbo].[sysdiagrams];
+GO
+IF OBJECT_ID(N'[dbo].[racuni]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[racuni];
+GO
+IF OBJECT_ID(N'[dbo].[revroba]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[revroba];
 GO
 
 -- --------------------------------------------------
@@ -53,26 +53,26 @@ GO
 
 -- Creating table 'kupci'
 CREATE TABLE [dbo].[kupci] (
-    [idbroj] int IDENTITY(1,1) NOT NULL,
-    [ime] char(40)  NOT NULL,
-    [jmbg] char(13)  NOT NULL,
-    [adresa] char(40)  NOT NULL,
-    [mesto] char(25)  NOT NULL,
-    [telefon] char(15)  NOT NULL,
-    [dug] decimal(12,2)  NOT NULL,
-    [pot] decimal(12,2)  NOT NULL,
-    [saldo] decimal(13,2)  NULL
+    [KupciID] int IDENTITY(1,1) NOT NULL,
+    [Ime] char(40)  NOT NULL,
+    [Jmbg] char(13)  NOT NULL,
+    [Adresa] char(40)  NOT NULL,
+    [Mesto] char(25)  NOT NULL,
+    [Telefon] char(15)  NOT NULL,
+    [Dug] decimal(12,2)  NOT NULL,
+    [Pot] decimal(12,2)  NOT NULL,
+    [Saldo] decimal(13,2)  NULL
 );
 GO
 
 -- Creating table 'roba'
 CREATE TABLE [dbo].[roba] (
-    [idbroj] int IDENTITY(1,1) NOT NULL,
-    [naziv] char(40)  NOT NULL,
-    [jm] char(3)  NOT NULL,
-    [kol] decimal(6,0)  NOT NULL,
-    [zaliha] decimal(6,0)  NOT NULL,
-    [cena] decimal(9,2)  NOT NULL
+    [RobaID] int IDENTITY(1,1) NOT NULL,
+    [Naziv] char(40)  NOT NULL,
+    [Jm] char(3)  NOT NULL,
+    [Kol] decimal(6,0)  NOT NULL,
+    [Zaliha] decimal(6,0)  NOT NULL,
+    [Cena] decimal(9,2)  NOT NULL
 );
 GO
 
@@ -86,25 +86,24 @@ CREATE TABLE [dbo].[sysdiagrams] (
 );
 GO
 
--- Creating table 'revroba'
-CREATE TABLE [dbo].[revroba] (
-    [pk] int IDENTITY(1,1) NOT NULL,
-    [brev] int  NOT NULL,
-    [datum] datetime  NOT NULL,
-    [idbrojr] int  NOT NULL,
-    [kolic] decimal(6,0)  NULL,
-    [utro] decimal(6,0)  NULL,
-    [cena] decimal(9,2)  NOT NULL
+-- Creating table 'racuni'
+CREATE TABLE [dbo].[racuni] (
+    [Brev] int  NOT NULL,
+    [Datum] datetime  NOT NULL,
+    [KupciID] int  NOT NULL,
+    [RacuniID] int IDENTITY(1,1) NOT NULL
 );
 GO
 
--- Creating table 'racuni'
-CREATE TABLE [dbo].[racuni] (
-    [brev] int  NOT NULL,
-    [datum] datetime  NOT NULL,
-    [idbrojk] int  NOT NULL,
-    [godina] int  NULL,
-    [pk] int IDENTITY(1,1) NOT NULL
+-- Creating table 'revroba'
+CREATE TABLE [dbo].[revroba] (
+    [RevRobaID] int IDENTITY(1,1) NOT NULL,
+    [RacuniID] int  NOT NULL,
+    [Datum] datetime  NOT NULL,
+    [RobaID] int  NOT NULL,
+    [Kolic] decimal(6,0)  NULL,
+    [Utro] int  NULL,
+    [Cena] decimal(9,2)  NOT NULL
 );
 GO
 
@@ -112,16 +111,16 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [idbroj] in table 'kupci'
+-- Creating primary key on [KupciID] in table 'kupci'
 ALTER TABLE [dbo].[kupci]
 ADD CONSTRAINT [PK_kupci]
-    PRIMARY KEY CLUSTERED ([idbroj] ASC);
+    PRIMARY KEY CLUSTERED ([KupciID] ASC);
 GO
 
--- Creating primary key on [idbroj] in table 'roba'
+-- Creating primary key on [RobaID] in table 'roba'
 ALTER TABLE [dbo].[roba]
 ADD CONSTRAINT [PK_roba]
-    PRIMARY KEY CLUSTERED ([idbroj] ASC);
+    PRIMARY KEY CLUSTERED ([RobaID] ASC);
 GO
 
 -- Creating primary key on [diagram_id] in table 'sysdiagrams'
@@ -130,65 +129,65 @@ ADD CONSTRAINT [PK_sysdiagrams]
     PRIMARY KEY CLUSTERED ([diagram_id] ASC);
 GO
 
--- Creating primary key on [pk] in table 'revroba'
-ALTER TABLE [dbo].[revroba]
-ADD CONSTRAINT [PK_revroba]
-    PRIMARY KEY CLUSTERED ([pk] ASC);
-GO
-
--- Creating primary key on [pk] in table 'racuni'
+-- Creating primary key on [RacuniID] in table 'racuni'
 ALTER TABLE [dbo].[racuni]
 ADD CONSTRAINT [PK_racuni]
-    PRIMARY KEY CLUSTERED ([pk] ASC);
+    PRIMARY KEY CLUSTERED ([RacuniID] ASC);
+GO
+
+-- Creating primary key on [RevRobaID] in table 'revroba'
+ALTER TABLE [dbo].[revroba]
+ADD CONSTRAINT [PK_revroba]
+    PRIMARY KEY CLUSTERED ([RevRobaID] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [idbrojr] in table 'revroba'
-ALTER TABLE [dbo].[revroba]
-ADD CONSTRAINT [FK_RevRoba_roba]
-    FOREIGN KEY ([idbrojr])
-    REFERENCES [dbo].[roba]
-        ([idbroj])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RevRoba_roba'
-CREATE INDEX [IX_FK_RevRoba_roba]
-ON [dbo].[revroba]
-    ([idbrojr]);
-GO
-
--- Creating foreign key on [idbrojk] in table 'racuni'
+-- Creating foreign key on [KupciID] in table 'racuni'
 ALTER TABLE [dbo].[racuni]
 ADD CONSTRAINT [FK_racuni_kupci]
-    FOREIGN KEY ([idbrojk])
+    FOREIGN KEY ([KupciID])
     REFERENCES [dbo].[kupci]
-        ([idbroj])
+        ([KupciID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_racuni_kupci'
 CREATE INDEX [IX_FK_racuni_kupci]
 ON [dbo].[racuni]
-    ([idbrojk]);
+    ([KupciID]);
 GO
 
--- Creating foreign key on [brev] in table 'revroba'
+-- Creating foreign key on [RacuniID] in table 'revroba'
 ALTER TABLE [dbo].[revroba]
 ADD CONSTRAINT [FK_RevRoba_Racuni]
-    FOREIGN KEY ([brev])
+    FOREIGN KEY ([RacuniID])
     REFERENCES [dbo].[racuni]
-        ([pk])
+        ([RacuniID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RevRoba_Racuni'
 CREATE INDEX [IX_FK_RevRoba_Racuni]
 ON [dbo].[revroba]
-    ([brev]);
+    ([RacuniID]);
+GO
+
+-- Creating foreign key on [RobaID] in table 'revroba'
+ALTER TABLE [dbo].[revroba]
+ADD CONSTRAINT [FK_RevRoba_roba]
+    FOREIGN KEY ([RobaID])
+    REFERENCES [dbo].[roba]
+        ([RobaID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RevRoba_roba'
+CREATE INDEX [IX_FK_RevRoba_roba]
+ON [dbo].[revroba]
+    ([RobaID]);
 GO
 
 -- --------------------------------------------------
