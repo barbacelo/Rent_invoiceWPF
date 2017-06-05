@@ -127,7 +127,10 @@ namespace WpfApplication3.ViewModel
             if (IsDeleted)
                 _dal.DeleteRacuni(model);
             else
-                _dal.SaveRacuni(model);
+            {
+                _dal.SaveRacuni(model);                
+            }
+
 
             foreach (var rr in RevRobas.Items.Where(rr => rr.IsDeleted))
             {

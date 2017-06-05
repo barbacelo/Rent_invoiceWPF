@@ -134,7 +134,7 @@ namespace WpfApplication3
                 }
 
                 foreach (var rr in racuni.revroba.ToArray())
-                    SaveRevRoba(rr);
+                    _context.revroba.Add(rr);
 
                 SaveChanges();
 
@@ -162,40 +162,40 @@ namespace WpfApplication3
                 racuni.Brev = _context.racuni.Where(x => x.Datum.Year == racuni.Datum.Year).Max(x => x.Brev) + 1;
         }
 
-        private void SaveRevRoba(RevRoba rr)
-        {
-            try
-            {
-                var existing = _context.revroba.FirstOrDefault(x => x.RevRobaID == rr.RevRobaID);
+        //private void SaveRevRoba(RevRoba rr)
+        //{
+        //    try
+        //    {
+        //        var existing = _context.revroba.FirstOrDefault(x => x.RevRobaID == rr.RevRobaID);
 
-                if (existing == null)
-                {
-                    _context.revroba.Add(rr);
-                    SaveChanges();
-                }
-              
-                else
-                {
-                    existing.RacuniID = rr.RacuniID;
-                    existing.RobaID = rr.RobaID;
-                    existing.Datum = rr.Datum;
-                    existing.Cena = rr.Cena;
-                    existing.racuni = rr.racuni;
-                    existing.Utro = rr.Utro;
-                }
-            }
+        //        if (existing == null)
+        //        {
+        //            _context.revroba.Add(rr);
+        //            SaveChanges();
+        //        }
 
-            catch (DbEntityValidationException dbx)
-            {
-                foreach (var er in dbx.EntityValidationErrors)
-                    MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
+        //        else
+        //        {
+        //            existing.RacuniID = rr.RacuniID;
+        //            existing.RobaID = rr.RobaID;
+        //            existing.Datum = rr.Datum;
+        //            existing.Cena = rr.Cena;
+        //            existing.racuni = rr.racuni;
+        //            existing.Utro = rr.Utro;
+        //        }
+        //    }
+
+        //    catch (DbEntityValidationException dbx)
+        //    {
+        //        foreach (var er in dbx.EntityValidationErrors)
+        //            MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+
+        //}
 
         public void UpdateStockLevels()
         {

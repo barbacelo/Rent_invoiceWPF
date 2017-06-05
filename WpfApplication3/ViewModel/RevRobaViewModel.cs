@@ -7,7 +7,7 @@ namespace WpfApplication3.ViewModel
 {
     public class RevRobaViewModel : ViewModelBase
     {
-        private int _pk;
+        private int _revrobaId;
         private DateTime _datum;
         private RobaViewModel _roba;
         private decimal? _kolic;
@@ -15,12 +15,12 @@ namespace WpfApplication3.ViewModel
         private decimal _cena;
         public bool Changed { get; set; }
 
-        public int Pk
+        public int RevRobaID
         {
-            get { return _pk; }
+            get { return _revrobaId; }
             set
             {
-                _pk = value;
+                _revrobaId = value;
                 RaisePropertyChanged();
                 Changed = true;
             }
@@ -96,7 +96,7 @@ namespace WpfApplication3.ViewModel
         {
             _model = k;
 
-            Pk = k.RevRobaID;
+            RevRobaID = k.RevRobaID;
             RacuniID = k.RacuniID;
             Datum = k.Datum;
             Roba = robas.FirstOrDefault(r => r.Idbroj == k.RobaID);
