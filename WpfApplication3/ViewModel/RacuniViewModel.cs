@@ -170,11 +170,6 @@ namespace WpfApplication3.ViewModel
             _model.Brev = Brev;
             _model.Datum = Datum;
             _model.KupciID = Kupci?.Idbroj ?? 0;
-            
-            foreach (var vm in RevRobas.Items)
-            {
-                vm.Commit();
-            }
         }
     }
 }
