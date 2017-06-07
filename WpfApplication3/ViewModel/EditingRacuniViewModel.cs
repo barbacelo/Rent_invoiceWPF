@@ -53,7 +53,7 @@ namespace WpfApplication3.ViewModel
                 newRR.RacuniID = rr.RacuniID;
                 newRR.Datum = rr.Datum;
                 newRR.Kolic = rr.Kolic;
-                newRR.Pk = rr.Pk;
+                newRR.RevRobaID = rr.RevRobaID;
                 newRR.Roba = rr.Roba;
                 newRR.Utro = rr.Utro;
                 newRR.Cena = rr.Cena;
