@@ -14,20 +14,11 @@ namespace WpfApplication3
     
     public partial class Roba
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roba()
-        {
-            this.revroba = new ObservableCollection<RevRoba>();
-        }
-    
         public int RobaID { get; set; }
         public string Naziv { get; set; }
         public string Jm { get; set; }
         public decimal Kol { get; set; }
         public decimal Zaliha { get; set; }
         public decimal Cena { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<RevRoba> revroba { get; set; }
     }
 }

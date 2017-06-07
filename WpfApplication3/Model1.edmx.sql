@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/01/2017 16:48:52
+-- Date Created: 06/07/2017 14:26:50
 -- Generated from EDMX file: C:\Users\shaw_d\Documents\GitHub\Rent_invoiceWPF\WpfApplication3\Model1.edmx
 -- --------------------------------------------------
 
@@ -34,17 +34,17 @@ GO
 IF OBJECT_ID(N'[dbo].[kupci]', 'U') IS NOT NULL
     DROP TABLE [dbo].[kupci];
 GO
-IF OBJECT_ID(N'[dbo].[roba]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[roba];
-GO
-IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[sysdiagrams];
-GO
 IF OBJECT_ID(N'[dbo].[racuni]', 'U') IS NOT NULL
     DROP TABLE [dbo].[racuni];
 GO
 IF OBJECT_ID(N'[dbo].[revroba]', 'U') IS NOT NULL
     DROP TABLE [dbo].[revroba];
+GO
+IF OBJECT_ID(N'[dbo].[roba]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[roba];
+GO
+IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[sysdiagrams];
 GO
 
 -- --------------------------------------------------

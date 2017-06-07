@@ -107,17 +107,16 @@ namespace WpfApplication3.ViewModel
             Changed = false;
         }
 
-        public RevRoba GetModel()
+        public void Commit()
         {
             _model.RacuniID = RacuniID;
-            _model.Datum = Datum;
-            _model.RobaID = Roba?.Idbroj ?? 0;
-            _model.Kolic = Kolic;
-            _model.Utro = Utro;
-            _model.Cena = Cena;
-
-            return _model;
+            _model.Datum    = Datum;
+            _model.RobaID   = Roba?.Idbroj ?? 0;
+            _model.Kolic    = Kolic;
+            _model.Utro     = Utro;
+            _model.Cena     = Cena;
         }
+
         private bool _isDeleted;
         private int _racuniId;
 
@@ -137,6 +136,22 @@ namespace WpfApplication3.ViewModel
             Cena = 0;
             Kolic = null;
             Roba = null;
+        }
+
+        public void Delete(DAL dal)
+        {
+            dal.DeleteRevRoba(_model);
+        }
+
+        public void Save(DAL dal, int racuniId)
+        {
+            RacuniID = racuniId;
+            Commit();
+            
+            if (_model.RevRobaID == 0)
+                dal.AddRevRoba(_model);
+
+            dal.SaveChanges();
         }
     }
 }

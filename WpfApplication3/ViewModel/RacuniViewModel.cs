@@ -76,6 +76,7 @@ namespace WpfApplication3.ViewModel
             {
                 foreach (var rr in RevRobas.Items)
                     rr.IsDeleted = value;
+
                 _isDeleted = value;
                 RaisePropertyChanged();
             }
@@ -110,31 +111,33 @@ namespace WpfApplication3.ViewModel
             var rr = new RevRobaViewModel
             {
                 RacuniID = RevRobas.NoviRedReversa.RacuniID,
-                Cena = RevRobas.NoviRedReversa.Cena,
-                Kolic = RevRobas.NoviRedReversa.Kolic,
-                Roba = RevRobas.NoviRedReversa.Roba,
-                Datum = RevRobas.NoviRedReversa.Datum
+                Cena     = RevRobas.NoviRedReversa.Cena,
+                Kolic    = RevRobas.NoviRedReversa.Kolic,
+                Roba     = RevRobas.NoviRedReversa.Roba,
+                Datum    = RevRobas.NoviRedReversa.Datum
             };
 
             RevRobas.Items.Add(rr);
             RevRobas.NoviRedReversa.Clear();
-        }        
+        }
 
         public void Save()
         {
-            var model = GetModel();
+            if (Brev == 0)
+                Brev = _dal.GetNextBrev(Datum.Year);
 
-            if (IsDeleted)
-                _dal.DeleteRacuni(model);
-            else
-                _dal.SaveRacuni(model);
+            Commit();
 
-            foreach (var rr in RevRobas.Items.Where(rr => rr.IsDeleted))
-            {
-                _dal.DeleteRevRoba(rr.GetModel());
-            }
+            if (CheckDelete())
+                return;
+            
+            if (_model.RacuniID == 0)
+                _dal.AddRacuni(_model);
 
-            Brev = model.Brev;
+            _dal.SaveChanges();
+
+            foreach (var rr in RevRobas.Items)
+                rr.Save(_dal, _model.RacuniID);
 
             _dal.UpdateStockLevels();
 
@@ -142,31 +145,36 @@ namespace WpfApplication3.ViewModel
             {
                 r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
             }
-                
 
             Changed = false;
+
+            _dal.SaveChanges();
         }
 
-        public Racuni GetModel()
+        private bool CheckDelete()
+        {
+            if (IsDeleted)
+            {
+                if (_model.RacuniID == 0)
+                    return true;
+
+                _dal.DeleteRacuni(_model);
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Commit()
         {
             _model.Brev = Brev;
             _model.Datum = Datum;
             _model.KupciID = Kupci?.Idbroj ?? 0;
-            _model.kupci = Kupci?.GetModel();
-
-            foreach (var rr in RevRobas.Items)
+            
+            foreach (var vm in RevRobas.Items)
             {
-                var model = rr.GetModel();
-                if (!_model.revroba.Contains(model))
-                    _model.revroba.Add(model);
-                else
-                    model.Load(rr);
+                vm.Commit();
             }
-
-            // linq version:
-            // _model.revroba = new ObservableCollection<revroba>(RevRobas.Items.Select(x => x.GetModel()));
-
-            return _model;
         }
     }
 }

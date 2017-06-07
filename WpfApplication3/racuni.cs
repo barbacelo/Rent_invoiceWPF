@@ -14,19 +14,9 @@ namespace WpfApplication3
     
     public partial class Racuni
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Racuni()
-        {
-            this.revroba = new ObservableCollection<RevRoba>();
-        }
-    
         public int Brev { get; set; }
         public System.DateTime Datum { get; set; }
         public int KupciID { get; set; }
         public int RacuniID { get; set; }
-    
-        public virtual Kupci kupci { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<RevRoba> revroba { get; set; }
     }
 }

@@ -14,12 +14,6 @@ namespace WpfApplication3
     
     public partial class Kupci
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Kupci()
-        {
-            this.racuni = new ObservableCollection<Racuni>();
-        }
-    
         public int KupciID { get; set; }
         public string Ime { get; set; }
         public string Jmbg { get; set; }
@@ -29,8 +23,5 @@ namespace WpfApplication3
         public decimal Dug { get; set; }
         public decimal Pot { get; set; }
         public Nullable<decimal> Saldo { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<Racuni> racuni { get; set; }
     }
 }

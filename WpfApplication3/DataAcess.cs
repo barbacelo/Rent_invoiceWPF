@@ -10,12 +10,12 @@ namespace WpfApplication3
     {
         private readonly reversiEntities _context = new reversiEntities();
 
-        public void Delete(Kupci Kupci)
+        public void Delete(Kupci kupci)
         {
-            var existing = _context.kupci.FirstOrDefault(x => x.KupciID == Kupci.KupciID);
+            var existing = _context.kupci.FirstOrDefault(x => x.KupciID == kupci.KupciID);
 
             if (existing != null)
-                _context.kupci.Remove(Kupci);
+                _context.kupci.Remove(kupci);
         }
 
         public void DeleteRoba(Roba roba)
@@ -28,15 +28,12 @@ namespace WpfApplication3
 
         public void DeleteRacuni(Racuni racuni)
         {
-            var existing = _context.racuni.FirstOrDefault(x => x.RacuniID == racuni.RacuniID);
-
-            foreach (var rr in racuni.revroba.ToArray())
-                if (rr.RevRobaID != 0)
-                    _context.revroba.Remove(rr);
-
-            if (existing != null)
-                _context.racuni.Remove(racuni);
-
+            if (racuni.RacuniID == 0)
+                return;
+            
+            _context.revroba.RemoveRange(_context.revroba.Where(f => f.RacuniID == racuni.RacuniID));
+            _context.racuni.Remove(racuni);
+            
             SaveChanges();
         }
 
@@ -70,16 +67,16 @@ namespace WpfApplication3
             return _context.Set<RevRoba>().ToList();
         }
 
-        public void SaveKupci(Kupci Kupci)
+        public void SaveKupci(Kupci kupci)
         {
             try
             {
-                var existing = _context.kupci.FirstOrDefault(x => x.KupciID == Kupci.KupciID);
+                var existing = _context.kupci.FirstOrDefault(x => x.KupciID == kupci.KupciID);
 
                 if (existing == null)
-                    _context.kupci.Add(Kupci);
+                    _context.kupci.Add(kupci);
                 else
-                    _context.Entry(existing).CurrentValues.SetValues(Kupci);
+                    _context.Entry(existing).CurrentValues.SetValues(kupci);
 
             }
             catch (DbEntityValidationException dbx)
@@ -116,85 +113,16 @@ namespace WpfApplication3
             }
         }
 
-        public int SaveRacuni(Racuni racuni)
-        {
-            try
-            {              
-                var existing = _context.racuni.FirstOrDefault(x => x.Brev == racuni.Brev);              
-
-                SetRacuniBrev(racuni);
-
-                if (existing == null)
-                    _context.racuni.Add(racuni);
-                else
-                {
-                    existing.Datum = racuni.Datum;
-                    existing.KupciID = racuni.KupciID;
-                    existing.revroba = racuni.revroba;
-                }
-
-                foreach (var rr in racuni.revroba.ToArray())
-                    SaveRevRoba(rr);
-
-                SaveChanges();
-
-                return racuni.RacuniID;
-            }
-            catch (DbEntityValidationException dbx)
-            {
-                foreach (var er in dbx.EntityValidationErrors)
-                    MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
-                return racuni.RacuniID;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return racuni.RacuniID;
-            }
-        }
-
-        private void SetRacuniBrev(Racuni racuni)
-        {
-            if (!_context.racuni.Any())
-                racuni.Brev = 1;
-
-            if (racuni.Brev == 0)
-                racuni.Brev = _context.racuni.Where(x => x.Datum.Year == racuni.Datum.Year).Max(x => x.Brev) + 1;
-        }
-
-        private void SaveRevRoba(RevRoba rr)
+        public int GetNextBrev(int year)
         {
             try
             {
-                var existing = _context.revroba.FirstOrDefault(x => x.RevRobaID == rr.RevRobaID);
-
-                if (existing == null)
-                {
-                    _context.revroba.Add(rr);
-                    SaveChanges();
-                }
-              
-                else
-                {
-                    existing.RacuniID = rr.RacuniID;
-                    existing.RobaID = rr.RobaID;
-                    existing.Datum = rr.Datum;
-                    existing.Cena = rr.Cena;
-                    existing.racuni = rr.racuni;
-                    existing.Utro = rr.Utro;
-                }
+                return _context.racuni.Where(x => x.Datum.Year == year).Max(x => x.Brev) + 1;
             }
-
-            catch (DbEntityValidationException dbx)
+            catch
             {
-                foreach (var er in dbx.EntityValidationErrors)
-                    MessageBox.Show(string.Join(Environment.NewLine, er.ValidationErrors.Select(x => x.PropertyName + ": " + x.ErrorMessage)));
+                return 1;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
         }
 
         public void UpdateStockLevels()
@@ -210,6 +138,16 @@ namespace WpfApplication3
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public void AddRacuni(Racuni model)
+        {
+            _context.racuni.Add(model);
+        }
+
+        public void AddRevRoba(RevRoba model)
+        {
+            _context.revroba.Add(model);
         }
     }
 }

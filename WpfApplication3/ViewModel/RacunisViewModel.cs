@@ -14,7 +14,7 @@ namespace WpfApplication3.ViewModel
         private RacuniViewModel _selectedRacuni;
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
-        public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);        
+        public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
         public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
@@ -44,9 +44,9 @@ namespace WpfApplication3.ViewModel
         public ObservableCollection<RacuniViewModel> Racunis { get; }
 
         public RacunisViewModel(DAL dal, IEnumerable<KupciViewModel> kupcis, IEnumerable<RevRobaViewModel> revRobas)
-        {            
+        {
             _dal = dal;
-            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal,x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.RacuniID == x.RacuniID).ToList()))));
+            Racunis = new ObservableCollection<RacuniViewModel>(_dal.GetRacuni().Select(x => new RacuniViewModel(dal, x, kupcis, new RevRobasViewModel(revRobas.Where(rr => rr.RacuniID == x.RacuniID).ToList()))));
         }
 
         private void AddNewInvoice()
@@ -70,7 +70,7 @@ namespace WpfApplication3.ViewModel
 
                 if (racuni.IsDeleted)
                     Racunis.Remove(racuni);
-            }                     
+            }
         }
         private bool CanDelete()
         {
@@ -88,9 +88,9 @@ namespace WpfApplication3.ViewModel
                 return;
 
             SelectedRacuni.IsDeleted = true;
-        }        
+        }
         private void Add(DataGrid grid)
-        {            
+        {
             var newItem = new RacuniViewModel(_dal);
             Racunis.Add(newItem);
 
@@ -145,8 +145,8 @@ namespace WpfApplication3.ViewModel
         private bool CanEditInvoice()
         {
             if (SelectedRacuni != null & EditInvoiceWindow.Window == null)
-                    return true;
-           
+                return true;
+
             return false;
         }
     }

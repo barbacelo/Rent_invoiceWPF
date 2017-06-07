@@ -21,8 +21,5 @@ namespace WpfApplication3
         public Nullable<decimal> Kolic { get; set; }
         public Nullable<int> Utro { get; set; }
         public decimal Cena { get; set; }
-    
-        public virtual Racuni racuni { get; set; }
-        public virtual Roba roba { get; set; }
     }
 }
