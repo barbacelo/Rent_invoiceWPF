@@ -113,6 +113,7 @@
     <Compile Include="Roba.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PrintInvoiceLineViewModel.cs" />
     <Compile Include="ViewModel\EditingRacuniViewModel.cs" />
     <Compile Include="ViewModel\EditingRevRobaViewModel.cs" />
     <Compile Include="ViewModel\KupcisViewModel.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="NewInvoiceWindow.xaml.cs">
       <DependentUpon>NewInvoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PrintInvoiceViewModel.cs" />
     <Compile Include="ViewModel\RacunisViewModel.cs" />
     <Compile Include="ViewModel\RacuniViewModel.cs" />
     <Compile Include="ModelExtensions\RevRobaExtensions.cs" />
@@ -225,7 +227,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Reports\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
