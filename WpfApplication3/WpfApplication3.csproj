@@ -96,36 +96,18 @@
     <Compile Include="EditInvoiceWindow.xaml.cs">
       <DependentUpon>EditInvoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Kupci.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_get_stock_level2_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="p_get_stock_level_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Racuni.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Kupci.cs" />
+    <Compile Include="Models\Racuni.cs" />
+    <Compile Include="Models\ReversiEntities.cs" />
+    <Compile Include="Models\RevRoba.cs" />
+    <Compile Include="Models\Roba.cs" />
     <Compile Include="ReportFactory.cs" />
-    <Compile Include="RevRoba.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Roba.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\PrintInvoiceLineViewModel.cs" />
     <Compile Include="ViewModel\EditingRacuniViewModel.cs" />
     <Compile Include="ViewModel\EditingRevRobaViewModel.cs" />
     <Compile Include="ViewModel\KupcisViewModel.cs" />
     <Compile Include="ViewModel\KupciViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="NewInvoiceWindow.xaml.cs">
       <DependentUpon>NewInvoiceWindow.xaml</DependentUpon>
     </Compile>
@@ -137,9 +119,6 @@
     <Compile Include="ViewModel\RevRobaViewModel.cs" />
     <Compile Include="ViewModel\RobasViewModel.cs" />
     <Compile Include="ViewModel\RobaViewModel.cs" />
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="EditInvoiceWindow.xaml">
@@ -164,16 +143,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -194,32 +163,7 @@
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\kupci.datasource" />
-    <None Include="Properties\DataSources\racuni.datasource" />
-    <None Include="Properties\DataSources\roba.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.EditingRacuniViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.EditingRevRobaViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.KupcisViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.KupciViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.MainViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.PrintInvoiceLineViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.PrintInvoiceViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RacunisViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RacuniViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobasViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobaViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RobasViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RobaViewModel.datasource" />
-    <None Include="Properties\DataSources\WpfApplication3.ViewModel.ViewModelLocator.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -230,23 +174,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.edmx.sql" />
-    <Content Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <SplashScreen Include="Resources\dream_f9aa703e32.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Model1.edmx.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using System.Data.Entity;
+using WpfApplication3.Models;
 
 namespace WpfApplication3
 {
     public partial class MainWindow
     {
-        private readonly reversiEntities _context = new reversiEntities();
+        private readonly ReversiEntities _context = new ReversiEntities();
 
         public MainWindow()
         {
@@ -14,7 +15,7 @@ namespace WpfApplication3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _context.racuni.Load();
+            _context.Racunis.Load();
         }
     }
 }

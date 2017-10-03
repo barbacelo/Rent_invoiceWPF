@@ -1,3 +1,4 @@
+using WpfApplication3.Models;
 using WpfApplication3.ViewModel;
 
 namespace WpfApplication3.ModelExtensions
