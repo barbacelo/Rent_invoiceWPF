@@ -466,9 +466,18 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37">
+                        <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.PrintInvoiceCommand}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Opacity" Value="0.3" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
                                     <Rectangle.Fill>
                                         <DrawingBrush>
                                             <DrawingBrush.Drawing>

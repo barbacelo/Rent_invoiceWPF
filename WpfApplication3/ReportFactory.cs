@@ -31,7 +31,7 @@ namespace WpfApplication3
 
                 lr.SubreportProcessing += Lr_SubreportProcessing;
 
-                lr.DataSources.Add(new ReportDataSource("DataSource", new[] { _model }));
+                lr.DataSources.Add(new ReportDataSource("InvoiceDataset", new[] { _model }));
 
                 var renderedBytes = lr.Render
                     (
@@ -43,7 +43,7 @@ namespace WpfApplication3
                         out _streams,
                         out _warnings
                     );
-                const string nm = "Invoice Report";
+                const string nm = "ReversStampa";
 
                 var saveAs = Path.Combine(TempPath, nm + ".pdf");
 

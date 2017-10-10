@@ -20,6 +20,7 @@ namespace WpfApplication3.ViewModel
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
         public ICommand EditInvoiceWindowCommand => new RelayCommand(EditInvoice, CanEditInvoice);
+        public ICommand PrintInvoiceCommand => new RelayCommand(PrintInvoice, CanPrintInvoice);
 
         private RacuniViewModel _noviRevers;
         public RacuniViewModel NoviRevers
@@ -148,6 +149,25 @@ namespace WpfApplication3.ViewModel
                 return true;
 
             return false;
+        }
+        private void PrintInvoice()
+        {
+            var pivm = new PrintInvoiceViewModel();
+
+            pivm.InvoiceNumber = SelectedRacuni.Brev;
+            pivm.InvoiceDate = SelectedRacuni.Datum;
+            pivm.Name = SelectedRacuni.Kupci.Ime;
+            pivm.Jmbg = SelectedRacuni.Kupci.Jmbg;
+            pivm.City = SelectedRacuni.Kupci.Mesto;
+
+            ReportFactory.RunReport(pivm);
+        }
+        private bool CanPrintInvoice()
+        {
+            if (SelectedRacuni == null)
+                return false;
+
+            return true;
         }
     }
 }

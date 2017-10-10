@@ -160,10 +160,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\InvoiceLineReport.rdlc" />
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobasViewModel.datasource" />
+    <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobaViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
