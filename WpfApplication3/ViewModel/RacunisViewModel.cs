@@ -160,8 +160,20 @@ namespace WpfApplication3.ViewModel
             pivm.Name = SelectedRacuni.Kupci.Ime;
             pivm.Jmbg = SelectedRacuni.Kupci.Jmbg;
             pivm.City = SelectedRacuni.Kupci.Mesto;
+            pivm.Address = SelectedRacuni.Kupci.Adresa;
 
-            ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc", "InvoiceDataset");
+            foreach (var e in SelectedRacuni.RevRobas.Items)
+            {
+               var vm = new PrintInvoiceLineViewModel();
+                vm.Roba = e.Roba.Naziv;
+                vm.Amount = e.Roba.Kol;
+                vm.Price = e.Roba.Cena;
+                pivm.Items.Add(vm);
+            }
+                
+            
+
+            ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc", "InvoiceDataSet");
             var PDF = PdfiumViewer.PdfDocument.Load("C:/Users/Kavurma/AppData/Local/Temp/Stampa/ReversStampa.pdf");
             PrintDialogWindow.pdfViewer1.Document = PDF;
             PrintDialogWindow.Show();

@@ -17,5 +17,6 @@ namespace WpfApplication3.ViewModel
         public DateTime InvoiceDate { get; set; }
 
         public List<PrintInvoiceLineViewModel> Items { get; set; } = new List<PrintInvoiceLineViewModel>();
+
     }
 }

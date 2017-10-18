@@ -172,11 +172,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\InvoiceLineReport.rdlc" />
+    <EmbeddedResource Include="Reports\InvoiceLineReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\InvoiceReport.rdlc">
-      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\WpfApplication3.ViewModel.PrintInvoiceLineViewModel.datasource" />
+    <None Include="Properties\DataSources\WpfApplication3.ViewModel.PrintInvoiceViewModel.datasource" />
     <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobasViewModel.datasource" />
     <None Include="Properties\DataSources\WpfApplication3.ViewModel.RevRobaViewModel.datasource" />
     <None Include="Properties\Settings.settings">
