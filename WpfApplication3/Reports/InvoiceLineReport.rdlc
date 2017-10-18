@@ -423,7 +423,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSet1</DataSetName>
+        <DataSetName>InvoiceLineDataSet</DataSetName>
         <Height>2in</Height>
         <Width>6.5in</Width>
         <Style>
@@ -455,7 +455,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="InvoiceLineDataSet">
       <Query>
         <DataSourceName>WpfApplication3ViewModel</DataSourceName>
         <CommandText>/* Local Query */</CommandText>

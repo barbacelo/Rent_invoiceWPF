@@ -153,6 +153,7 @@ namespace WpfApplication3.ViewModel
         private void PrintInvoice()
         {
             var pivm = new PrintInvoiceViewModel();
+            var PrintDialogWindow = new Form1();
 
             pivm.InvoiceNumber = SelectedRacuni.Brev;
             pivm.InvoiceDate = SelectedRacuni.Datum;
@@ -160,7 +161,10 @@ namespace WpfApplication3.ViewModel
             pivm.Jmbg = SelectedRacuni.Kupci.Jmbg;
             pivm.City = SelectedRacuni.Kupci.Mesto;
 
-            ReportFactory.RunReport(pivm);
+            ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc", "InvoiceDataset");
+            var PDF = PdfiumViewer.PdfDocument.Load("C:/Users/Kavurma/AppData/Local/Temp/Stampa/ReversStampa.pdf");
+            PrintDialogWindow.pdfViewer1.Document = PDF;
+            PrintDialogWindow.Show();
         }
         private bool CanPrintInvoice()
         {

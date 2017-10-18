@@ -20,18 +20,18 @@ namespace WpfApplication3
         private static Warning[] _warnings;
         private static string[] _streams;
 
-        public static string RunReport(PrintInvoiceViewModel model)
+        public static string RunReport(PrintInvoiceViewModel model, string FileName, string EmbeddedResource, string DataSource)
         {
             _model = model;
 
             using (var lr = new LocalReport())
             {
-                lr.ReportEmbeddedResource = "WpfApplication3.Reports.InvoiceReport.rdlc";
+                lr.ReportEmbeddedResource = EmbeddedResource;
                 lr.EnableExternalImages = true;
 
                 lr.SubreportProcessing += Lr_SubreportProcessing;
 
-                lr.DataSources.Add(new ReportDataSource("InvoiceDataset", new[] { _model }));
+                lr.DataSources.Add(new ReportDataSource(DataSource, new[] { _model }));
 
                 var renderedBytes = lr.Render
                     (
@@ -43,15 +43,13 @@ namespace WpfApplication3
                         out _streams,
                         out _warnings
                     );
-                const string nm = "ReversStampa";
+                string nm = FileName;
 
                 var saveAs = Path.Combine(TempPath, nm + ".pdf");
 
-                var idx = 0;
-                while (File.Exists(saveAs))
+                if (File.Exists(saveAs))
                 {
-                    idx++;
-                    saveAs = Path.Combine(TempPath, string.Format("{0}.{1}.pdf", nm, idx));
+                    File.Delete(saveAs);
                 }
 
                 using (var stream = new FileStream(saveAs, FileMode.Create, FileAccess.Write))
@@ -68,7 +66,7 @@ namespace WpfApplication3
         private static void Lr_SubreportProcessing(object sender, SubreportProcessingEventArgs e)
         {
             var invoiceId = int.Parse(e.Parameters[0].Values[0]);
-            e.DataSources.Add(new ReportDataSource("SubDataSet", _model.Items));
+            e.DataSources.Add(new ReportDataSource("InvoiceLineDataset", _model.Items));
         }
 
         private static string TempPath
