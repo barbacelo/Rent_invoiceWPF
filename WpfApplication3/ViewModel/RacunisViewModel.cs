@@ -23,6 +23,7 @@ namespace WpfApplication3.ViewModel
         public ICommand PrintInvoiceCommand => new RelayCommand(PrintInvoice, CanPrintInvoice);
 
         private RacuniViewModel _noviRevers;
+
         public RacuniViewModel NoviRevers
         {
             get { return _noviRevers; }
@@ -32,6 +33,7 @@ namespace WpfApplication3.ViewModel
                 RaisePropertyChanged();
             }
         }
+
         public RacuniViewModel SelectedRacuni
         {
             get { return _selectedRacuni; }
@@ -73,6 +75,7 @@ namespace WpfApplication3.ViewModel
                     Racunis.Remove(racuni);
             }
         }
+
         private bool CanDelete()
         {
             if (SelectedRacuni == null)
@@ -83,6 +86,7 @@ namespace WpfApplication3.ViewModel
 
             return true;
         }
+
         private void Delete()
         {
             if (SelectedRacuni == null)
@@ -90,6 +94,7 @@ namespace WpfApplication3.ViewModel
 
             SelectedRacuni.IsDeleted = true;
         }
+
         private void Add(DataGrid grid)
         {
             var newItem = new RacuniViewModel(_dal);
@@ -109,6 +114,7 @@ namespace WpfApplication3.ViewModel
             grid.BeginEdit();
             grid.SelectionUnit = DataGridSelectionUnit.FullRow;
         }
+
         private bool CanUndo()
         {
             if (SelectedRacuni == null)
@@ -119,12 +125,14 @@ namespace WpfApplication3.ViewModel
 
             return false;
         }
+
         private void Undo()
         {
             if (SelectedRacuni == null)
                 return;
             SelectedRacuni.IsDeleted = false;
         }
+
         private void NewInvoice()
         {
             NoviRevers = new RacuniViewModel(_dal);
@@ -138,6 +146,7 @@ namespace WpfApplication3.ViewModel
 
             return false;
         }
+
         private void EditInvoice()
         {
             EditInvoiceWindow.ShowSingleWindow(SelectedRacuni);
@@ -150,10 +159,11 @@ namespace WpfApplication3.ViewModel
 
             return false;
         }
+
         private void PrintInvoice()
         {
             var pivm = new PrintInvoiceViewModel();
-            var PrintDialogWindow = new Form1();
+            var printDialogWindow = new Form1();
 
             pivm.InvoiceNumber = SelectedRacuni.Brev;
             pivm.InvoiceDate = SelectedRacuni.Datum;
@@ -164,20 +174,20 @@ namespace WpfApplication3.ViewModel
 
             foreach (var e in SelectedRacuni.RevRobas.Items)
             {
-               var vm = new PrintInvoiceLineViewModel();
+                var vm = new PrintInvoiceLineViewModel();
                 vm.Roba = e.Roba.Naziv;
                 vm.Amount = e.Roba.Kol;
                 vm.Price = e.Roba.Cena;
                 pivm.Items.Add(vm);
             }
-                
-            
 
-            ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc", "InvoiceDataSet");
-            var PDF = PdfiumViewer.PdfDocument.Load("C:/Users/Kavurma/AppData/Local/Temp/Stampa/ReversStampa.pdf");
-            PrintDialogWindow.pdfViewer1.Document = PDF;
-            PrintDialogWindow.Show();
+            var path = ReportFactory.RunReport(pivm, "ReversStampa");
+
+            var pdf = PdfiumViewer.PdfDocument.Load(path);
+            printDialogWindow.pdfViewer1.Document = pdf;
+            printDialogWindow.Show();
         }
+
         private bool CanPrintInvoice()
         {
             if (SelectedRacuni == null)
