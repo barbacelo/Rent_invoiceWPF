@@ -4,7 +4,6 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using WpfApplication3.ModelExtensions;
 using WpfApplication3.Models;
 
 namespace WpfApplication3.ViewModel
