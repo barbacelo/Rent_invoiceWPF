@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System.IO;
 using System.Linq;
 using WpfApplication3.ViewModel;
 
@@ -18,6 +19,10 @@ namespace WpfApplication3
             Robas = new RobasViewModel(dal);
             var revRobas = dal.GetRevRoba().Select(x => new RevRobaViewModel(x, Robas.Robas));
             Racunis = new RacunisViewModel(dal, Kupcis.Kupcis, revRobas);
+
+            var TempFolder = Path.Combine(Path.GetTempPath(), "Stampa");
+            if (Directory.Exists(TempFolder))
+            Directory.Delete(TempFolder, true);
         }
     }
 }
