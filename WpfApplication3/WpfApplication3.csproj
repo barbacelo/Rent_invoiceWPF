@@ -125,6 +125,7 @@
     <Compile Include="Models\ReversiEntities.cs" />
     <Compile Include="Models\RevRoba.cs" />
     <Compile Include="Models\Roba.cs" />
+    <Compile Include="ReportError.cs" />
     <Compile Include="ReportFactory.cs" />
     <Compile Include="ViewModel\PrintInvoiceLineViewModel.cs" />
     <Compile Include="ViewModel\EditingRacuniViewModel.cs" />
@@ -207,7 +208,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <SplashScreen Include="Resources\dream_f9aa703e32.jpg" />
