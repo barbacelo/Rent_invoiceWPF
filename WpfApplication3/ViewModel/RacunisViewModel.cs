@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace WpfApplication3.ViewModel
 {
@@ -15,7 +17,7 @@ namespace WpfApplication3.ViewModel
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
-        public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
+        public ICommand AddCommand => new RelayCommand<System.Windows.Controls.DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
@@ -95,7 +97,7 @@ namespace WpfApplication3.ViewModel
             SelectedRacuni.IsDeleted = true;
         }
 
-        private void Add(DataGrid grid)
+        private void Add(System.Windows.Controls.DataGrid grid)
         {
             var newItem = new RacuniViewModel(_dal);
             Racunis.Add(newItem);
@@ -162,8 +164,9 @@ namespace WpfApplication3.ViewModel
 
         private void PrintInvoice()
         {
+            
             var pivm = new PrintInvoiceViewModel();
-            var printDialogWindow = new Form1();
+            var printDialogWindow = new PrintPreview();
 
             pivm.InvoiceNumber = SelectedRacuni.Brev;
             pivm.InvoiceDate = SelectedRacuni.Datum;
@@ -176,8 +179,8 @@ namespace WpfApplication3.ViewModel
             {
                 var vm = new PrintInvoiceLineViewModel();
                 vm.Roba = e.Roba.Naziv;
-                vm.Amount = e.Roba.Kol;
-                vm.Price = e.Roba.Cena;
+                vm.Amount = e.Kolic;
+                vm.Price = e.Cena;
                 pivm.Items.Add(vm);
             }
 
@@ -185,7 +188,23 @@ namespace WpfApplication3.ViewModel
 
             var pdf = PdfiumViewer.PdfDocument.Load(path);
             printDialogWindow.pdfViewer1.Document = pdf;
-            printDialogWindow.Show();
+            var printpdf = printDialogWindow.pdfViewer1.Document.CreatePrintDocument();
+            var pd = new System.Windows.Forms.PrintDialog();
+            pd.Document = printpdf;
+            pd.UseEXDialog = true;
+            DialogResult result = pd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    printpdf.Print();
+                }
+                catch (InvalidPrinterException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
         }
 
         private bool CanPrintInvoice()

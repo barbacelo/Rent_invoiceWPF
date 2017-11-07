@@ -1,6 +1,6 @@
 ﻿namespace WpfApplication3
 {
-    partial class Form1
+    partial class PrintPreview
     {
         /// <summary>
         /// Required designer variable.

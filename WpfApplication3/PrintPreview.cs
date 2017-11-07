@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WpfApplication3
 {
-    public partial class Form1 : Form
+    public partial class PrintPreview : Form
     {
-        public Form1()
+        public PrintPreview()
         {
             InitializeComponent();
         }
