@@ -11,7 +11,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Revers zaduženje br:</Value>
+                    <Value>Razduženje reversa br:</Value>
                     <Style>
                       <FontFamily>Microsoft Sans Serif</FontFamily>
                       <FontSize>17pt</FontSize>
@@ -44,7 +44,7 @@
             </Style>
           </Textbox>
           <Subreport Name="Subreport1">
-            <ReportName>InvoiceReportLine</ReportName>
+            <ReportName>PaymentInvoiceReportLine</ReportName>
             <Top>5.8003cm</Top>
             <Height>3.6927cm</Height>
             <Width>19cm</Width>

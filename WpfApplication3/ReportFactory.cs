@@ -11,13 +11,13 @@ namespace WpfApplication3
     {
         private static PrintInvoiceViewModel _model;
 
-        public static string RunReport(PrintInvoiceViewModel model, string fileName)
+        public static string RunReport(PrintInvoiceViewModel model, string fileName,string ReportEmbeddedResource)
         {
             _model = model;
 
             var lr = new LocalReport();
 
-            lr.ReportEmbeddedResource = "WpfApplication3.Reports.InvoiceReport.rdlc";
+            lr.ReportEmbeddedResource = ReportEmbeddedResource;
             lr.EnableExternalImages = true;
 
             lr.SubreportProcessing += Lr_SubreportProcessing;

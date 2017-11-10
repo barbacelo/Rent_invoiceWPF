@@ -12,7 +12,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="121*"/>
             <ColumnDefinition Width="219*"/>
-            <ColumnDefinition Width="34*"/>
             <ColumnDefinition Width="126*"/>
             <ColumnDefinition Width="143*"/>
             <ColumnDefinition Width="229*"/>
@@ -25,13 +24,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Fill="#D3D3D3"/>
+        <Rectangle Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Fill="#D3D3D3"/>
         <Label Grid.Row="0" Grid.Column="0" Content="Datum reversa:"/>
         <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Editable.Datum, StringFormat=dd.MM.yyyy}" Height="16" Margin="0,5" Grid.ColumnSpan="2" />
 
 
-        <Label Grid.Row="0" Grid.Column="3" Content="Naziv artikla"/>
-        <ComboBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" SelectedItem="{Binding Newrevroba.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" IsEditable="True" IsTextSearchEnabled="True">
+        <Label Grid.Row="0" Grid.Column="2" Content="Naziv artikla"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Newrevroba.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" IsEditable="True" IsTextSearchEnabled="True">
             <ComboBox.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                     <GradientStop Color="PowderBlue" Offset="0.00" />
@@ -45,17 +44,17 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca:"/>
         <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Editable.Kupci}" Height="16" Margin="0,5" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="1" Grid.Column="3" Content="Količina"/>
-        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Newrevroba.Kolic,Mode=TwoWay}"/>
+        <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Newrevroba.Kolic,Mode=TwoWay}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa:"/>
         <TextBlock Grid.Row="2" Grid.Column="1" IsEnabled="False" VerticalAlignment="Center" Height="16" Margin="0,5" Grid.ColumnSpan="2"> <Run Text="{Binding Editable.Brev, Mode=OneWay, StringFormat=0000 /}"/><Run Text=" "/><Run Text="{Binding Editable.Datum, Mode=OneWay, StringFormat=yy}"/></TextBlock>
 
-        <Label Grid.Row="2" Grid.Column="3" Content="Cena po danu"/>
-        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding Newrevroba.Cena,Mode=TwoWay}"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Newrevroba.Cena,Mode=TwoWay}"/>
 
-        <Label Grid.Row="3" Grid.Column="3" Content="Datum"/>
-        <DatePicker Grid.Row="3" Grid.Column="4" SelectedDate="{Binding Newrevroba.Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
+        <Label Grid.Row="3" Grid.Column="2" Content="Datum"/>
+        <DatePicker Grid.Row="3" Grid.Column="3" SelectedDate="{Binding Newrevroba.Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="Template">
@@ -127,29 +126,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Razduži sve artikle" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Command="{Binding ClearAllInvoicesCommand}"/>
-        <Button x:Name="stampaReversa" ToolTip="Štampa reversa" Grid.Column="2" Grid.Row="3">
-            <Viewbox Width="23" Height="22">
-                <Rectangle Width="16" Height="16">
-                    <Rectangle.Fill>
-                        <DrawingBrush>
-                            <DrawingBrush.Drawing>
-                                <DrawingGroup>
-                                    <DrawingGroup.Children>
-                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,0.999700000000001L1.9998,5.0007 -0.000199999999999978,5.0007 -0.000199999999999978,13.0007 2.9998,13.0007 2.9998,14.9997 12.9998,14.9997 12.9998,13.0007 15.9998,13.0007 15.9998,5.0007 14.0008,5.0007 14.0008,0.999700000000001z" />
-                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
-                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
-                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
-                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M5,13L11,13 11,11 5,11z" />
-                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,6L12,6 12,3 4,3z" />
-                                    </DrawingGroup.Children>
-                                </DrawingGroup>
-                            </DrawingBrush.Drawing>
-                        </DrawingBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Viewbox>
-        </Button>
         <Button Content="Upiši revers" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding SaveEditedInvoiceCommand}"/>
 
 

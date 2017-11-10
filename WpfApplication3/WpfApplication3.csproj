@@ -115,6 +115,9 @@
     </ApplicationDefinition>
     <Compile Include="Converter.cs" />
     <Compile Include="DataAcess.cs" />
+    <Compile Include="ChooseReportWindow.xaml.cs">
+      <DependentUpon>ChooseReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditInvoiceWindow.xaml.cs">
       <DependentUpon>EditInvoiceWindow.xaml</DependentUpon>
     </Compile>
@@ -131,25 +134,28 @@
     <Compile Include="Models\Roba.cs" />
     <Compile Include="ReportError.cs" />
     <Compile Include="ReportFactory.cs" />
-    <Compile Include="ViewModel\PrintInvoiceLineViewModel.cs" />
-    <Compile Include="ViewModel\EditingRacuniViewModel.cs" />
-    <Compile Include="ViewModel\EditingRevRobaViewModel.cs" />
-    <Compile Include="ViewModel\KupcisViewModel.cs" />
-    <Compile Include="ViewModel\KupciViewModel.cs" />
+    <Compile Include="ViewModels\PrintInvoiceLineViewModel.cs" />
+    <Compile Include="ViewModels\EditingRacuniViewModel.cs" />
+    <Compile Include="ViewModels\EditingRevRobaViewModel.cs" />
+    <Compile Include="ViewModels\KupcisViewModel.cs" />
+    <Compile Include="ViewModels\KupciViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="NewInvoiceWindow.xaml.cs">
       <DependentUpon>NewInvoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\PrintInvoiceViewModel.cs" />
-    <Compile Include="ViewModel\RacunisViewModel.cs" />
-    <Compile Include="ViewModel\RacuniViewModel.cs" />
+    <Compile Include="ViewModels\PrintInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\RacunisViewModel.cs" />
+    <Compile Include="ViewModels\RacuniViewModel.cs" />
     <Compile Include="ModelExtensions\RevRobaExtensions.cs" />
-    <Compile Include="ViewModel\RevRobasViewModel.cs" />
-    <Compile Include="ViewModel\RevRobaViewModel.cs" />
-    <Compile Include="ViewModel\RobasViewModel.cs" />
-    <Compile Include="ViewModel\RobaViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\RevRobasViewModel.cs" />
+    <Compile Include="ViewModels\RevRobaViewModel.cs" />
+    <Compile Include="ViewModels\RobasViewModel.cs" />
+    <Compile Include="ViewModels\RobaViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Page Include="ChooseReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditInvoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,13 +231,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Resources\dream_f9aa703e32.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model1.edmx.sql" />
+    <SplashScreen Include="Resources\SplashTS.png" />
     <Content Include="x64\pdfium.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

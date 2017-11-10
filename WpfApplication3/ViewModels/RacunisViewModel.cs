@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using WpfApplication3.Views;
 
 namespace WpfApplication3.ViewModel
 {
@@ -23,6 +24,8 @@ namespace WpfApplication3.ViewModel
         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
         public ICommand EditInvoiceWindowCommand => new RelayCommand(EditInvoice, CanEditInvoice);
         public ICommand PrintInvoiceCommand => new RelayCommand(PrintInvoice, CanPrintInvoice);
+        public ICommand PrintInitialInvoiceCommand => new RelayCommand(InitialInvoice);
+        public ICommand PrintPaymentInvoiceCommand => new RelayCommand(PaymentInvoice);
 
         private RacuniViewModel _noviRevers;
 
@@ -161,10 +164,12 @@ namespace WpfApplication3.ViewModel
 
             return false;
         }
-
-        private void PrintInvoice()
+        private void InitialInvoice()
         {
-            
+            if (ChooseReportWindow.Window != null)
+            {
+                ChooseReportWindow.Window.Close();
+            }
             var pivm = new PrintInvoiceViewModel();
             var printDialogWindow = new PrintPreview();
 
@@ -184,7 +189,7 @@ namespace WpfApplication3.ViewModel
                 pivm.Items.Add(vm);
             }
 
-            var path = ReportFactory.RunReport(pivm, "ReversStampa");
+            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc");
 
             var pdf = PdfiumViewer.PdfDocument.Load(path);
             printDialogWindow.pdfViewer1.Document = pdf;
@@ -203,8 +208,77 @@ namespace WpfApplication3.ViewModel
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
+        }
+        private void PaymentInvoice()
+        {
+            if (ChooseReportWindow.Window != null)
+            {
+                ChooseReportWindow.Window.Close();
+            }
+            var pivm = new PrintInvoiceViewModel();
+            var printDialogWindow = new PrintPreview();
+
+            pivm.InvoiceNumber = SelectedRacuni.Brev;
+            pivm.InvoiceDate = SelectedRacuni.Datum;
+            pivm.Name = SelectedRacuni.Kupci.Ime;
+            pivm.Jmbg = SelectedRacuni.Kupci.Jmbg;
+            pivm.City = SelectedRacuni.Kupci.Mesto;
+            pivm.Address = SelectedRacuni.Kupci.Adresa;
+
+            foreach (var e in SelectedRacuni.RevRobas.Items)
+            {
+                var vm = new PrintInvoiceLineViewModel();
+                vm.Roba = e.Roba.Naziv;
+                vm.Amount = e.Kolic;
+                vm.Price = e.Cena;
+                vm.Date = e.Datum;
+                vm.Days = e.Utro;
+                vm.Value = e.Cena * e.Utro;
+                pivm.Items.Add(vm);
+            }
+
+            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.PaymentInvoiceReport.rdlc");
+
+            var pdf = PdfiumViewer.PdfDocument.Load(path);
+            printDialogWindow.pdfViewer1.Document = pdf;
+            var printpdf = printDialogWindow.pdfViewer1.Document.CreatePrintDocument();
+            var pd = new System.Windows.Forms.PrintDialog();
+            pd.Document = printpdf;
+            pd.UseEXDialog = true;
+            DialogResult result = pd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    printpdf.Print();
+                }
+                catch (InvalidPrinterException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        private void PrintInvoice()
+        {
+            bool isnegative = SelectedRacuni.RevRobas.Items.Any(a => a.Kolic < 0);
+            foreach (var s in SelectedRacuni.RevRobas.Items)
+            {
+                if (isnegative)
+                {
+                    ChooseReportWindow.ShowSingleWindow();
+                    break;
+                }
+                else
+                {
+                    InitialInvoice();
+                    break;
+                }
+            }
+
         }
 
         private bool CanPrintInvoice()
