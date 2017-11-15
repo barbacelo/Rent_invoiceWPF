@@ -8,8 +8,26 @@
     x:Class="WpfApplication3.MainWindow"
         xml:lang="sr-Latn-RS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowState="Maximized"
-        DataContext="{StaticResource MainViewModel}">
+        Title="PodupiraTron" Height="600" Width="800" Loaded="Window_Loaded" WindowState="Maximized"
+        DataContext="{StaticResource MainViewModel}" Background="#E6E6E6">
+    <Window.Resources>
+
+        <ImageBrush x:Key="patternbrush1" ImageSource="pack://application:,,,/Resources/brickwall.png" TileMode="Tile" Viewport="0,0,110,69" ViewportUnits="Absolute"/>
+        <ImageBrush x:Key="patternbrush" ImageSource="pack://application:,,,/Resources/gplaypattern.png" TileMode="Tile" Viewport="0,0,188,178" ViewportUnits="Absolute"/>
+
+
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource HeaderBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource HeaderBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="154*" />
@@ -23,9 +41,11 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Border Background="{StaticResource patternbrush}" Grid.Row="0"/>
+            <Border Background="{StaticResource patternbrush}" Grid.Row="2"/>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
             <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Orientation="Horizontal">
-                <Button x:Name="dodajKupca" ToolTip="Dodaj kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.AddCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}">
+                <Button x:Name="dodajKupca" ToolTip="Dodaj kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.AddCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="40" Height="40">
                             <Rectangle.Style>
@@ -43,7 +63,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1M8,2L6,2 6,0 2,0 2,2 0,2 0,6 2,6 2,8 6,8 6,6 8,6z M16,9L16,16 7,16 7,9 9,9C8.35,8.365 8,7.48 8,6.5 8,4.566 9.566,3 11.5,3 13.434,3 15,4.566 15,6.5 15,7.48 14.65,8.365 14,9z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M13,10L11.5,12 10,10 8,10 8,15 15,15 15,10z M9,6.5C9,5.12 10.119,4 11.5,4 12.879,4 14,5.12 14,6.5 14,7.881 12.879,9 11.5,9 10.119,9 9,7.881 9,6.5" />
                                                 <GeometryDrawing Brush="#FF388934" Geometry="F1M7,5L5,5 5,7 3.018,7 3.018,5 1,5 1,3.018 3.018,3.018 3.018,1 5,1 5,3.018 7,3.018z" />
                                             </DrawingGroup.Children>
@@ -54,7 +73,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="snimiKupci" ToolTip="Sačuvaj promene kupaca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.SaveCommand}">
+                <Button x:Name="snimiKupci" ToolTip="Sačuvaj promene kupaca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.SaveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
@@ -71,7 +90,6 @@
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
                                             </DrawingGroup.Children>
@@ -82,7 +100,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="štampaKupci" ToolTip="Štampa kupaca" Height="37" VerticalAlignment="Top" Width="37">
+                <Button x:Name="štampaKupci" ToolTip="Štampa kupaca" Height="37" VerticalAlignment="Top" Width="37" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Fill>
@@ -91,7 +109,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,0.999700000000001L1.9998,5.0007 -0.000199999999999978,5.0007 -0.000199999999999978,13.0007 2.9998,13.0007 2.9998,14.9997 12.9998,14.9997 12.9998,13.0007 15.9998,13.0007 15.9998,5.0007 14.0008,5.0007 14.0008,0.999700000000001z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
@@ -105,7 +122,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="brisiKupca" ToolTip="Obriši kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.DeleteCommand}">
+                <Button x:Name="brisiKupca" ToolTip="Obriši kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.DeleteCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
@@ -123,7 +140,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1M16,9L16,16 7,16 7,9 8.225,9 5.111,6.295 3.063,8.544C2.7,8.911 2.253,9.13 1.779,9.13 1.305,9.13 0.856999999999999,8.942 0.519,8.601 -0.178000000000001,7.894 -0.178000000000001,6.789 0.519,6.082L2.762,4.108 1.646,3.067C0.928000000000001,2.34 0.93,1.208 1.622,0.516 1.943,0.192 2.409,0.00399999999999956 2.898,0.00399999999999956 3.399,0.00399999999999956 3.866,0.208 4.178,0.563000000000001L5.22,1.956 7.709,0 10.666,0 7.128,4.09 8.19,5.413C8.649,4.015 9.949,3 11.5,3 13.434,3 15,4.566 15,6.5 15,7.48 14.65,8.365 14,9z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M13,10L11.5,12 10,10 8,10 8,15 15,15 15,10z M11.5,4C12.879,4 14,5.12 14,6.5 14,7.881 12.879,9 11.5,9 11.339,9 11.183,8.982 11.031,8.953L9.007,6.431C9.044,5.084,10.143,4,11.5,4" />
                                                 <GeometryDrawing Brush="#FFA1260C" Geometry="F1M5.834,4.1294L8.5,1.0004 8.055,1.0004 5.032,3.3754 3.427,1.2234C3.152,0.910400000000001 2.598,0.9524 2.329,1.2234 2.051,1.5014 1.995,1.9984 2.329,2.3364L4.25,4.1294 1.23,6.7854C0.923999999999999,7.0954 0.923999999999999,7.5874 1.23,7.8974 1.537,8.2074 2.021,8.2074 2.329,7.8974L5.042,4.9584 8.605,8.1254 9,8.1254z" />
                                             </DrawingGroup.Children>
@@ -134,7 +150,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="undoKupci" ToolTip="Poništi brisanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.UndoCommand}">
+                <Button x:Name="undoKupci" ToolTip="Poništi brisanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.UndoCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="30" Height="32">
                         <Rectangle Width="64" Height="64">
                             <Rectangle.Style>
@@ -151,7 +167,6 @@
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M36.0186,0C30.3306,0,24.8206,2.027,20.5116,5.699L19.9996,6.137 19.9996,0 14.3306,0 3.9996,10.344 3.9996,32 25.6396,32 40.3466,17.279C42.5496,18.705 44.0066,21.186 44.0066,24 44.0066,26.338 42.9676,28.568 41.1126,30.166L15.7376,52.664 25.7646,64 27.0616,64 51.6166,42.227C56.9446,37.664 59.9986,31.018 59.9986,24 59.9986,10.766 49.2416,0 36.0186,0" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
                                             </DrawingGroup.Children>
                                         </DrawingGroup>
@@ -161,7 +176,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="filterKupci" ToolTip="Filter" Height="37" VerticalAlignment="Top" Width="37">
+                <Button x:Name="filterKupci" ToolTip="Filter" Height="37" VerticalAlignment="Top" Width="37" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="30" Height="32">
                         <Rectangle Width="64" Height="64">
                             <Rectangle.Fill>
@@ -170,7 +185,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M0.0081,1.9996L6.0001,10.0446 6.0001,15.9996 10.0001,15.9996 10.0001,10.0446 15.9911,1.9996z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M14,3L9,9.714 9,15 7,15 7,9.714 2,3z" />
                                             </DrawingGroup.Children>
                                         </DrawingGroup>
@@ -182,7 +196,7 @@
                 </Button>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Grid.Row="2" Orientation="Horizontal">
-                <Button x:Name="dodajRobu" ToolTip="Dodaj robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.AddCommand}" CommandParameter="{Binding ElementName=robaDataGrid}">
+                <Button x:Name="dodajRobu" ToolTip="Dodaj robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.AddCommand}" CommandParameter="{Binding ElementName=robaDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
@@ -200,7 +214,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,-0.000199999999999534L1.9998,1.9998 -0.000199999999999978,1.9998 -0.000199999999999978,5.9998 1.9998,5.9998 1.9998,7.9998 2.9998,7.9998 2.9998,12.4378 8.8198,15.9998 10.1818,15.9998 15.9998,12.4378 15.9998,5.2218 9.5008,1.7508 7.9998,2.5508 7.9998,1.9998 6.0008,1.9998 6.0008,-0.000199999999999534z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M10,9L10,15 15,11.792 15,6.292z M6,8L4,8 4,11.792 9,15 9,9 6,7.375z M14.694,5.375L9.5,8.125 6,6.272 6,6 8,6 8,3.419 9.5,2.625z" />
                                                 <GeometryDrawing Brush="#FF388934" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
                                             </DrawingGroup.Children>
@@ -211,7 +224,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="snimiRobu" ToolTip="Sačuvaj promene robe" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.SaveCommand}">
+                <Button x:Name="snimiRobu" ToolTip="Sačuvaj promene robe" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.SaveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
@@ -228,7 +241,6 @@
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
                                             </DrawingGroup.Children>
@@ -239,7 +251,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="stampaRoba" ToolTip="Štampa robe" Height="37" VerticalAlignment="Top" Width="37">
+                <Button x:Name="stampaRoba" ToolTip="Štampa robe" Height="37" VerticalAlignment="Top" Width="37" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Fill>
@@ -248,7 +260,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,0.999700000000001L1.9998,5.0007 -0.000199999999999978,5.0007 -0.000199999999999978,13.0007 2.9998,13.0007 2.9998,14.9997 12.9998,14.9997 12.9998,13.0007 15.9998,13.0007 15.9998,5.0007 14.0008,5.0007 14.0008,0.999700000000001z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
                                                 <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
@@ -262,7 +273,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="brisiRobu" ToolTip="Obriši robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.DeleteCommand}">
+                <Button x:Name="brisiRobu" ToolTip="Obriši robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.DeleteCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>
@@ -280,7 +291,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M16,4.8887L16,12.3387 10.294,15.9997 8.706,15.9997 3,12.3387 3,8.5997C2.648,8.9297 2.227,9.1297 1.779,9.1297 1.305,9.1297 0.856999999999999,8.9417 0.52,8.6007 -0.178000000000001,7.8937 -0.178000000000001,6.7887 0.519,6.0827L2.761,4.1077 1.647,3.0677C0.928000000000001,2.3397 0.93,1.2087 1.622,0.5157 1.943,0.1917 2.409,0.00370000000000026 2.897,0.00370000000000026 3.399,0.00370000000000026 3.866,0.2077 4.178,0.5637L5.22,1.9557 7.709,-0.000300000000000189 10.666,-0.000300000000000189 9.265,1.6197 9.5,1.4967z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M6.9396,7.884L4.7466,6.696 3.9996,7.516 3.9996,11.792 8.9996,15 8.9996,9 8.2236,9z M9.4996,2.625L7.4866,3.676 7.1276,4.09 10.1106,7.806 14.7706,5.375z M14.9996,6.292L14.9996,11.792 9.9996,15 9.9996,9 11.0686,9 10.7446,8.597z" />
                                                 <GeometryDrawing Brush="#FFA1260D" Geometry="F1M5.834,4.1294L8.5,1.0004 8.055,1.0004 5.032,3.3754 3.427,1.2234C3.152,0.910400000000001 2.598,0.9524 2.329,1.2234 2.051,1.5014 1.995,1.9984 2.329,2.3364L4.25,4.1294 1.23,6.7854C0.923999999999999,7.0954 0.923999999999999,7.5874 1.23,7.8974 1.537,8.2074 2.021,8.2074 2.329,7.8974L5.042,4.9584 8.605,8.1254 9,8.1254z" />
                                             </DrawingGroup.Children>
@@ -291,7 +301,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="undoRoba" ToolTip="Poništi brisanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.UndoCommand}">
+                <Button x:Name="undoRoba" ToolTip="Poništi brisanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.UndoCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="30" Height="32">
                         <Rectangle Width="64" Height="64">
                             <Rectangle.Style>
@@ -308,7 +318,6 @@
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M36.0186,0C30.3306,0,24.8206,2.027,20.5116,5.699L19.9996,6.137 19.9996,0 14.3306,0 3.9996,10.344 3.9996,32 25.6396,32 40.3466,17.279C42.5496,18.705 44.0066,21.186 44.0066,24 44.0066,26.338 42.9676,28.568 41.1126,30.166L15.7376,52.664 25.7646,64 27.0616,64 51.6166,42.227C56.9446,37.664 59.9986,31.018 59.9986,24 59.9986,10.766 49.2416,0 36.0186,0" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
                                             </DrawingGroup.Children>
                                         </DrawingGroup>
@@ -318,7 +327,7 @@
                         </Rectangle>
                     </Viewbox>
                 </Button>
-                <Button x:Name="filterRoba" ToolTip="Filter" Height="37" VerticalAlignment="Top" Width="37">
+                <Button x:Name="filterRoba" ToolTip="Filter" Height="37" VerticalAlignment="Top" Width="37" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="30" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Fill>
@@ -327,7 +336,6 @@
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
                                                 <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M0.0081,1.9996L6.0001,10.0446 6.0001,15.9996 10.0001,15.9996 10.0001,10.0446 15.9911,1.9996z" />
                                                 <GeometryDrawing Brush="#FF424242" Geometry="F1M14,3L9,9.714 9,15 7,15 7,9.714 2,3z" />
                                             </DrawingGroup.Children>
                                         </DrawingGroup>
@@ -338,7 +346,7 @@
                     </Viewbox>
                 </Button>
             </StackPanel>
-            <DataGrid Grid.Row="0" x:Name="kupciDataGrid" AutoGenerateColumns="False" BorderBrush="#707070" EnableRowVirtualization="True" ItemsSource="{Binding Kupcis.Kupcis}" SelectedItem="{Binding Kupcis.SelectedKupci, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
+            <DataGrid Grid.Row="0" x:Name="kupciDataGrid" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#B4E6FF" AutoGenerateColumns="False" BorderBrush="#707070" EnableRowVirtualization="True" ItemsSource="{Binding Kupcis.Kupcis}" SelectedItem="{Binding Kupcis.SelectedKupci, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
                         <Style.Triggers>
@@ -360,17 +368,17 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="imeColumn" Binding="{Binding Ime}" Header="ime" Width="*" MinWidth="130"/>
-                    <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding Adresa}" Header="adresa" Width="*" MinWidth="200"/>
-                    <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding Mesto}" Header="mesto" Width="*" MinWidth="120"/>
-                    <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding Telefon}" Header="telefon" Width="*" MinWidth="100"/>
-                    <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding Jmbg}" Header="jmbg" Width="*" MinWidth="95"/>
-                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding Dug}" Header="dug" Width="*" MinWidth="80"/>
-                    <DataGridTextColumn x:Name="potColumn" Binding="{Binding Pot}" Header="pot" Width="*" MinWidth="80"/>
-                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="saldo" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="imeColumn" Binding="{Binding Ime}" Header="Kupac" Width="*" MinWidth="130"/>
+                    <DataGridTextColumn x:Name="adresaColumn" Binding="{Binding Adresa}" Header="Adresa" Width="*" MinWidth="200"/>
+                    <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding Mesto}" Header="Mesto" Width="*" MinWidth="120"/>
+                    <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding Telefon}" Header="Telefon" Width="*" MinWidth="100"/>
+                    <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding Jmbg}" Header="JMBG/PIB" Width="*" MinWidth="95"/>
+                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding Dug}" Header="Duguje" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="potColumn" Binding="{Binding Pot}" Header="Potražuje" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="Saldo" Width="*" MinWidth="80"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" BorderBrush="#707070" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
+            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
                         <Style.Triggers>
@@ -401,14 +409,14 @@
             </DataGrid>
         </Grid>
         <TabControl x:Name="tabControl" Grid.Column="2" Padding="0">
-            <TabItem Header="TabItem" Height="28" Width="auto" HorizontalAlignment="Stretch">
-                <Grid Background="White">
+            <TabItem Header="Reversi" Height="28" Width="auto" HorizontalAlignment="Stretch">
+                <Grid Background="{StaticResource patternbrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Grid.Row="0" Orientation="Horizontal">
-                        <Button x:Name="dodajracuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.NewInvoiceWindowCommand}">
+                        <Button x:Name="dodajracuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.NewInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
                                     <Rectangle.Style>
@@ -426,7 +434,6 @@
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
                                                         <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M16,5.5562L16,14.0002C16,14.9702,15.299,16.0002,13.999,16.0002L6,16.0002C5.03,16.0002,4,15.2992,4,14.0002L4,8.0002 2,8.0002 2,6.0002 0,6.0002 0,2.0002 2,2.0002 2,0.000200000000000422 6,0.000200000000000422 6,2.0002 12.061,2.0002z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
                                                         <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
                                                         <GeometryDrawing Brush="#FF388A34" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
@@ -438,7 +445,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="snimiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.SaveCommand}">
+                        <Button x:Name="snimiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.SaveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
                                     <Rectangle.Style>
@@ -455,7 +462,6 @@
                                             <DrawingBrush.Drawing>
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M240,240L16,240 16,16 208,16 240,48z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
                                                         <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
                                                     </DrawingGroup.Children>
@@ -466,7 +472,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.PrintInvoiceCommand}">
+                        <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.PrintInvoiceCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
                                     <Rectangle.Style>
@@ -484,7 +490,6 @@
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
                                                         <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.9998,0.999700000000001L1.9998,5.0007 -0.000199999999999978,5.0007 -0.000199999999999978,13.0007 2.9998,13.0007 2.9998,14.9997 12.9998,14.9997 12.9998,13.0007 15.9998,13.0007 15.9998,5.0007 14.0008,5.0007 14.0008,0.999700000000001z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
                                                         <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
                                                         <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
@@ -498,7 +503,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="brisiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.DeleteCommand}">
+                        <Button x:Name="brisiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.DeleteCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
                                     <Rectangle.Style>
@@ -516,7 +521,6 @@
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
                                                         <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M4,15C3.03,15,2,14.299,2,13L2,3C2,1.701,3.03,1,4,1L10.061,1 14,4.556 14,13C14,13.97,13.299,15,12,15z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M12,13L4,13 4,3 9,3 9,6 12,6z M9.64,2L3.964,2C3.964,2,3,2,3,3L3,13C3,14,3.964,14,3.964,14L11.965,14C12.965,14,13,13,13,13L13,5z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M8,6L5,6 5,5 8,5z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M11,8L5,8 5,7 11,7z" />
@@ -532,7 +536,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="undoRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.UndoCommand}">
+                        <Button x:Name="undoRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.UndoCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="30" Height="32">
                                 <Rectangle Width="64" Height="64">
                                     <Rectangle.Style>
@@ -549,7 +553,6 @@
                                             <DrawingBrush.Drawing>
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M36.0186,0C30.3306,0,24.8206,2.027,20.5116,5.699L19.9996,6.137 19.9996,0 14.3306,0 3.9996,10.344 3.9996,32 25.6396,32 40.3466,17.279C42.5496,18.705 44.0066,21.186 44.0066,24 44.0066,26.338 42.9676,28.568 41.1126,30.166L15.7376,52.664 25.7646,64 27.0616,64 51.6166,42.227C56.9446,37.664 59.9986,31.018 59.9986,24 59.9986,10.766 49.2416,0 36.0186,0" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
                                                     </DrawingGroup.Children>
                                                 </DrawingGroup>
@@ -559,7 +562,7 @@
                                 </Rectangle>
                             </Viewbox>
                         </Button>
-                        <Button x:Name="razduzivanje" ToolTip="Razduživanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.EditInvoiceWindowCommand}">
+                        <Button x:Name="razduzivanje" ToolTip="Razduživanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.EditInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Viewbox Width="40" Height="32">
                                 <Rectangle Width="16" Height="16">
                                     <Rectangle.Style>
@@ -577,7 +580,6 @@
                                                 <DrawingGroup>
                                                     <DrawingGroup.Children>
                                                         <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M16,5.5562L16,14.0002C16,14.9702,15.299,16.0002,13.999,16.0002L6,16.0002C5.03,16.0002,4,15.2992,4,14.0002L4,8.0002 2,8.0002 2,6.0002 0,6.0002 0,2.0002 2,2.0002 2,0.000200000000000422 6,0.000200000000000422 6,2.0002 12.061,2.0002z" />
                                                         <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
                                                         <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
                                                         <GeometryDrawing Brush="#0075ea" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
@@ -590,7 +592,7 @@
                             </Viewbox>
                         </Button>
                     </StackPanel>
-                    <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" BorderBrush="#707070" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,-1,-5,0" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="1">
+                    <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#B4E6FF" EnableRowVirtualization="True" BorderBrush="#707070" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,-1,-5,0" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="1">
                         <DataGrid.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Style.Triggers>
@@ -641,23 +643,14 @@
                             <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}}" IsEditable="True" IsTextSearchEnabled="True">
-                                            <ComboBox.Background>
-                                                <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
-                                                    <GradientStop Color="PowderBlue" Offset="0.00" />
-                                                    <GradientStop Color="White" Offset="0.50" />
-                                                    <GradientStop Color="White" Offset="0.52" />
-                                                    <GradientStop Color="LightGray" Offset="1.0" />
-                                                </LinearGradientBrush>
-                                            </ComboBox.Background>
-                                        </ComboBox>
+                                        <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#B4E6FF" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}}" IsEditable="False" IsTextSearchEnabled="True"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="#A7FFED" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
                                             </DataGrid.Resources>
@@ -703,7 +696,7 @@
                             <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
                                             </DataGrid.Resources>
@@ -731,7 +724,7 @@
                             <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
                                             </DataGrid.Resources>
@@ -765,7 +758,7 @@
                             <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
                                             </DataGrid.Resources>
@@ -799,7 +792,7 @@
                             <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                                     <MenuItem Header="Obriši promenu" />
@@ -837,7 +830,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" Height="28" Width="auto">
+            <TabItem Header="Pregled" Height="28" Width="auto">
                 <Grid Background="#FFE5E5E5">
                 </Grid>
             </TabItem>

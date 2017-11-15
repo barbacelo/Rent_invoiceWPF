@@ -130,7 +130,7 @@ namespace WpfApplication3.ViewModel
             Telefon = k.Telefon;
             Dug     = k.Dug;
             Pot     = k.Pot;
-            Saldo   = k.Saldo;
+            Saldo   = k.Dug - k.Pot;
 
             Changed = false;
         }

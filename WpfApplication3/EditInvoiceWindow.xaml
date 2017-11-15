@@ -36,7 +36,6 @@
                     <GradientStop Color="PowderBlue" Offset="0.00" />
                     <GradientStop Color="White" Offset="0.50" />
                     <GradientStop Color="White" Offset="0.52" />
-                    <GradientStop Color="#c29bd2" Offset="1.0" />
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
