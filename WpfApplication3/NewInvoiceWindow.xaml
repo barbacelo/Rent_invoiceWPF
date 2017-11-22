@@ -71,7 +71,7 @@
 
         <Button x:Name="button" Content="Dodaj artikal" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}" KeyboardNavigation.TabIndex="5"/>
 
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False">
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba}"/>
                 <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Kolic}"/>

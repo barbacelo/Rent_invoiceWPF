@@ -26,6 +26,12 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
+
+        public decimal? CurrentPrice
+        {
+            get { return ((DateTime.Today - Datum).Days + 1) * Cena * Kolic; }
+        }
+
         public RobaViewModel Roba
         {
             get { return _roba; }
@@ -63,6 +69,7 @@ namespace WpfApplication3.ViewModel
             {
                 _kolic = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("CurrentPrice");
                 Changed = true;
             }
         }
@@ -83,6 +90,7 @@ namespace WpfApplication3.ViewModel
             {
                 _cena = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("CurrentPrice");
                 Changed = true;
             }
         }
@@ -104,7 +112,7 @@ namespace WpfApplication3.ViewModel
             Kolic = k.Kolic;
             Utro = k.Utro;
             Cena = k.Cena;
-
+            //CurrentPrice = ((DateTime.Today - Datum).Days + 1) *Cena * Kolic;
             Changed = false;
         }
 

@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using WpfApplication3.Models;
+using System.ComponentModel;
 
 namespace WpfApplication3.ViewModel
 {
@@ -15,6 +16,7 @@ namespace WpfApplication3.ViewModel
 
         private int _brev;
         private DateTime _datum;
+        private decimal? _currentPrice;
         private KupciViewModel _kupci;
         private bool _changed;
         private bool _isDeleted;  
@@ -69,6 +71,22 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
+       
+
+        public decimal? CurrentPrice
+        {
+            get { return RevRobas.Items.Sum(x => x.CurrentPrice); }
+        }
+
+        public void CurrentPriceHandler(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemChanged &&  e.PropertyDescriptor.Name == "CurrentPrice")
+            {
+                RaisePropertyChanged("CurrentPrice");
+            }
+
+        }
+
         public bool IsDeleted
         {
             get { return _isDeleted; }
@@ -98,6 +116,7 @@ namespace WpfApplication3.ViewModel
 
             Brev = k.Brev;
             RevRobas = revRobas;
+            RevRobas.Items.ListChanged += CurrentPriceHandler;
             Datum = k.Datum;
             Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.KupciID);
 

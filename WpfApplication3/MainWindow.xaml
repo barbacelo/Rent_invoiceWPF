@@ -621,25 +621,14 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn x:Name="datumColumn" Header="Datum reversa" MinWidth="106" Width="106">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">
-                                            <DatePicker.Resources>
-                                                <Style TargetType="{x:Type DatePickerTextBox}">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd.MM.yyyy}" />
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </DatePicker.Resources>
-                                        </DatePicker>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn x:Name="currentpriceColumn" Binding="{Binding CurrentPrice, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Header="Vrednost" Width="*" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextAlignment" Value="Right"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                             <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
@@ -652,7 +641,7 @@
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
                                         <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="#A7FFED" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu>
@@ -698,7 +687,7 @@
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
                                         <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu>
@@ -726,7 +715,7 @@
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
                                         <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu>
@@ -760,7 +749,7 @@
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
                                         <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu>
@@ -797,7 +786,7 @@
                                                 <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                                     <MenuItem Header="Obriši promenu" />
                                                 </ContextMenu>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
                                             <DataGrid.CellStyle>
                                                 <Style TargetType="{x:Type DataGridCell}">

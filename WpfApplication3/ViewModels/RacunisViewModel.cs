@@ -21,7 +21,7 @@ namespace WpfApplication3.ViewModel
         public ICommand AddCommand => new RelayCommand<System.Windows.Controls.DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
-        public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice);
+        public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice, CanAddNewInvoice);
         public ICommand EditInvoiceWindowCommand => new RelayCommand(EditInvoice, CanEditInvoice);
         public ICommand PrintInvoiceCommand => new RelayCommand(PrintInvoice, CanPrintInvoice);
         public ICommand PrintInitialInvoiceCommand => new RelayCommand(InitialInvoice);
@@ -63,6 +63,15 @@ namespace WpfApplication3.ViewModel
             Racunis.Add(NoviRevers);
 
             NewInvoiceWindow.Window.Close();
+        }
+
+        private bool CanAddNewInvoice()
+        {
+            if (NoviRevers.Kupci == null || NoviRevers.RevRobas.Items.Count == 0)
+            {
+                return false;
+            }
+               return true;
         }
 
         private bool CanSave()

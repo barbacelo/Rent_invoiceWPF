@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
+using System.ComponentModel;
 
 namespace WpfApplication3.ViewModel
 {
@@ -31,12 +32,13 @@ namespace WpfApplication3.ViewModel
             }
         }
         
-        public ObservableCollection<RevRobaViewModel> Items { get; }
+        public BindingList<RevRobaViewModel> Items { get; }
 
 
-        public RevRobasViewModel(IEnumerable<RevRobaViewModel> revrobas)
+        public RevRobasViewModel(IList<RevRobaViewModel> revrobas)
         {
-            Items = new ObservableCollection<RevRobaViewModel>(revrobas);
+            Items = new BindingList<RevRobaViewModel>(revrobas);
+            Items.RaiseListChangedEvents = true;
             NoviRedReversa = new RevRobaViewModel();
         }
     }
