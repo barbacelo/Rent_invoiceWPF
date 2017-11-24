@@ -39,6 +39,7 @@ namespace WpfApplication3.ViewModel
             {
                 _roba = value;
                 RaisePropertyChanged();
+                Cena = value.Cena;
                 Changed = true;
             }
         }
@@ -112,7 +113,6 @@ namespace WpfApplication3.ViewModel
             Kolic = k.Kolic;
             Utro = k.Utro;
             Cena = k.Cena;
-            //CurrentPrice = ((DateTime.Today - Datum).Days + 1) *Cena * Kolic;
             Changed = false;
         }
 

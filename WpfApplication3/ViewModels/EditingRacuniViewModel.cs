@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,6 +9,11 @@ namespace WpfApplication3.ViewModel
 {
     public class EditingRacuniViewModel : ViewModelBase
     {
+
+        public ICommand ClearAllInvoicesCommand => new RelayCommand(ClearAllInvoices);
+        public ICommand SaveEditedInvoiceCommand => new RelayCommand(Save);
+        public ICommand AddInvoiceLineCommand => new RelayCommand(AddInvoiceLine, CanAddInvoiceLine);
+
         private EditingRevRobaViewModel _newrevroba;
         private DateTime _datepickerdate;
         private RacuniViewModel _original;
@@ -68,10 +73,6 @@ namespace WpfApplication3.ViewModel
 
         }
 
-        public ICommand ClearAllInvoicesCommand => new RelayCommand(ClearAllInvoices);
-        public ICommand SaveEditedInvoiceCommand => new RelayCommand(Save);
-        public ICommand AddInvoiceLineCommand => new RelayCommand(AddInvoiceLine);
-
         private void AddInvoiceLine()
         {
             var rr = new EditingRevRobaViewModel
@@ -84,7 +85,16 @@ namespace WpfApplication3.ViewModel
 
             InvoiceLineSummary.Add(rr);
             Newrevroba.Clear();
-        }        
+        }
+        
+        private bool CanAddInvoiceLine()
+        {
+            if(Newrevroba.Cena == 0 || Newrevroba.Kolic == null || Newrevroba.Roba == null)
+            {
+                return false;
+            }
+            return true;
+        }
 
         public void Save()
         {

@@ -685,7 +685,7 @@
                             <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                        <DataGrid ItemsSource="{Binding RevRobas.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
                                             <DataGrid.Resources>
                                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
                                             </DataGrid.Resources>
@@ -803,7 +803,7 @@
                                                 </Style>
                                             </DataGrid.RowStyle>
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena}" Width="*" TextBlock.TextAlignment="Right">
+                                                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" Width="*" TextBlock.TextAlignment="Right">
                                                     <DataGridTextColumn.ElementStyle>
                                                         <Style TargetType="{x:Type TextBlock}">
                                                             <Setter Property="TextAlignment" Value="Right" />

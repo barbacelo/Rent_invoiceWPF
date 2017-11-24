@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using WpfApplication3.Models;
 using System.ComponentModel;
 
@@ -16,12 +16,11 @@ namespace WpfApplication3.ViewModel
 
         private int _brev;
         private DateTime _datum;
-        private decimal? _currentPrice;
         private KupciViewModel _kupci;
         private bool _changed;
         private bool _isDeleted;  
             
-        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine);
+        public ICommand AddNewInvoiceLineCommand => new RelayCommand(AddNewInvoiceLine, CanAddNewInvoiceLine);
 
         public bool Changed
         {
@@ -123,6 +122,16 @@ namespace WpfApplication3.ViewModel
 
 
             Changed = false;
+        }
+
+        private bool CanAddNewInvoiceLine()
+        {
+            int i;
+            if (RevRobas.NoviRedReversa.Cena == 0 || RevRobas.NoviRedReversa.Kolic == null || RevRobas.NoviRedReversa.Roba == null || !int.TryParse((RevRobas.NoviRedReversa.Kolic.ToString()), out i))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void AddNewInvoiceLine()
