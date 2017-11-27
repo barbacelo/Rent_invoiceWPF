@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WpfApplication3.NewInvoiceWindow"
+        xmlns:local="clr-namespace:WpfApplication3.Converters"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         xml:lang="sr-Latn-RS"
         mc:Ignorable="d"
@@ -63,7 +64,7 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Kolic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyboardNavigation.TabIndex="3"/>
+        <xctk:MaskedTextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Kolic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={local:MaskedDecimalConverter}}" Mask="999999999999" PromptChar=" " KeyboardNavigation.TabIndex="3"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="automatski se dodeljuje" IsEnabled="False"/>

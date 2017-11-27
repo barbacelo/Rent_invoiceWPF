@@ -126,8 +126,7 @@ namespace WpfApplication3.ViewModel
 
         private bool CanAddNewInvoiceLine()
         {
-            int i;
-            if (RevRobas.NoviRedReversa.Cena == 0 || RevRobas.NoviRedReversa.Kolic == null || RevRobas.NoviRedReversa.Roba == null || !int.TryParse((RevRobas.NoviRedReversa.Kolic.ToString()), out i))
+            if (RevRobas.NoviRedReversa.Cena == 0 || RevRobas.NoviRedReversa.Kolic == null || RevRobas.NoviRedReversa.Roba == null)
             {
                 return false;
             }

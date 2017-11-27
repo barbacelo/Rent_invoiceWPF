@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using WpfApplication3.Models;
+using System.Text.RegularExpressions;
 
 namespace WpfApplication3.ViewModel
 {
@@ -39,7 +40,10 @@ namespace WpfApplication3.ViewModel
             {
                 _roba = value;
                 RaisePropertyChanged();
-                Cena = value.Cena;
+                if (value != null)
+                {
+                    Cena = value.Cena;
+                }
                 Changed = true;
             }
         }
@@ -74,6 +78,8 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
+
+
         public int? Utro
         {
             get { return _utro; }
