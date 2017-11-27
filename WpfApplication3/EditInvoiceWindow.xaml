@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WpfApplication3"
+        xmlns:cv="clr-namespace:WpfApplication3.Converters"
         xml:lang="sr-Latn-RS"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
@@ -44,13 +46,13 @@
         <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Editable.Kupci}" Height="16" Margin="0,5" Grid.ColumnSpan="2"/>
 
         <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Newrevroba.Kolic,Mode=TwoWay}"/>
+        <xctk:MaskedTextBox Grid.Row="1" Grid.Column="3" Text="{Binding Newrevroba.Kolic,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cv:MaskedDecimalConverter}}" Mask="999999999999" PromptChar=" "/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa:"/>
         <TextBlock Grid.Row="2" Grid.Column="1" IsEnabled="False" VerticalAlignment="Center" Height="16" Margin="0,5" Grid.ColumnSpan="2"> <Run Text="{Binding Editable.Brev, Mode=OneWay, StringFormat=0000 /}"/><Run Text=" "/><Run Text="{Binding Editable.Datum, Mode=OneWay, StringFormat=yy}"/></TextBlock>
 
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Newrevroba.Cena,Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Newrevroba.Cena,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={cv:MaskedDecimalConverter}}"/>
 
         <Label Grid.Row="3" Grid.Column="2" Content="Datum"/>
         <DatePicker Grid.Row="3" Grid.Column="3" SelectedDate="{Binding Newrevroba.Datum, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" VerticalAlignment="Center">

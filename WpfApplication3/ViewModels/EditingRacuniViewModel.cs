@@ -76,10 +76,10 @@ namespace WpfApplication3.ViewModel
         private void AddInvoiceLine()
         {
             var rr = new EditingRevRobaViewModel
-            {                
-                Cena = Newrevroba.Cena,
-                Kolic = Newrevroba.Kolic,
+            {
                 Roba = Newrevroba.Roba,
+                Kolic = Newrevroba.Kolic,
+                Cena = Newrevroba.Cena,
                 Datum = Newrevroba.Datum
             };
 

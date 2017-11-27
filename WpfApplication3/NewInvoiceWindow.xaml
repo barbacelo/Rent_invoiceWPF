@@ -70,7 +70,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" Text="automatski se dodeljuje" IsEnabled="False"/>
 
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Cena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyboardNavigation.TabIndex="4"/>
+        <xctk:MaskedTextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Cena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={local:MaskedDecimalConverter}}" KeyboardNavigation.TabIndex="4"/>
 
         <Button x:Name="button" Content="Dodaj artikal" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}" KeyboardNavigation.TabIndex="5"/>
 

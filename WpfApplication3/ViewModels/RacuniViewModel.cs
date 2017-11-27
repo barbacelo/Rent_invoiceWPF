@@ -119,8 +119,6 @@ namespace WpfApplication3.ViewModel
             Datum = k.Datum;
             Kupci = kupcis.FirstOrDefault(r => r.Idbroj == k.KupciID);
 
-
-
             Changed = false;
         }
 
@@ -138,9 +136,9 @@ namespace WpfApplication3.ViewModel
             var rr = new RevRobaViewModel
             {
                 RacuniID = RevRobas.NoviRedReversa.RacuniID,
-                Cena     = RevRobas.NoviRedReversa.Cena,
+                Roba = RevRobas.NoviRedReversa.Roba,
                 Kolic    = RevRobas.NoviRedReversa.Kolic,
-                Roba     = RevRobas.NoviRedReversa.Roba,
+                Cena = RevRobas.NoviRedReversa.Cena,
                 Datum    = RevRobas.NoviRedReversa.Datum
             };
 

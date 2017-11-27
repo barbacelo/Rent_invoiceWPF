@@ -803,7 +803,7 @@
                                                 </Style>
                                             </DataGrid.RowStyle>
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena, UpdateSourceTrigger=PropertyChanged}" Width="*" TextBlock.TextAlignment="Right">
+                                                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Width="*" TextBlock.TextAlignment="Right">
                                                     <DataGridTextColumn.ElementStyle>
                                                         <Style TargetType="{x:Type TextBlock}">
                                                             <Setter Property="TextAlignment" Value="Right" />

@@ -37,6 +37,10 @@ namespace WpfApplication3.ViewModel
             {
                 _roba = value;
                 RaisePropertyChanged();
+                if (value != null)
+                {
+                    Cena = value.Cena;
+                }
             }
         }
         public decimal? Kolic
