@@ -154,7 +154,14 @@ namespace WpfApplication3.ViewModel
             Commit();
 
             if (CheckDelete())
+            {
+                _dal.UpdateStockLevels();
+                foreach (var r in RevRobas.Items)
+                {
+                    r.Roba.Zaliha = _dal.GetStockLevel(r.Roba.Idbroj);
+                }
                 return;
+            }
             
             if (_model.RacuniID == 0)
                 _dal.AddRacuni(_model);
