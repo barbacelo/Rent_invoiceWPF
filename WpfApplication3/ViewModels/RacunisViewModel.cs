@@ -18,7 +18,6 @@ namespace WpfApplication3.ViewModel
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
-        public ICommand AddCommand => new RelayCommand<System.Windows.Controls.DataGrid>(Add);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
         public ICommand NewInvoiceWindowCommand => new RelayCommand(NewInvoice, CanNewInvoice);
         public ICommand AddNewInvoiceCommand => new RelayCommand(AddNewInvoice, CanAddNewInvoice);
@@ -107,26 +106,6 @@ namespace WpfApplication3.ViewModel
                 return;
 
             SelectedRacuni.IsDeleted = true;
-        }
-
-        private void Add(System.Windows.Controls.DataGrid grid)
-        {
-            var newItem = new RacuniViewModel(_dal);
-            Racunis.Add(newItem);
-
-            int idx;
-
-            for (idx = 0; idx < grid.Items.Count; idx++)
-            {
-                if (newItem == grid.Items[idx])
-                    break;
-            }
-
-            grid.SelectionUnit = DataGridSelectionUnit.Cell;
-            grid.Focus();
-            grid.CurrentCell = new DataGridCellInfo(grid.Items[idx], grid.Columns[0]);
-            grid.BeginEdit();
-            grid.SelectionUnit = DataGridSelectionUnit.FullRow;
         }
 
         private bool CanUndo()

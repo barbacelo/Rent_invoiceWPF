@@ -1,0 +1,43 @@
+﻿<Window x:Class="WpfApplication3.NewKupciWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:WpfApplication3"
+        mc:Ignorable="d"
+        Title="Dodaj kupca" Height="110.568" Width="601.109" DataContext="{StaticResource MainViewModel}" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45"/>
+            <ColumnDefinition Width="163*"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="117"/>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="156*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Kupac"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Kupcis.NewKupci.Ime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="0" Grid.Column="2" Content="Adresa"/>
+        <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding Kupcis.NewKupci.Adresa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Mesto"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Kupcis.NewKupci.Mesto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="1" Grid.Column="2" Content="Telefon"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Kupcis.NewKupci.Telefon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="1" Grid.Column="4" Content="JMGB/PIB"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Kupcis.NewKupci.Jmbg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Content="Upiši kupca" Command="{Binding Kupcis.AddNewKupciCommand}"/>
+
+    </Grid>
+</Window>

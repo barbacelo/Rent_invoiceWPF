@@ -147,6 +147,12 @@
       <DependentUpon>EditInvoiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="General.cs" />
+    <Compile Include="NewKupciWindow.xaml.cs">
+      <DependentUpon>NewKupciWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewRobaWindow.xaml.cs">
+      <DependentUpon>NewRobaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PrintPreview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NewInvoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewKupciWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewRobaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

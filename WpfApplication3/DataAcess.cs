@@ -150,5 +150,15 @@ namespace WpfApplication3
         {
             _context.RevRobas.Add(model);
         }
+
+        public void AddKupci(Kupci model)
+        {
+            _context.Kupcis.Add(model);
+        }
+
+        public void AddRoba(Roba model)
+        {
+            _context.Robas.Add(model);
+        }
     }
 }

@@ -16,9 +16,11 @@ namespace WpfApplication3.ViewModel
         private string _adresa;
         private string _mesto;
         private string _telefon;
-        private decimal _dug;
-        private decimal _pot;
-        private decimal? _saldo;
+        //private decimal _dug;
+        //private decimal _pot;
+        //private decimal? _saldo;
+
+        private readonly DAL _dal;
 
         public bool Changed { get; set; }
         public int Idbroj
@@ -81,36 +83,36 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
-        public decimal Dug
-        {
-            get { return _dug; }
-            set
-            {
-                _dug = value;
-                RaisePropertyChanged();
-                Changed = true;
-            }
-        }
-        public decimal Pot
-        {
-            get { return _pot; }
-            set
-            {
-                _pot = value;
-                RaisePropertyChanged();
-                Changed = true;
-            }
-        }
-        public decimal? Saldo
-        {
-            get { return _saldo; }
-            set
-            {
-                _saldo = value;
-                RaisePropertyChanged();
-                Changed = true;
-            }
-        }
+        //public decimal Dug
+        //{
+        //    get { return _dug; }
+        //    set
+        //    {
+        //        _dug = value;
+        //        RaisePropertyChanged();
+        //        Changed = true;
+        //    }
+        //}
+        //public decimal Pot
+        //{
+        //    get { return _pot; }
+        //    set
+        //    {
+        //        _pot = value;
+        //        RaisePropertyChanged();
+        //        Changed = true;
+        //    }
+        //}
+        //public decimal? Saldo
+        //{
+        //    get { return _saldo; }
+        //    set
+        //    {
+        //        _saldo = value;
+        //        RaisePropertyChanged();
+        //        Changed = true;
+        //    }
+        //}
 
         private readonly Kupci _model;
 
@@ -128,11 +130,17 @@ namespace WpfApplication3.ViewModel
             Adresa  = k.Adresa;
             Mesto   = k.Mesto;
             Telefon = k.Telefon;
-            Dug     = k.Dug;
-            Pot     = k.Pot;
-            Saldo   = k.Dug - k.Pot;
+            //Dug     = k.Dug;
+            //Pot     = k.Pot;
+            //Saldo   = k.Dug - k.Pot;
 
             Changed = false;
+        }
+
+        public KupciViewModel(DAL dal)
+        {
+            _dal = dal;
+            _model = new Kupci();
         }
 
 
@@ -143,9 +151,9 @@ namespace WpfApplication3.ViewModel
             _model.Adresa  = Adresa;
             _model.Mesto   = Mesto;
             _model.Telefon = Telefon;
-            _model.Dug     = Dug;
-            _model.Pot     = Pot;
-            _model.Saldo   = Saldo;
+            //_model.Dug     = Dug;
+            //_model.Pot     = Pot;
+            //_model.Saldo   = Saldo;
 
             return _model;
         }
@@ -158,6 +166,13 @@ namespace WpfApplication3.ViewModel
                 _isDeleted = value;
                 RaisePropertyChanged();
             }
+        }
+
+        public void save()
+        {
+            _dal.AddKupci(GetModel());
+            _dal.SaveChanges();
+            Changed = false;
         }
 
     }

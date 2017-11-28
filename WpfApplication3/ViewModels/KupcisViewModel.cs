@@ -12,17 +12,30 @@ namespace WpfApplication3.ViewModel
     {
         private readonly DAL _dal;
         private KupciViewModel _selectedKupci;
+        private KupciViewModel _newKupci;
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
-        public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
+        public ICommand NewKupciWindowCommand => new RelayCommand(OpenNewKupciWindow, CanOpenNewKupciWindow);
+        public ICommand AddNewKupciCommand => new RelayCommand(AddNewKupci, CanAddNewKupci);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
+
         public KupciViewModel SelectedKupci
         {
             get { return _selectedKupci; }
             set
             {
                 _selectedKupci = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public KupciViewModel NewKupci
+        {
+            get { return _newKupci; }
+            set
+            {
+                _newKupci = value;
                 RaisePropertyChanged();
             }
         }
@@ -98,6 +111,13 @@ namespace WpfApplication3.ViewModel
             SelectedKupci.IsDeleted = false;
         }
 
+        private void AddNewKupci()
+        {
+            NewKupci.save();
+            Kupcis.Add(NewKupci);
+            NewKupciWindow.Window.Close();
+        }
+
         private void Add(DataGrid grid)
         {
             var newItem = new KupciViewModel();
@@ -117,5 +137,29 @@ namespace WpfApplication3.ViewModel
             grid.BeginEdit();
             grid.SelectionUnit = DataGridSelectionUnit.FullRow;
         }
+
+        private void OpenNewKupciWindow()
+        {
+            NewKupci = new KupciViewModel(_dal);
+            NewKupciWindow.ShowSingleWindow();
+        }
+
+        private bool CanOpenNewKupciWindow()
+        {
+            if (NewKupciWindow.Window == null)
+                return true;
+
+            return false;
+        }
+
+        private bool CanAddNewKupci()
+        {
+            if(NewKupci.Ime == null || NewKupci.Jmbg == null || NewKupci.Mesto == null || NewKupci.Telefon == null || NewKupci.Adresa == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

@@ -45,7 +45,7 @@
             <Border Background="{StaticResource patternbrush}" Grid.Row="2"/>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
             <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Orientation="Horizontal">
-                <Button x:Name="dodajKupca" ToolTip="Dodaj kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.AddCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Button x:Name="dodajKupca" ToolTip="Dodaj kupca" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Kupcis.NewKupciWindowCommand}" CommandParameter="{Binding ElementName=kupciDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="40" Height="40">
                             <Rectangle.Style>
@@ -373,9 +373,9 @@
                     <DataGridTextColumn x:Name="mestoColumn" Binding="{Binding Mesto}" Header="Mesto" Width="*" MinWidth="120"/>
                     <DataGridTextColumn x:Name="telefonColumn" Binding="{Binding Telefon}" Header="Telefon" Width="*" MinWidth="100"/>
                     <DataGridTextColumn x:Name="jmbgColumn" Binding="{Binding Jmbg}" Header="JMBG/PIB" Width="*" MinWidth="95"/>
-                    <DataGridTextColumn x:Name="dugColumn" Binding="{Binding Dug}" Header="Duguje" Width="*" MinWidth="80"/>
+                   <!-- <DataGridTextColumn x:Name="dugColumn" Binding="{Binding Dug}" Header="Duguje" Width="*" MinWidth="80"/>
                     <DataGridTextColumn x:Name="potColumn" Binding="{Binding Pot}" Header="Potražuje" Width="*" MinWidth="80"/>
-                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="Saldo" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="Saldo" Width="*" MinWidth="80"/> -->
                 </DataGrid.Columns>
             </DataGrid>
             <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
