@@ -177,7 +177,7 @@ namespace WpfApplication3.ViewModel
                 pivm.Items.Add(vm);
             }
 
-            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReport.rdlc");
+            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.InvoiceReportA4.rdlc");
 
             var pdf = PdfiumViewer.PdfDocument.Load(path);
             printDialogWindow.pdfViewer1.Document = pdf;
@@ -227,7 +227,7 @@ namespace WpfApplication3.ViewModel
                 pivm.Items.Add(vm);
             }
 
-            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.PaymentInvoiceReport.rdlc");
+            var path = ReportFactory.RunReport(pivm, "ReversStampa", "WpfApplication3.Reports.PaymentInvoiceReportA4.rdlc");
 
             var pdf = PdfiumViewer.PdfDocument.Load(path);
             printDialogWindow.pdfViewer1.Document = pdf;

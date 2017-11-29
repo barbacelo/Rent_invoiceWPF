@@ -12,6 +12,8 @@ namespace WpfApplication3.ViewModel
             return Naziv;
         }
 
+        private readonly DAL _dal;
+
         private int _idbroj;
         private string _naziv;
         private string _jm;
@@ -55,6 +57,7 @@ namespace WpfApplication3.ViewModel
             get { return _kol; }
             set
             {
+                Zaliha = Zaliha - _kol + value;
                 _kol = value;
                 RaisePropertyChanged();
                 Changed = true;
@@ -67,7 +70,7 @@ namespace WpfApplication3.ViewModel
             {
                 _zaliha = value;
                 RaisePropertyChanged();
-                Changed = true;
+               // Changed = true;
             }
         }        
         public decimal Cena
@@ -101,6 +104,11 @@ namespace WpfApplication3.ViewModel
             Changed = false;
         }
 
+        public RobaViewModel(DAL dal)
+        {
+            _dal = dal;
+            _model = new Roba();
+        }
 
         public Roba GetModel()
         {
@@ -121,6 +129,13 @@ namespace WpfApplication3.ViewModel
                 _isDeleted = value;
                 RaisePropertyChanged();
             }
+        }
+
+        public void save()
+        {
+            _dal.AddRoba(GetModel());
+            _dal.SaveChanges();
+            Changed = false;
         }
 
     }

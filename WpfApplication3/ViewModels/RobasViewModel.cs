@@ -12,17 +12,30 @@ namespace WpfApplication3.ViewModel
     {
         private readonly DAL _dal;
         private RobaViewModel _selectedRoba;
+        private RobaViewModel _newRoba;
 
         public ICommand SaveCommand => new RelayCommand(Save, CanSave);
         public ICommand DeleteCommand => new RelayCommand(Delete, CanDelete);
-        public ICommand AddCommand => new RelayCommand<DataGrid>(Add);
+        public ICommand NewRobaWindowCommand => new RelayCommand(OpenNewRobaWindow, CanOpenNewRobaWindow);
+        public ICommand AddNewRobaCommand => new RelayCommand(AddNewRoba, CanAddNewRoba);
         public ICommand UndoCommand => new RelayCommand(Undo, CanUndo);
+
         public RobaViewModel SelectedRoba
         {
             get { return _selectedRoba; }
             set
             {
                 _selectedRoba = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RobaViewModel NewRoba
+        {
+            get { return _newRoba; }
+            set
+            {
+                _newRoba = value;
                 RaisePropertyChanged();
             }
         }
@@ -73,6 +86,7 @@ namespace WpfApplication3.ViewModel
 
             return true;
         }
+
         private void Delete()
         {
             if (SelectedRoba == null)
@@ -80,6 +94,38 @@ namespace WpfApplication3.ViewModel
 
             SelectedRoba.IsDeleted = true;
         }
+
+        private void OpenNewRobaWindow()
+        {
+            NewRoba = new RobaViewModel(_dal);
+            NewRobaWindow.ShowSingleWindow();
+        }
+
+        private bool CanOpenNewRobaWindow()
+        {
+            if (NewRobaWindow.Window == null)
+                return true;
+
+            return false;
+        }
+
+        private void AddNewRoba()
+        {
+            //NewRoba.Zaliha = NewRoba.Kol;
+            NewRoba.save();
+            Robas.Add(NewRoba);
+            NewRobaWindow.Window.Close();
+        }
+
+        private bool CanAddNewRoba()
+        {
+            if(NewRoba.Naziv == null || NewRoba.Kol == 0 || NewRoba.Jm == null || NewRoba.Cena == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private void Add(DataGrid grid)
         {
             var newItem = new RobaViewModel();

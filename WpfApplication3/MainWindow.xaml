@@ -196,7 +196,7 @@
                 </Button>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Grid.Row="2" Orientation="Horizontal">
-                <Button x:Name="dodajRobu" ToolTip="Dodaj robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.AddCommand}" CommandParameter="{Binding ElementName=robaDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Button x:Name="dodajRobu" ToolTip="Dodaj robu" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Robas.NewRobaWindowCommand}" CommandParameter="{Binding ElementName=robaDataGrid}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                     <Viewbox Width="40" Height="32">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.Style>

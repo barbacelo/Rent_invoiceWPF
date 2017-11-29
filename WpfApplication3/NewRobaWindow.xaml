@@ -10,10 +10,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="84"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="97"/>
-            <ColumnDefinition Width="89"/>
-            <ColumnDefinition Width="84"/>
-            <ColumnDefinition Width="81"/>
+            <ColumnDefinition Width="94"/>
+            <ColumnDefinition Width="82"/>
+            <ColumnDefinition Width="83"/>
+            <ColumnDefinition Width="82"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -22,18 +22,18 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Naziv robe"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Text="{Binding Kupcis.NewKupci.Ime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <Label Grid.Row="1" Grid.Column="4" Content="Cena po danu"/>
-        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Kupcis.NewKupci.Adresa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Text="{Binding Robas.NewRoba.Naziv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Jedinica mere"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Kupcis.NewKupci.Mesto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Robas.NewRoba.Jm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="1" Grid.Column="2" Content="Ukupna količina"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Kupcis.NewKupci.Telefon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Robas.NewRoba.Kol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Content="Upiši robu" Command=""/>
+        <Label Grid.Row="1" Grid.Column="4" Content="Cena po danu"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Robas.NewRoba.Cena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" Content="Upiši robu" Command="{Binding Robas.AddNewRobaCommand}"/>
 
     </Grid>
 </Window>
