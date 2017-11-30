@@ -12,6 +12,7 @@ namespace WpfApplication3.ViewModel
         private int _revrobaId;
         private DateTime _datum;
         private RobaViewModel _roba;
+        private RobaViewModel _robaUpdateCena;
         private decimal? _kolic;
         private int? _utro;
         private decimal _cena;
@@ -33,6 +34,22 @@ namespace WpfApplication3.ViewModel
             get { return ((DateTime.Today - Datum).Days + 1) * Cena * Kolic; }
         }
 
+        public RobaViewModel RobaUpdateCena
+        {
+            get { return Roba; }
+            set
+            {
+                Roba = value;
+                RaisePropertyChanged();
+                if (value != null)
+                {
+                    Cena = value.Cena;
+                    Roba.Idbroj = value.GetIdNumber();
+                }
+                Changed = true;
+            }
+        }
+
         public RobaViewModel Roba
         {
             get { return _roba; }
@@ -40,13 +57,10 @@ namespace WpfApplication3.ViewModel
             {
                 _roba = value;
                 RaisePropertyChanged();
-                if (value != null)
-                {
-                    Cena = value.Cena;
-                }
                 Changed = true;
             }
         }
+
         public int RacuniID
         {
             get { return _racuniId; }
@@ -85,7 +99,7 @@ namespace WpfApplication3.ViewModel
             get { return _utro; }
             set
             {
-                _utro = value;
+                _utro = value + 1;
                 RaisePropertyChanged();
                 Changed = true;
             }
@@ -164,7 +178,10 @@ namespace WpfApplication3.ViewModel
             Commit();
             
             if (_model.RevRobaID == 0)
+            {
                 dal.AddRevRoba(_model);
+            }
+
 
             dal.SaveChanges();
         }

@@ -29,7 +29,6 @@ namespace WpfApplication3.ViewModel
             {
                 _idbroj = value;
                 RaisePropertyChanged();
-                Changed = true;
             }
         }
         public string Naziv
@@ -136,6 +135,11 @@ namespace WpfApplication3.ViewModel
             _dal.AddRoba(GetModel());
             _dal.SaveChanges();
             Changed = false;
+        }
+
+        public int GetIdNumber()
+        {
+            return _model.RobaID;
         }
 
     }

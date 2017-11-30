@@ -36,6 +36,7 @@ namespace WpfApplication3.ViewModel
                 _changed = value;
             }
         }
+
         public KupciViewModel Kupci
         {
             get { return _kupci; }
@@ -46,6 +47,22 @@ namespace WpfApplication3.ViewModel
                 Changed = true;
             }
         }
+
+        public KupciViewModel KupciUI
+        {
+            get { return Kupci; }
+            set
+            {
+                Kupci = value;
+                if (value != null)
+                {
+                    Kupci.Idbroj = value.GetIdNumber();
+                }
+                RaisePropertyChanged();
+                Changed = true;
+            }
+        }
+
         public RevRobasViewModel RevRobas { get; }
         public int Brev
         {
@@ -124,7 +141,7 @@ namespace WpfApplication3.ViewModel
 
         private bool CanAddNewInvoiceLine()
         {
-            if (RevRobas.NoviRedReversa.Cena == 0 || RevRobas.NoviRedReversa.Kolic == null || RevRobas.NoviRedReversa.Roba == null)
+            if (RevRobas.NoviRedReversa.Cena == 0 || RevRobas.NoviRedReversa.Kolic == null || RevRobas.NoviRedReversa.RobaUpdateCena == null)
             {
                 return false;
             }

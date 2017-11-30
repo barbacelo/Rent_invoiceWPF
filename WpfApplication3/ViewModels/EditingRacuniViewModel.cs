@@ -109,6 +109,7 @@ namespace WpfApplication3.ViewModel
                     newRRRaz.Kolic = -rr.Kolicraz;
                     newRRRaz.Roba = rr.Roba;
                     _original.RevRobas.Items.Add(newRRRaz);
+                    _original.RaisePropertyChanged("CurrentPrice");
                 }
                 else
                 {

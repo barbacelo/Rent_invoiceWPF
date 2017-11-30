@@ -30,7 +30,6 @@ namespace WpfApplication3.ViewModel
             {
                 _idbroj = value;
                 RaisePropertyChanged();
-                Changed = true;
             }
         }
         public string Ime
@@ -157,6 +156,12 @@ namespace WpfApplication3.ViewModel
 
             return _model;
         }
+
+        public int GetIdNumber()
+        {
+            return _model.KupciID;
+        }
+
         private bool _isDeleted;
         public bool IsDeleted
         {
