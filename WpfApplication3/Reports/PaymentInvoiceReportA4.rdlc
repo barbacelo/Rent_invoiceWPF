@@ -65,7 +65,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Datum izdavanja :</Value>
+                    <Value>Datum izdavanja: </Value>
                     <Style>
                       <FontFamily>Microsoft Sans Serif</FontFamily>
                       <FontSize>14pt</FontSize>
@@ -255,7 +255,6 @@
           </Rectangle>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Left>0in</Left>
         <Height>9.493cm</Height>
         <Width>19cm</Width>
         <Style>
@@ -267,7 +266,6 @@
       <Subreport Name="Subreport1">
         <ReportName>PaymentInvoiceReportLine</ReportName>
         <Top>13.04988cm</Top>
-        <Left>0in</Left>
         <Height>3.6927cm</Height>
         <Width>19cm</Width>
         <ZIndex>1</ZIndex>
