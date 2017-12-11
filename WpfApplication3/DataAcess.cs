@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
+using WpfApplication3.Models;
 
 namespace WpfApplication3
 {
     public class DAL
     {
-        private readonly reversiEntities _context = new reversiEntities();
+        private readonly ReversiEntities _context = new ReversiEntities();
 
         public void Delete(Kupci kupci)
         {
-            var existing = _context.kupci.FirstOrDefault(x => x.KupciID == kupci.KupciID);
+            var existing = _context.Kupcis.FirstOrDefault(x => x.KupciID == kupci.KupciID);
 
             if (existing != null)
-                _context.kupci.Remove(kupci);
+                _context.Kupcis.Remove(kupci);
         }
 
         public void DeleteRoba(Roba roba)
         {
-            var existing = _context.roba.FirstOrDefault(x => x.RobaID == roba.RobaID);
+            var existing = _context.Robas.FirstOrDefault(x => x.RobaID == roba.RobaID);
 
             if (existing != null)
-                _context.roba.Remove(roba);
+                _context.Robas.Remove(roba);
         }
 
         public void DeleteRacuni(Racuni racuni)
@@ -31,18 +32,18 @@ namespace WpfApplication3
             if (racuni.RacuniID == 0)
                 return;
             
-            _context.revroba.RemoveRange(_context.revroba.Where(f => f.RacuniID == racuni.RacuniID));
-            _context.racuni.Remove(racuni);
+            _context.RevRobas.RemoveRange(_context.RevRobas.Where(f => f.RacuniID == racuni.RacuniID));
+            _context.Racunis.Remove(racuni);
             
             SaveChanges();
         }
 
         public void DeleteRevRoba(RevRoba revroba)
         {
-            var existing = _context.revroba.FirstOrDefault(x => x.RevRobaID == revroba.RevRobaID);
+            var existing = _context.RevRobas.FirstOrDefault(x => x.RevRobaID == revroba.RevRobaID);
 
             if (existing != null)
-                _context.revroba.Remove(revroba);
+                _context.RevRobas.Remove(revroba);
 
             SaveChanges();
         }
@@ -71,10 +72,10 @@ namespace WpfApplication3
         {
             try
             {
-                var existing = _context.kupci.FirstOrDefault(x => x.KupciID == kupci.KupciID);
+                var existing = _context.Kupcis.FirstOrDefault(x => x.KupciID == kupci.KupciID);
 
                 if (existing == null)
-                    _context.kupci.Add(kupci);
+                    _context.Kupcis.Add(kupci);
                 else
                     _context.Entry(existing).CurrentValues.SetValues(kupci);
 
@@ -94,10 +95,10 @@ namespace WpfApplication3
         {
             try
             {
-                var existing = _context.roba.FirstOrDefault(x => x.RobaID == roba.RobaID);
+                var existing = _context.Robas.FirstOrDefault(x => x.RobaID == roba.RobaID);
 
                 if (existing == null)
-                    _context.roba.Add(roba);
+                    _context.Robas.Add(roba);
                 else
                     _context.Entry(existing).CurrentValues.SetValues(roba);
 
@@ -117,7 +118,7 @@ namespace WpfApplication3
         {
             try
             {
-                return _context.racuni.Where(x => x.Datum.Year == year).Max(x => x.Brev) + 1;
+                return _context.Racunis.Where(x => x.Datum.Year == year).Max(x => x.Brev) + 1;
             }
             catch
             {
@@ -142,12 +143,22 @@ namespace WpfApplication3
 
         public void AddRacuni(Racuni model)
         {
-            _context.racuni.Add(model);
+            _context.Racunis.Add(model);
         }
 
         public void AddRevRoba(RevRoba model)
         {
-            _context.revroba.Add(model);
+            _context.RevRobas.Add(model);
+        }
+
+        public void AddKupci(Kupci model)
+        {
+            _context.Kupcis.Add(model);
+        }
+
+        public void AddRoba(Roba model)
+        {
+            _context.Robas.Add(model);
         }
     }
 }

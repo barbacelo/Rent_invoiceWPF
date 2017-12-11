@@ -1,8 +1,11 @@
-﻿<Window x:Class="WpfApplication3.NewInvoiceWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WpfApplication3.NewInvoiceWindow"
+        xmlns:local="clr-namespace:WpfApplication3.Converters"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
         xml:lang="sr-Latn-RS"
         mc:Ignorable="d"
         Title="Novi revers" DataContext="{StaticResource MainViewModel}" Height="311.075" Width="608.953" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" >
@@ -28,7 +31,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat='dd.MM.yyyy',RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                <TextBox x:Name="PART_TextBox" Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd.MM.yyyy}" KeyboardNavigation.TabIndex="0" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -37,7 +40,7 @@
         </DatePicker>
 
         <Label Grid.Row="0" Grid.Column="2" Content="Naziv artikla"/>
-        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Roba,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Robas.Robas}" IsEditable="True" IsTextSearchEnabled="True">
+        <ComboBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" SelectedItem="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.RobaUpdateCena, Mode=TwoWay}" ItemsSource="{Binding Robas.Robas, Source={StaticResource MainViewModel}}" IsEditable="True" IsTextSearchEnabled="True" KeyboardNavigation.TabIndex="2">
             <ComboBox.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                     <GradientStop Color="PowderBlue" Offset="0.00" />
@@ -49,7 +52,7 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Ime kupca"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Racunis.NoviRevers.Kupci,Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource MainViewModel},Path=Kupcis.Kupcis}" IsEditable="True" IsTextSearchEnabled="True">
+        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Racunis.NoviRevers.KupciUI, Mode=TwoWay}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsTextSearchEnabled="True" KeyboardNavigation.TabIndex="1">
             <ComboBox.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0.5,1" >
                     <GradientStop Color="PowderBlue" Offset="0.00" />
@@ -61,17 +64,17 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="2" Content="Količina"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Kolic,Mode=TwoWay}"/>
+        <xctk:MaskedTextBox Grid.Row="1" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Kolic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={local:MaskedDecimalConverter}}" Mask="999999999999" PromptChar=" " KeyboardNavigation.TabIndex="3"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Broj reversa"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="automatski se dodeljuje" IsEnabled="False"/>
 
         <Label Grid.Row="2" Grid.Column="2" Content="Cena po danu"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Cena,Mode=TwoWay}"/>
+        <xctk:MaskedTextBox Grid.Row="2" Grid.Column="3" Text="{Binding Racunis.NoviRevers.RevRobas.NoviRedReversa.Cena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={local:MaskedDecimalConverter}}" KeyboardNavigation.TabIndex="4"/>
 
-        <Button x:Name="button" Content="Dodaj artikal" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}"/>
+        <Button x:Name="button" Content="Dodaj artikal" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.RowSpan="2" Command="{Binding Racunis.NoviRevers.AddNewInvoiceLineCommand}" KeyboardNavigation.TabIndex="5"/>
 
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False">
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding Racunis.NoviRevers.RevRobas.Items}" CanUserAddRows="False" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv artikla" Width="*" MinWidth="400" Binding="{Binding Roba}"/>
                 <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Kolic}"/>
@@ -79,7 +82,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.AddNewInvoiceCommand}"/>
+        <Button Content="Upiši revers" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Racunis.AddNewInvoiceCommand}" KeyboardNavigation.TabIndex="6"/>
 
 
     </Grid>

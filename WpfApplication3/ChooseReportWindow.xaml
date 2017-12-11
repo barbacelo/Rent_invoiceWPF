@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApplication3.Views.ChooseReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication3.Views"
+        mc:Ignorable="d"
+        Title="Odabir štampe" DataContext="{StaticResource MainViewModel}" Height="78.178" Width="226" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Zaduženje" Command="{Binding Racunis.PrintInitialInvoiceCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="108" Height="47" Grid.Column="0" Background="#BAB3FF" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+        <Button Content="Razduženje" Command="{Binding Racunis.PrintPaymentInvoiceCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="108" Height="47" Grid.Column="1" Background="#C6FFA9" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+    </Grid>
+</Window>
