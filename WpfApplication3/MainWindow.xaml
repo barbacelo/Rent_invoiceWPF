@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication3"
-    xmlns:viewModel="clr-namespace:WpfApplication3.ViewModel"
+        xmlns:viewModel="clr-namespace:WpfApplication3.ViewModel"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Class="WpfApplication3.MainWindow"
         xml:lang="sr-Latn-RS"
         mc:Ignorable="d"
         Title="PodupiraTron" Height="600" Width="800" Loaded="Window_Loaded" WindowState="Maximized"
         DataContext="{StaticResource MainViewModel}" Background="#E6E6E6">
     <Window.Resources>
+
+        <ControlTemplate x:Key="CurrentPriceFilter">
+            <local:CurrentPriceFilter Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}"/>
+        </ControlTemplate>
 
         <ImageBrush x:Key="patternbrush1" ImageSource="pack://application:,,,/Resources/brickwall.png" TileMode="Tile" Viewport="0,0,110,69" ViewportUnits="Absolute"/>
         <ImageBrush x:Key="patternbrush" ImageSource="pack://application:,,,/Resources/gplaypattern.png" TileMode="Tile" Viewport="0,0,188,178" ViewportUnits="Absolute"/>
@@ -408,421 +414,414 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <TabControl x:Name="tabControl" Grid.Column="2" Padding="0">
-            <TabItem Header="Reversi" Height="28" Width="auto" HorizontalAlignment="Stretch">
-                <Grid Background="{StaticResource patternbrush}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Grid.Row="0" Orientation="Horizontal">
-                        <Button x:Name="dodajracuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.NewInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="40" Height="32">
-                                <Rectangle Width="16" Height="16">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
-                                                        <GeometryDrawing Brush="#FF388A34" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                        <Button x:Name="snimiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.SaveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="40" Height="32">
-                                <Rectangle Width="16" Height="16">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                        <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.PrintInvoiceCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="40" Height="32">
-                                <Rectangle Width="16" Height="16">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M5,13L11,13 11,11 5,11z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,6L12,6 12,3 4,3z" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                        <Button x:Name="brisiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.DeleteCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="40" Height="32">
-                                <Rectangle Width="16" Height="16">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M12,13L4,13 4,3 9,3 9,6 12,6z M9.64,2L3.964,2C3.964,2,3,2,3,3L3,13C3,14,3.964,14,3.964,14L11.965,14C12.965,14,13,13,13,13L13,5z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M8,6L5,6 5,5 8,5z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M11,8L5,8 5,7 11,7z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M11,10L5,10 5,9 11,9z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M11,12L5,12 5,11 11,11z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M11,8L5,8 5,7 11,7z M11,10L5,10 5,9 11,9z M11,12L5,12 5,11 11,11z M5,5L8,5 8,6 5,6z M9,6L9,3 4,3 4,13 12,13 12,6z" />
-                                                        <GeometryDrawing Brush="#FFA1260C" Geometry="F1M5.834,4.1294L8.5,1.0004 8.055,1.0004 5.032,3.3754 3.427,1.2234C3.152,0.910400000000001 2.598,0.9524 2.329,1.2234 2.051,1.5014 1.995,1.9984 2.329,2.3364L4.25,4.1294 1.23,6.7854C0.923999999999999,7.0954 0.923999999999999,7.5874 1.23,7.8974 1.537,8.2074 2.021,8.2074 2.329,7.8974L5.042,4.9584 8.605,8.1254 9,8.1254z" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                        <Button x:Name="undoRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.UndoCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="30" Height="32">
-                                <Rectangle Width="64" Height="64">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                        <Button x:Name="razduzivanje" ToolTip="Razduživanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.EditInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Viewbox Width="40" Height="32">
-                                <Rectangle Width="16" Height="16">
-                                    <Rectangle.Style>
-                                        <Style TargetType="Rectangle">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter Property="Opacity" Value="0.3" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Rectangle.Style>
-                                    <Rectangle.Fill>
-                                        <DrawingBrush>
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <DrawingGroup.Children>
-                                                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                        <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
-                                                        <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
-                                                        <GeometryDrawing Brush="#0075ea" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
-                                                    </DrawingGroup.Children>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Viewbox>
-                        </Button>
-                    </StackPanel>
-                    <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#B4E6FF" EnableRowVirtualization="True" BorderBrush="#707070" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,-1,-5,0" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="1">
-                        <DataGrid.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                        <Setter Property="Background" Value="Red"/>
-                                    </DataTrigger>
-                                    <DataTrigger Value="True">
-                                        <DataTrigger.Binding>
-                                            <MultiBinding Converter="{local:DeletedAndSelectedConverter}">
-                                                <Binding Path="IsDeleted"/>
-                                                <Binding RelativeSource="{RelativeSource Self}" Path="IsSelected" />
-                                            </MultiBinding>
-                                        </DataTrigger.Binding>
-                                        <Setter Property="Background" Value="DarkRed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
+
+        <Grid Background="{StaticResource patternbrush}" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="auto" Grid.Row="0" Orientation="Horizontal">
+                <Button x:Name="dodajracuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.NewInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
+                                                <GeometryDrawing Brush="#FF388A34" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="snimiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.SaveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M160,32L128,32 128,80 160,80z M224,64L224,224 32,224 32,32 80,32 80,112 176,112 176,32 192,32z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M160,32L160,80 128,80 128,32 80,32 80,112 176,112 176,32z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="stampaRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.PrintInvoiceCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M12,6L4,6 4,3 12,3z M11,13L5,13 5,11 11,11z M5,8L4,8 4,7 5,7z M3,8L2,8 2,7 3,7z M13,6L13,2 3,2 3,6 1.001,6 1.001,12 4,12 4,14 12,14 12,12 15,12 15,6z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M2,8L3,8 3,7 2,7z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,8L5.001,8 5.001,7 4,7z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M5,13L11,13 11,11 5,11z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M4,6L12,6 12,3 4,3z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="brisiRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.DeleteCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M12,13L4,13 4,3 9,3 9,6 12,6z M9.64,2L3.964,2C3.964,2,3,2,3,3L3,13C3,14,3.964,14,3.964,14L11.965,14C12.965,14,13,13,13,13L13,5z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M8,6L5,6 5,5 8,5z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M11,8L5,8 5,7 11,7z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M11,10L5,10 5,9 11,9z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M11,12L5,12 5,11 11,11z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M11,8L5,8 5,7 11,7z M11,10L5,10 5,9 11,9z M11,12L5,12 5,11 11,11z M5,5L8,5 8,6 5,6z M9,6L9,3 4,3 4,13 12,13 12,6z" />
+                                                <GeometryDrawing Brush="#FFA1260C" Geometry="F1M5.834,4.1294L8.5,1.0004 8.055,1.0004 5.032,3.3754 3.427,1.2234C3.152,0.910400000000001 2.598,0.9524 2.329,1.2234 2.051,1.5014 1.995,1.9984 2.329,2.3364L4.25,4.1294 1.23,6.7854C0.923999999999999,7.0954 0.923999999999999,7.5874 1.23,7.8974 1.537,8.2074 2.021,8.2074 2.329,7.8974L5.042,4.9584 8.605,8.1254 9,8.1254z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="undoRacuni" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.UndoCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="30" Height="32">
+                        <Rectangle Width="64" Height="64">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M36.0186,4C31.2806,4,26.6916,5.689,23.0976,8.752L15.9996,14.768 15.9996,4 7.9996,12 7.9996,20 7.9996,24 7.9996,28 23.9836,28 31.9756,20 22.1826,20 28.2646,14.852C30.4206,13.012 33.1786,12 36.0186,12 42.6276,12 48.0066,17.383 48.0066,24 48.0066,27.508 46.4756,30.83 43.7646,33.158L21.3816,53.008 26.6786,58.992 49.0146,39.188C53.4566,35.383 55.9986,29.846 55.9986,24 55.9986,12.973 47.0346,4 36.0186,4" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="razduzivanje" ToolTip="Razduživanje" Height="37" VerticalAlignment="Top" Width="37" Command="{Binding Racunis.EditInvoiceWindowCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Viewbox Width="40" Height="32">
+                        <Rectangle Width="16" Height="16">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                            <Rectangle.Fill>
+                                <DrawingBrush>
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <DrawingGroup.Children>
+                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M13,12L7,12 7,13 13,13z M13,10L7,10 7,11 13,11z M13,8L7,8 7,9 13,9z M10,6L7,6 7,7 10,7z M15,6L15,14C15,14,14.965,15,13.965,15L5.965,15C5.965,15,5,15,5,14L5,8 6,8 6,14 14,14 14,7 11,7 11,4 8,4 8,3 11.641,3z" />
+                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M13,9L7,9 7,8 13,8z M13,11L7,11 7,10 13,10z M13,13L7,13 7,12 13,12z M11,7L11,4 8,4 8,6 10,6 10,7 7,7 7,6 6,6 6,8 6,14 14,14 14,7z" />
+                                                <GeometryDrawing Brush="#0075ea" Geometry="F1M7,5L5,5 5,7 3,7 3,5 1,5 1,3 3,3 3,1 5,1 5,3 7,3z" />
+                                            </DrawingGroup.Children>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+            <DataGrid x:Name="racuniDataGrid" AutoGenerateColumns="False" dgx:DataGridFilter.IsAutoFilterEnabled="True" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#B4E6FF" EnableRowVirtualization="True" BorderBrush="#707070" ItemsSource="{Binding Racunis.Racunis}" SelectedItem="{Binding Racunis.SelectedRacuni, Mode=TwoWay}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,-1,-5,0" CanUserAddRows="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalScrollBarVisibility="Disabled" HeadersVisibility="Column" Grid.Row="1">
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{local:DeletedAndSelectedConverter}">
+                                        <Binding Path="IsDeleted"/>
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="IsSelected" />
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="Background" Value="DarkRed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Broj reversa"  Width="*" MinWidth="81">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"><Run Text="{Binding Brev, Mode=OneWay, StringFormat=0000 /}"/><Run Text=" "/><Run Text="{Binding Datum, Mode=OneWay, StringFormat=yy}"/></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn x:Name="currentpriceColumn" dgx:DataGridFilterColumn.Template="{StaticResource CurrentPriceFilter}" Binding="{Binding CurrentPrice, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Header="Vrednost" Width="*" MinWidth="100" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Right"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
-                        </DataGrid.CellStyle>
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Broj reversa"  Width="*" MinWidth="81">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock VerticalAlignment="Center"><Run Text="{Binding Brev, Mode=OneWay, StringFormat=0000 /}"/><Run Text=" "/><Run Text="{Binding Datum, Mode=OneWay, StringFormat=yy}"/></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn x:Name="currentpriceColumn" Binding="{Binding CurrentPrice, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Header="Vrednost" Width="*" MinWidth="100" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextAlignment" Value="Right"/>
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#B4E6FF" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}}" IsEditable="False" IsTextSearchEnabled="True"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="#A7FFED" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
-                                            <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
-                                            </DataGrid.Resources>
-                                            <DataGrid.ContextMenu>
-                                                <ContextMenu>
-                                                    <MenuItem Header="Obriši promenu"/>
-                                                </ContextMenu>
-                                            </DataGrid.ContextMenu>
-                                            <DataGrid.CellStyle>
-                                                <Style TargetType="{x:Type DataGridCell}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#B4E6FF" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}}" IsEditable="False" IsTextSearchEnabled="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="#A7FFED" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
+                                    </DataGrid.Resources>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Obriši promenu"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
+                                                        <DatePicker.Resources>
+                                                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate>
+                                                                            <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd.MM.yyyy}" />
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style>
+                                                        </DatePicker.Resources>
+                                                    </DatePicker>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <DataGrid ItemsSource="{Binding RevRobas.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
+                                    </DataGrid.Resources>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Obriši promenu"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridComboBoxColumn SelectedValueBinding="{Binding Roba}" ItemsSource="{Binding Robas.Robas, Source={StaticResource MainViewModel}}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
+                                    </DataGrid.Resources>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Obriši promenu"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="kolicColumn" Binding="{Binding Kolic}" Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="TextAlignment" Value="Right"/>
                                                 </Style>
-                                            </DataGrid.CellStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridTemplateColumn Width="*">
-                                                    <DataGridTemplateColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <DatePicker SelectedDate="{Binding Datum, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FirstDayOfWeek="Monday" Margin="0" Padding="0">
-                                                                <DatePicker.Resources>
-                                                                    <Style TargetType="{x:Type DatePickerTextBox}">
-                                                                        <Setter Property="Template">
-                                                                            <Setter.Value>
-                                                                                <ControlTemplate>
-                                                                                    <TextBox x:Name="PART_TextBox" VerticalAlignment="Center" Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=dd.MM.yyyy}" />
-                                                                                </ControlTemplate>
-                                                                            </Setter.Value>
-                                                                        </Setter>
-                                                                    </Style>
-                                                                </DatePicker.Resources>
-                                                            </DatePicker>
-                                                        </DataTemplate>
-                                                    </DataGridTemplateColumn.CellTemplate>
-                                                </DataGridTemplateColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
-                                            <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
-                                            </DataGrid.Resources>
-                                            <DataGrid.ContextMenu>
-                                                <ContextMenu>
-                                                    <MenuItem Header="Obriši promenu"/>
-                                                </ContextMenu>
-                                            </DataGrid.ContextMenu>
-                                            <DataGrid.CellStyle>
-                                                <Style TargetType="{x:Type DataGridCell}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
+                                    </DataGrid.Resources>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Obriši promenu"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="utroColumn" Binding="{Binding Utro}" Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="TextAlignment" Value="Right"/>
                                                 </Style>
-                                            </DataGrid.CellStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridComboBoxColumn SelectedValueBinding="{Binding Roba}" ItemsSource="{Binding Robas.Robas, Source={StaticResource MainViewModel}}" Width="*"/>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
-                                            <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
-                                            </DataGrid.Resources>
-                                            <DataGrid.ContextMenu>
-                                                <ContextMenu>
-                                                    <MenuItem Header="Obriši promenu"/>
-                                                </ContextMenu>
-                                            </DataGrid.ContextMenu>
-                                            <DataGrid.CellStyle>
-                                                <Style TargetType="{x:Type DataGridCell}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="viewModel:RacuniViewModel">
+                                <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
+                                    <DataGrid.Resources>
+                                        <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                            <MenuItem Header="Obriši promenu" />
+                                        </ContextMenu>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
+                                    </DataGrid.Resources>
+                                    <DataGrid.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.CellStyle>
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="{x:Type DataGridRow}" >
+                                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                                        </Style>
+                                    </DataGrid.RowStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Width="*" TextBlock.TextAlignment="Right">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="TextAlignment" Value="Right" />
                                                 </Style>
-                                            </DataGrid.CellStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="kolicColumn" Binding="{Binding Kolic}" Width="*">
-                                                    <DataGridTextColumn.ElementStyle>
-                                                        <Style TargetType="{x:Type TextBlock}">
-                                                            <Setter Property="TextAlignment" Value="Right"/>
-                                                        </Style>
-                                                    </DataGridTextColumn.ElementStyle>
-                                                </DataGridTextColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
-                                            <DataGrid.Resources>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
-                                            </DataGrid.Resources>
-                                            <DataGrid.ContextMenu>
-                                                <ContextMenu>
-                                                    <MenuItem Header="Obriši promenu"/>
-                                                </ContextMenu>
-                                            </DataGrid.ContextMenu>
-                                            <DataGrid.CellStyle>
-                                                <Style TargetType="{x:Type DataGridCell}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </DataGrid.CellStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="utroColumn" Binding="{Binding Utro}" Width="*">
-                                                    <DataGridTextColumn.ElementStyle>
-                                                        <Style TargetType="{x:Type TextBlock}">
-                                                            <Setter Property="TextAlignment" Value="Right"/>
-                                                        </Style>
-                                                    </DataGridTextColumn.ElementStyle>
-                                                </DataGridTextColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate DataType="viewModel:RacuniViewModel">
-                                        <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
-                                            <DataGrid.Resources>
-                                                <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                                                    <MenuItem Header="Obriši promenu" />
-                                                </ContextMenu>
-                                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#A7FFED"/>
-                                            </DataGrid.Resources>
-                                            <DataGrid.CellStyle>
-                                                <Style TargetType="{x:Type DataGridCell}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                                            <Setter Property="Background" Value="Red"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </DataGrid.CellStyle>
-                                            <DataGrid.RowStyle>
-                                                <Style TargetType="{x:Type DataGridRow}" >
-                                                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
-                                                </Style>
-                                            </DataGrid.RowStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn x:Name="cenaColumn" Binding="{Binding Cena, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Width="*" TextBlock.TextAlignment="Right">
-                                                    <DataGridTextColumn.ElementStyle>
-                                                        <Style TargetType="{x:Type TextBlock}">
-                                                            <Setter Property="TextAlignment" Value="Right" />
-                                                        </Style>
-                                                    </DataGridTextColumn.ElementStyle>
-                                                </DataGridTextColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Pregled" Height="28" Width="auto">
-                <Grid Background="#FFE5E5E5">
-                </Grid>
-            </TabItem>
-        </TabControl>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>
