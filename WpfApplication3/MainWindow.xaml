@@ -18,6 +18,10 @@
             <local:CurrentPriceFilter Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}"/>
         </ControlTemplate>
 
+        <ControlTemplate x:Key="FilterWithPopupControl">
+            <local:FilterWithPopupControl Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}"/>
+        </ControlTemplate>
+
         <ImageBrush x:Key="patternbrush1" ImageSource="pack://application:,,,/Resources/brickwall.png" TileMode="Tile" Viewport="0,0,110,69" ViewportUnits="Absolute"/>
         <ImageBrush x:Key="patternbrush" ImageSource="pack://application:,,,/Resources/gplaypattern.png" TileMode="Tile" Viewport="0,0,188,178" ViewportUnits="Absolute"/>
 
@@ -384,7 +388,7 @@
                     <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="Saldo" Width="*" MinWidth="80"/> -->
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
+            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" dgx:DataGridFilter.IsAutoFilterEnabled="True" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
                         <Style.Triggers>
@@ -409,7 +413,7 @@
                     <DataGridTextColumn x:Name="nazivColumn" Binding="{Binding Naziv}" Header="Naziv" Width="*" MinWidth="130"/>
                     <DataGridTextColumn x:Name="jmColumn" Binding="{Binding Jm}" Header="Jedinica mere" Width="*" MinWidth="30"/>
                     <DataGridTextColumn x:Name="kolColumn" Binding="{Binding Kol}" Header="Ukupna količina" Width="*" MinWidth="40"/>
-                    <DataGridTextColumn x:Name="cenaColumn1" Binding="{Binding Cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
+                    <DataGridTextColumn x:Name="cenaColumn1" dgx:DataGridFilterColumn.Template="{StaticResource FilterWithPopupControl}" Binding="{Binding Cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
                     <DataGridTextColumn x:Name="zalihaColumn" Binding="{Binding Zaliha}" Header="Trenutna zaliha" Width="*" MinWidth="50"/>
                 </DataGrid.Columns>
             </DataGrid>

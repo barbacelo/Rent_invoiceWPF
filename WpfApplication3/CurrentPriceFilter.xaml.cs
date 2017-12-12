@@ -57,7 +57,7 @@ namespace WpfApplication3
         /// Identifies the AllInvoices dependency property
         /// </summary>
         public static readonly DependencyProperty AllInvoicesProperty = DependencyProperty.Register("AllInvoices", typeof(bool), typeof(CurrentPriceFilter)
-                , new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((CurrentPriceFilter)sender).Range_Changed()));
+                , new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((CurrentPriceFilter)sender).Range_Changed()));
 
         private void Range_Changed()
         {

@@ -158,6 +158,9 @@
     <Compile Include="EditInvoiceWindow.xaml.cs">
       <DependentUpon>EditInvoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FilterWithPopupControl.xaml.cs">
+      <DependentUpon>FilterWithPopupControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="General.cs" />
     <Compile Include="NewKupciWindow.xaml.cs">
       <DependentUpon>NewKupciWindow.xaml</DependentUpon>
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditInvoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterWithPopupControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

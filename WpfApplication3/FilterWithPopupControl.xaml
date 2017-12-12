@@ -1,4 +1,4 @@
-﻿<Control x:Name="Control" x:Class="WpfApplication3.CurrentPriceFilter"
+﻿<Control x:Name="Control" x:Class="WpfApplication3.FilterWithPopupControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions">
@@ -20,14 +20,14 @@
                         </Style>
                     </ToggleButton.Style>
                     <!-- Reuse the standard icon, but change color to green -->
-                    <Control Style="{DynamicResource {x:Static dgx:DataGridFilter.IconStyleKey}}" Foreground="Green" />
+                    <Control Style="{DynamicResource {x:Static dgx:DataGridFilter.IconStyleKey}}" Foreground="Green"/>
                 </ToggleButton>
                 <Popup x:Name="popup" IsOpen="{Binding Path=IsChecked, ElementName=button, Mode=TwoWay}" 
                AllowsTransparency="True"
                DataContext="{Binding ElementName=Control}" StaysOpen="False">
                     <Border Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Padding="4">
                         <StackPanel>
-                            <TextBlock Text="Filtriraj račune" Margin="0,3" Foreground="Black"/>
+                            <TextBlock Text="Enter the limits:" Margin="0,3" Foreground="Black"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -36,15 +36,12 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Svi računi" Foreground="Black"/>
-                                <RadioButton Grid.Column="1" Grid.Row="0" IsChecked="{Binding Path=AllInvoices}"/>
-                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Razduženi" Foreground="Black"/>
-                                <RadioButton Grid.Column="1" Grid.Row="1" IsChecked="{Binding Path=PaidInvoices}"/>
-                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Nerazduženi" Foreground="Black"/>
-                                <RadioButton Grid.Column="1" Grid.Row="2" IsChecked="{Binding Path=OutstandingInvoices}"/>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Min:" Foreground="Black"/>
+                                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Minimum}" />
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Max:" Foreground="Black"/>
+                                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Maximum}" />
 
                             </Grid>
                         </StackPanel>
