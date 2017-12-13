@@ -14,10 +14,6 @@
         DataContext="{StaticResource MainViewModel}" Background="#E6E6E6">
     <Window.Resources>
 
-        <ControlTemplate x:Key="CurrentPriceFilter">
-            <local:CurrentPriceFilter Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}"/>
-        </ControlTemplate>
-
         <ControlTemplate x:Key="FilterWithPopupControl">
             <local:FilterWithPopupControl Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}"/>
         </ControlTemplate>
@@ -388,7 +384,7 @@
                     <DataGridTextColumn x:Name="saldoColumn" Binding="{Binding Saldo}" Header="Saldo" Width="*" MinWidth="80"/> -->
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" dgx:DataGridFilter.IsAutoFilterEnabled="True" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
+            <DataGrid x:Name="robaDataGrid" AutoGenerateColumns="False" ColumnHeaderHeight="26" Background="{StaticResource patternbrush1}" RowBackground="#A7FFED" EnableRowVirtualization="True" ItemsSource="{Binding Robas.Robas}" SelectedItem="{Binding Robas.SelectedRoba, Mode=TwoWay}" SelectionMode="Extended" Margin="0,36,0,0" Grid.Row="2" RowDetailsVisibilityMode="VisibleWhenSelected" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
                         <Style.Triggers>
@@ -413,7 +409,7 @@
                     <DataGridTextColumn x:Name="nazivColumn" Binding="{Binding Naziv}" Header="Naziv" Width="*" MinWidth="130"/>
                     <DataGridTextColumn x:Name="jmColumn" Binding="{Binding Jm}" Header="Jedinica mere" Width="*" MinWidth="30"/>
                     <DataGridTextColumn x:Name="kolColumn" Binding="{Binding Kol}" Header="Ukupna količina" Width="*" MinWidth="40"/>
-                    <DataGridTextColumn x:Name="cenaColumn1" dgx:DataGridFilterColumn.Template="{StaticResource FilterWithPopupControl}" Binding="{Binding Cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
+                    <DataGridTextColumn x:Name="cenaColumn1" Binding="{Binding Cena}" Header="Cena po danu" Width="*" MinWidth="100"/>
                     <DataGridTextColumn x:Name="zalihaColumn" Binding="{Binding Zaliha}" Header="Trenutna zaliha" Width="*" MinWidth="50"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -621,7 +617,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Broj reversa"  Width="*" MinWidth="81">
+                    <DataGridTemplateColumn Header="Broj reversa"  Width="*" MinWidth="81" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -630,7 +626,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn x:Name="currentpriceColumn" dgx:DataGridFilterColumn.Template="{StaticResource CurrentPriceFilter}" Binding="{Binding CurrentPrice, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Header="Vrednost" Width="*" MinWidth="100" IsReadOnly="True">
+                    <DataGridTextColumn x:Name="currentpriceColumn" dgx:DataGridFilterColumn.Template="{StaticResource FilterWithPopupControl}" Binding="{Binding CurrentPrice, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#,#0.00}}" Header="Vrednost" Width="*" MinWidth="100" IsReadOnly="True">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="TextAlignment" Value="Right"/>
@@ -638,14 +634,14 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200">
+                    <DataGridTemplateColumn Header="Naziv kupca" MinWidth="200" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="#B4E6FF" SelectedItem="{Binding Kupci}" ItemsSource="{Binding Kupcis.Kupcis, Source={StaticResource MainViewModel}}" IsEditable="False" IsTextSearchEnabled="True"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" >
+                    <DataGridTemplateColumn Header="Datum promene" Width="106" MinWidth="106" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" HeadersVisibility="None" RowBackground="#A7FFED" CanUserAddRows="False" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
@@ -691,7 +687,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120">
+                    <DataGridTemplateColumn Header="Naziv robe" Width="*" MinWidth="120" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <DataGrid ItemsSource="{Binding RevRobas.Items, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
@@ -719,7 +715,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85">
+                    <DataGridTemplateColumn Header="Količina uzeta/vraćena" Width="*" MinWidth="85" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
@@ -753,7 +749,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60">
+                    <DataGridTemplateColumn Header="Broj dana" Width="*" MinWidth="60" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">
@@ -787,7 +783,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85">
+                    <DataGridTemplateColumn Header="Cena po danu" Width="*" MinWidth="85" dgx:DataGridFilterColumn.IsFilterVisible="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="viewModel:RacuniViewModel">
                                 <DataGrid ItemsSource="{Binding RevRobas.Items}" AutoGenerateColumns="False" RowBackground="#A7FFED" HeadersVisibility="None" CanUserAddRows="False" RowHeight="27" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Margin="0,0,0,0" SelectedItem="{Binding RevRobas.SelectedRevRoba, Mode=TwoWay}" SelectionMode="Extended" SelectionUnit="FullRow">

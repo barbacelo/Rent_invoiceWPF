@@ -148,9 +148,6 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DeletedAndSelectedConverter.cs" />
     <Compile Include="Converters\MaskedDecimalConverter.cs" />
-    <Compile Include="CurrentPriceFilter.xaml.cs">
-      <DependentUpon>CurrentPriceFilter.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataAcess.cs" />
     <Compile Include="ChooseReportWindow.xaml.cs">
       <DependentUpon>ChooseReportWindow.xaml</DependentUpon>
@@ -200,10 +197,6 @@
     <Compile Include="ViewModels\RobaViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="ChooseReportWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CurrentPriceFilter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

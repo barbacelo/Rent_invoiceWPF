@@ -26,32 +26,32 @@ namespace WpfApplication3
             InitializeComponent();
         }
 
-        public double Minimum
+        public bool Minimum
         {
-            get { return (double)GetValue(MinimumProperty); }
+            get { return (bool)GetValue(MinimumProperty); }
             set { SetValue(MinimumProperty, value); }
         }
         /// <summary>
         /// Identifies the Minimum dependency property
         /// </summary>
-        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(FilterWithPopupControl)
-                , new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((FilterWithPopupControl)sender).Range_Changed()));
+        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("Minimum", typeof(bool), typeof(FilterWithPopupControl)
+                , new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((FilterWithPopupControl)sender).Range_Changed()));
 
-        public double Maximum
+        public bool Maximum
         {
-            get { return (double)GetValue(MaximumProperty); }
+            get { return (bool)GetValue(MaximumProperty); }
             set { SetValue(MaximumProperty, value); }
         }
         /// <summary>
         /// Identifies the Maximum dependency property
         /// </summary>
-        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(FilterWithPopupControl)
-                , new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((FilterWithPopupControl)sender).Range_Changed()));
+        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("Maximum", typeof(bool), typeof(FilterWithPopupControl)
+                , new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (sender, e) => ((FilterWithPopupControl)sender).Range_Changed()));
 
 
         private void Range_Changed()
         {
-            Filter = Maximum > Minimum ? new ContentFilter(Minimum, Maximum) : null;
+            Filter = Maximum || Minimum ? new ContentFilter(Minimum, Maximum) : null;
         }
 
         public IContentFilter Filter
@@ -78,16 +78,16 @@ namespace WpfApplication3
 
         class ContentFilter : IContentFilter
         {
-            private readonly double _min;
-            private readonly double _max;
+            private readonly bool _min;
+            private readonly bool _max;
 
-            public ContentFilter(double min, double max)
+            public ContentFilter(bool min, bool max)
             {
                 _min = min;
                 _max = max;
             }
 
-            public double Min
+            public bool Min
             {
                 get
                 {
@@ -95,7 +95,7 @@ namespace WpfApplication3
                 }
             }
 
-            public double Max
+            public bool Max
             {
                 get
                 {
@@ -115,7 +115,13 @@ namespace WpfApplication3
                     return false;
                 }
 
-                return (number >= _min) && (number <= _max);
+                if (number == 0 && _min)
+                    return false;
+
+                if (number > 0 && _max)
+                    return false;
+
+                return true;
             }
         }
 
